@@ -1,0 +1,96 @@
+\documentclass[x11names,11pt,a4paper]{article}
+
+\usepackage{comment} % enables the use of multi-line comments (\ifx \fi)
+\usepackage[a4paper, margin=10mm, bottom=20mm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{isodate}
+\usepackage{gensymb}
+\usepackage{graphicx}
+\usepackage{booktabs}% http://ctan.org/pkg/booktabs
+\usepackage{tabularx}
+\usepackage{ltablex} % Longtables with tabularx
+\usepackage{xcolor}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{array}
+\usepackage{wrapfig}
+\usepackage{subcaption}
+\usepackage{pdflscape}
+\usepackage{multicol}
+\usepackage{bm}
+\usepackage{enumitem}
+\setlist{itemsep=0.5pt}
+\usepackage{mdframed}
+\usepackage{scalerel}
+\usepackage{stackengine}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage[normalem]{ulem}
+
+% Code highlighting
+\usepackage{minted}
+\usepackage{pythonhighlight}
+\surroundwithmdframed{minted}
+
+% Be able to caption equations and float them in place
+\usepackage{float}
+
+\usepackage{csquotes}
+\usepackage{hyperref}
+
+\newmdtheoremenv{theorem}{Theorem}
+
+\theoremstyle{definition}
+\newmdtheoremenv{definition}{Definition}[section]
+
+\newcommand\equalhat{\mathrel{\stackon[1.5pt]{=}{\stretchto{\scalerel*[\widthof{=}]{\wedge}{\rule{1ex}{3ex}}}{0.5ex}}}}
+\newcommand\defeq{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny def}}}{=}}}
+\newcolumntype{C}{>{\centering\arraybackslash}X}
+
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}
+\DeclarePairedDelimiter\norm{\lVert}{\rVert}
+
+\newcommand*\samplemean[1]{\overline{#1}}
+\newcommand*\ev[1]{\mathrel{\text{E}\left[#1\right]}}
+\newcommand*\R{\mathbb{R}}
+\newcommand*\Z{\mathbb{Z}}
+\newcommand*\N[1]{\mathcal{N}\left(#1\right)}
+\newcommand*\F[1]{\mathcal{F}_{#1}}
+\newcommand*\Likelihood{\mathcal{L}}
+\newcommand*\diff{\mathop{}\!\mathrm{d}}
+\newcommand*\Diff[1]{\mathop{}\!\mathrm{d^#1}}
+\newcommand*\Exp[1]{\mathop{\text{Exp}}\left(#1\right)}
+\newcommand*\Cov[1]{\mathop{\text{Cov}}\left(#1\right)}
+\newcommand*\Cor[1]{\mathop{\text{Cor}}\left(#1\right)}
+\newcommand*\Var[1]{\mathop{\text{Var}}\left(#1\right)}
+
+\setcounter{tocdepth}{3}
+\setcounter{secnumdepth}{3}
+
+\graphicspath{{./img/}}
+
+\begin{document}
+
+\title{TSM\_CompVis -- Machine Learning in Computer Vision}
+\author{Pascal Baumann, Selvin Blöchlinger}
+\maketitle
+
+
+\tableofcontents
+\newpage
+
+
+\input{01_image_handling.tex}
+\input{02_filtering_edge_detection.tex}
+\input{03_model_fitting.tex}
+\input{04_semantic_segmentation.tex}
+\input{05_machine_learning.tex}
+\input{06_finding_objects.tex}
+\input{07_generating_images.tex}
+\input{99_appendix.tex}
+
+\clearpage
+\appendix
+
+\end{document}
