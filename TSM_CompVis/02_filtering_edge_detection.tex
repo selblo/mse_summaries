@@ -16,7 +16,7 @@ In general, if the input matrix has  $i$ rows and the kernel has $k$ rows, the o
 \end{center}
 
 \subsection{Edge Detection}
-Although intuitive for humans to detect, edge detection was a hard problem in image processing. And edge is defined by a rapid change in the intensity,
+Although intuitive for humans to detect, edge detection was a hard problem in image processing. An edge is defined by a rapid change in the intensity,
 which can be exploited by calculating the derivative.
 
 \begin{center}
@@ -28,12 +28,9 @@ In two dimensions the derivative corresponds to the gradient $\nabla f = \left[\
 which points from the edge towards the increase in intensity or the lighter side.
 
 \begin{align}
-\shortintertext{Gradient}
-\nabla f &= \left[ \frac{\partial f}{\partial x}, \frac{\partial f}{\partial y} \right]
-\shortintertext{Gradient Direction}
-\theta &= \tan^{-1} \left( \frac{\partial f}{\partial x} / \frac{\partial f}{\partial y} \right)
-\shortintertext{Gradient Magnitude (strength of the edge)}
-\norm{\nabla f} &= \sqrt{\left(\frac{\partial f}{\partial x}\right)^2 + \left(\frac{\partial f}{\partial y} \right)^2 }
+	& \text{Gradient} & \nabla f &= \left[ \frac{\partial f}{\partial x}, \frac{\partial f}{\partial y} \right] \\
+	& \text{Gradient Direction} & \theta &= \tan^{-1} \left( \frac{\partial f}{\partial x} / \frac{\partial f}{\partial y} \right) \\
+	& \text{Gradient Magnitude (or Modulus)} & \norm{\nabla f} &= \sqrt{\left(\frac{\partial f}{\partial x}\right)^2 + \left(\frac{\partial f}{\partial y} \right)^2 }
 \end{align}
 
 But not all important edges have strong gradients, nor are all strong gradients important edges.
@@ -108,13 +105,22 @@ found under \href{https://docs.opencv.org/4.3.0/da/d22/tutorial_py_canny.html}{O
 \end{enumerate}
 
 \subsection{Hysteresis Thresholding}
-This stage decides which are all edges are really edges and which are not. For this, two threshold values, minVal and maxVal, are needed.
-Any edges with intensity gradient more than maxVal are sure to be edges and those below minVal are sure to be non-edges, and are thus discarded.
-Those who lie between these two thresholds are classified edges or non-edges based on their connectivity. If they are connected to "sure-edge" pixels,
-they are considered to be part of edges. Otherwise, they are also discarded.
 
-\begin{figure}[H]
+\begin{wrapfigure}{R}{0.4\textwidth}
 	\centering
-	\includegraphics[keepaspectratio,width=0.6\linewidth]{hysteresis_thresholding}
-	\caption{Hysteresis thresholding with A) sure edge, B) non-edge and C) a non-edge connected to a sure edge}
-\end{figure}
+	\vspace{-16mm}
+	\includegraphics[width=\linewidth]{hysteresis_thresholding}
+	\vspace{-20mm}
+\end{wrapfigure}
+
+This stage determines genuine edges by employing two threshold values, minVal and maxVal.
+Edges with an intensity gradient surpassing maxVal (A) are definitively identified as edges,
+while those falling below minVal are discarded as non-edges.
+Pixels lying between these thresholds are classified based on connectivity:
+if connected to ``sure-edge'' pixels (C), they are deemed part of edges; otherwise (B), they are also discarded.
+
+% \begin{figure}[H]
+% 	\centering
+% 	\includegraphics[keepaspectratio,width=0.6\linewidth]{hysteresis_thresholding}
+% 	\caption{Hysteresis thresholding with A) sure edge, B) non-edge and C) a non-edge connected to a sure edge}
+% \end{figure}
