@@ -2,132 +2,146 @@
 
 \todo[inline, color=red!50]{Add topic: Metrics (accuracy etc.)}
 
-Identify pixels in images belonging to a specific class, sometimes additionally identifying pixels to belong to a specific instance of a class.
-It can thus be understood as supervised learning at the pixel level.
-\begin{center}
+Semantic segmentation involves identifying pixels in images that belong to a specific class,
+sometimes identifying pixels to belong to a specific instance of a class. It can be seen as supervised learning at the pixel level.
+
+\begin{figure}[h]
+	\centering
 	\includegraphics[width=0.7\linewidth]{img/semantic_segmentation}
-\end{center}
-Non-semantic segmentation tries to find regions in images without any additional information like classes or similar.
-It is thus similar to unsupervised learning and often a bottom-up approach.
-Segmentation in general tries to find a compact representation of a scene in terms of regions which share common properties.
+	\caption{Semantic Segmentation Example}
+\end{figure}
+
+Non-semantic segmentation aims to find regions in images without additional information like classes.
+It is similar to unsupervised learning and often follows a bottom-up approach.
+Segmentation, in general, seeks a compact representation of a scene in terms of regions that share common properties.
 
 \subsection{k-Means Clustering}
-Is not an optimal solution to cluster an image. Lloyds algorithm is one possibility to do clustering
-\begin{enumerate}
-	\item[-\ ] Initialise cluster centers (for example randomly)
-	\item Calculate which samples belong to which clusters
-	\item Calculate mean values of clusters as new centres
-	\item[-\ ] Iterate until clusters don't change
-\end{enumerate}
-Problems:
+
+K-Means clustering is not an optimal solution for image clustering. Lloyd's algorithm is one possibility for clustering with the following steps:
+
 \begin{itemize}
-	\item Number of clusters must be given
-	\item Cluster shapes are given (spherical)
+	\item Initialize cluster centers (e.g., randomly).
+	\item Assign samples to clusters.
+	\item Calculate mean values of clusters as new centers.
+	\item Iterate until clusters don't change.
 \end{itemize}
+
+Issues with K-Means include the requirement to specify the number of clusters and the assumption of spherical cluster shapes.
 
 \subsection{Mean Shift Clustering}
-The shape of the clusters should be variable and not be determined by the method. Mean shift clustering can be achieved by the algorithm
+
+Mean Shift clustering allows variable cluster shapes, avoiding the need for predefined shapes. The algorithm involves:
+
 \begin{enumerate}
-	\item Search for the maximum of the feature densitity from a given position in the image
-	\item Define cluster as the set of positions that converge to the same maximum
+	\item Search for the maximum of the feature density from a given position in the image.
+	\item Define a cluster as the set of positions that converge to the same maximum.
 \end{enumerate}
-The problem to search for local maxima of the features without having a feature distribution available directly.
-The solution is to use a Kernel Density Estimation to describe the distribution, for example using the Gaussian kernel.
-Or using the Derivative of the Gaussian to get an approximation directly.
-\begin{align*}
-	\hat{f}_h(x) &= \frac{1}{nh}\sum_{i=1}^{n}K\left(\frac{x-x_i}{h}\right)\\
-	K\left(\frac{x-x_i}{h}\right) &= \frac{1}{\sqrt{2\pi}} e^{-\frac{(x-x_i)^2}{2h^2}}
-\end{align*}
-\begin{center}
+
+The algorithm deals with the challenge of searching for local maxima by using Kernel Density Estimation with a Gaussian kernel
+or the Derivative of the Gaussian for direct approximation.
+
+\begin{figure}[h]
+	\centering
 	\includegraphics[width=0.7\linewidth]{img/kernel_density_estimation}
-\end{center}
+	\caption{Kernel Density Estimation}
+\end{figure}
 
 \subsubsection{Mean Shift Algorithm}
-\begin{itemize}[label=-]
-	\item[] For all positions $x$ in the image
-	\item Calculate the mean $\samplemean{x}$ in the environment $N(x)$
-	\begin{equation*}
-		\samplemean{x} = \frac{\sum_{x_i \in N(x)} K(x_i - x) x_i }{\sum_{x_i \in N(x)} K(x_i - x)}
-	\end{equation*}
-	\item Set $x$ to the mean $\samplemean{x}$
-	\item Iterate until $x$ does not change
-\end{itemize}
-\textbf{Attraction basins} are regions from which all trajectories lead to the same node.
-\begin{center}
+
+For all positions $x$ in the image, calculate the mean $\samplemean{x}$ in the environment $N(x)$:
+
+\[
+\samplemean{x} = \frac{\sum_{x_i \in N(x)} K(x_i - x) x_i}{\sum_{x_i \in N(x)} K(x_i - x)}
+\]
+
+Set $x$ to the mean $\samplemean{x}$ and iterate until $x$ does not change.
+Attraction basins are regions from which all trajectories lead to the same node.
+
+\begin{figure}[h]
+	\centering
 	\includegraphics[width=0.7\linewidth]{img/attraction_basins}
-\end{center}
+	\caption{Attraction Basins in Mean Shift Clustering}
+\end{figure}
 
 \subsection{Segmentation by Graph Cuts}
-Images are seen as graph with a node for every pixel with edges between nodes with an affinity weight for each edge.
-This weight  measures similarity, for example inversely proportional to difference in colour and position.
+
+Images are represented as graphs with nodes for pixels and edges between nodes with affinity weights.
+These weights measure similarity, such as inversely proportional to the difference in color and position.
+
 \begin{definition}
-	Let $G=(V,E)$ be a graph. Each edge $(u,v)$ has a weight $w(u,v)$ that represents the similarity between $u$ and $v$.
-	Cut $G$ into two disjoint graphs with node sets $A$ and $B$ by removing all edges between those sets. Assign a value to the cut as follows
-	\begin{equation*}
-		\text{cut}(A,B) = \sum_{u\in A,v\in B}^{w(u,v)}
-	\end{equation*}
+	Let $G=(V,E)$ be a graph. Each edge $(u,v)$ has a weight $w(u,v)$ representing the similarity between $u$ and $v$.
+	Cut $G$ into two disjoint graphs with node sets $A$ and $B$ by removing all edges between those sets.
+	Assign a value to the cut as follows:
+
+	\[
+	\text{cut}(A,B) = \sum_{u\in A,v\in B}^{w(u,v)}
+	\]
 \end{definition}
-Minimal value cuts often cuts too small groups. A better approach is to use normalised cuts:
-\begin{align*}
-	\text{Ncut}(A,B) &= \frac{\text{cut}(A,B)}{\text{assoc}(A,V)} + \frac{\text{cut}(A,B)}{\text{assoc}(B,V)}\\
-	\text{assoc}(A,V) &= \sum_{u\in A, t\in V}^{w(u,t)}
-\end{align*}
-where $V$ is the set of all vertices.
+
+Minimal value cuts often lead to small groups. Normalized cuts, using $\text{Ncut}(A,B)$,
+offer a better approach by considering associations and dissimilarities.
 
 \subsection{Superpixels}
-The problem is that images contain many pixels and it is thus inefficient for graph calculations.
-The solution is to calculate \emph{superpixels} by grouping similar pixels first.
-This is cheap but leads to over-segmentation. As soon as the superpixels are calculated, normalised graph cuts can be applied.
+
+The inefficiency of graph calculations with many pixels in images is addressed by calculating \emph{superpixels}—grouping similar pixels.
+This cost-effective method may lead to over-segmentation, but applying normalized graph cuts to superpixels can mitigate this issue.
 
 \subsection{Features}
-Usually, Raw Input pixel values are not used as input features, as this makes the input space too big.
-Instead a feature vector is calculated for each pixel or set of pixels.
-These feature calculate certain properties of an image or image region.
-Besides classification tasks, these vectors are also used to find subregion or image stitching, and more.
+
+Raw input pixel values are not directly used as features to avoid a large input space.
+Instead, feature vectors are calculated for each pixel or set of pixels to capture specific properties of an image or image region.
+These feature vectors are crucial for various tasks, including classification, subregion detection, and image stitching.
 
 \subsubsection{Feature Properties}
-Features should be invariant to
-\begin{itemize}[label=-]
-	\item Translation
-	\item Rotation
-	\item Scaling
-	\item Illumination, colour changes
-	\item Transformation (Skewing)
-\end{itemize}
+
+Features should be invariant to translation, rotation, scaling, illumination changes, color variations, and transformations (skewing).
 
 \subsubsection{Filter Banks}
-\begin{center}
+
+Filter banks, as illustrated in Figure \ref{fig:filter_bank},
+consist of RFS Filters (edge and line filters at six orientations and three scales, Gaussian, and Laplacian of Gaussian)
+and MR8 Filters (Maxima of RFS Filters at each scale).
+
+\begin{figure}[h]
+	\centering
 	\includegraphics[width=0.6\linewidth]{img/filter_bank}
-\end{center}
-\begin{itemize}
-	\item RFS Filters: edge and line filters at six orientations and three scales, Gaussian and Laplacian of Gaussian
-	\item MR8 Filters: Maxima of RFS Filters at each scale
-\end{itemize}
+	\caption{Filter Banks}
+	\label{fig:filter_bank}
+\end{figure}
 
 \subsubsection{Texture Characteristics}
-Textons use the texture descriptor as vectors of filter bank outputs. Textons found by clustering are called a dictionary generation.
-For comparison, use the similarity between regions in the Texton histograms directly.
 
-\subsubsection{Grey Level Co-occurence Matrices (GLCMs)}
-Measurement of how often a specific combination of a colour value between a pixel and its neighbours occur.
+Textons utilize texture descriptors as vectors of filter bank outputs. Textons obtained through clustering form a dictionary,
+and the similarity between regions in the texton histograms is used for comparison.
+
+\subsubsection{Grey Level Co-occurrence Matrices (GLCMs)}
+
+GLCM measures how often a specific combination of color values between a pixel and its neighbors occurs.
 This results in a $256\times 256$ matrix for the 256 grey values.
-Additional features like entropy, energy, homogeneity, contrast or dissimilarity can be calculated from the matrix.
+Additional features like entropy, energy, homogeneity, contrast, or dissimilarity can be calculated from the matrix.
 
 \subsubsection{Scale Invariant Feature Transform (SIFT)}
-Popular feature descriptor for various tasks such as object matching, image stitching and more.
-It is a combination of detector and descriptor. The descriptor uses the histogram of the gradient.
-SIFT results in a 128-dimensional vector.
-\begin{center}
+
+SIFT is a popular feature descriptor for tasks such as object matching and image stitching.
+It combines detection and description, using the histogram of the gradient and resulting in a 128-dimensional vector.
+
+\begin{figure}[h]
+	\centering
 	\includegraphics[width=0.6\linewidth]{img/SIFT}
-\end{center}
+	\caption{Scale Invariant Feature Transform (SIFT)}
+\end{figure}
 
 \subsubsection{Histogram of Oriented Gradients (HOG)}
-Computes the gradient images in x and y, and divides the image into cells.
-Compute histogram of gradient orientation in cell, normalise and flatten it into a feature vector.
+
+HOG computes gradient images in x and y and divides the image into cells.
+It then calculates the histogram of gradient orientation in each cell, normalizes, and flattens it into a feature vector.
 
 \subsubsection{HOGles}
-"Invert" the HOG features to simulate the image that generates it. This is a helpful tool to understand bad detections.
 
-\begin{center}
+HOGles "inverts" HOG features to simulate the image that generates them. This tool is useful for understanding bad detections.
+
+\begin{figure}[h]
+	\centering
 	\includegraphics[width=0.6\linewidth]{img/HOGles}
-\end{center}
+	\caption{HOGles: Inverted HOG Features}
+\end{figure}
