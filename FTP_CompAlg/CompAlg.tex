@@ -1,21 +1,20 @@
-
 % Define as main tex file
 % !TEX root = CompAlg.tex
 
 %%%%%%%%%%%%%%%%%%%%%%%%%
-% Dokumentinformationen %
+% Document Information %
 %%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\titleinfo}{Computational Algebra \& Numerical Analysis}
 \newcommand{\authorinfo}{R.~Koller, L.~Schmid, S.~Eicher, G.~Danuser, H.~Badertscher, ~~~~~~~~~~~~~~~~~~~~~~~~~~H.~Diethelm} % Do not remove any names! Initial authors stay first.
 \newcommand{\versioninfo}{$Revision: 239 $ - powered by \LaTeX}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Standard projektübergreifender Header für
+% Standard Project-wide Header
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \include{header/header.tex}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Zusätzliche Packages
+% Additional Packages
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage{etex}
 \usepackage{booktabs}
@@ -23,7 +22,7 @@
 \usepackage{pgfplots}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Eigene Umgebungen
+% Custom Environments
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newenvironment{liste}[0]{
 	\begin{list}{$\bullet$}{\setlength{\itemsep}{0cm}\setlength{\parsep}{0cm} \setlength{\topsep}{0cm}}}
@@ -34,11 +33,11 @@
 			\setlength{\topsep}{0cm}}} {\end{enumerate}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Eigene Kommandos
+% Custom Commands
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\subsubsubsection}[1]{\textbf{#1}}
 
-%Kreis um Buchstabe,Zahl
+% Circle around letter, number
 \newcommand*\kreisS[2]{\unitlength1ex\begin{picture}(2.5,2.5)%
 	\put(0.75,0.75){\circle{3}}\put(0.7,0.7){\makebox(0,0){#1}}\end{picture}$^{\displaystyle \text{#2}}$}
 
@@ -48,7 +47,7 @@
 \newcommand*\kreisB[2]{\unitlength1ex\begin{picture}(3.5,3.5)%
 	\put(0.75,0.75){\circle{5}}\put(0.7,0.7){\makebox(0,0){#1}}\end{picture}$^{\displaystyle ^{\displaystyle \text{#2}}}$}
 
-% Möglichst keine Ergänzungen hier, sondern in header.tex
+% Avoid adding content here, preferably do it in header.tex
 \begin{document}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -66,7 +65,7 @@
 \input{files/differential_equations}
 \input{files/tabellen}
 \newpage
-\section{Idiotenseite}
+\section{Cheatsheet}
 \input{idiotenseite/trigo/trigoInclude}
 
 \end{document}

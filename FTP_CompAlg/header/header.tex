@@ -1,20 +1,20 @@
-% Genereller Header
+% General Header
 \documentclass[10pt,twoside,a4paper,fleqn]{article}
-% Dateiencoding
+% File encoding
 \usepackage[utf8]{inputenc}
-% Seitenränder
+% Page margins
 \usepackage[left=1cm,right=1cm,top=1cm,bottom=1cm,includeheadfoot]{geometry}
-% Sprachpaket
+% Language package
 \usepackage[ngerman]{babel,varioref}
 
-% Pakete
+% Packages
 \usepackage{amssymb,amsmath,fancybox,graphicx,lastpage,wrapfig,fancyhdr,hyperref,verbatim,floatflt,multicol,multirow,rotating,pdflscape,array,longtable,listings}
 
-% Zum Bilder einfach in Tabellen einfügen (valign=t)
+% For easily inserting images into tables (valign=t)
 \usepackage[export]{adjustbox}
 
 %%%%%%%%%%%%%%%%%%%%
-% Generelle Makros %
+% General Macros %
 %%%%%%%%%%%%%%%%%%%%
 \newcommand{\skript}[1]{$_{\textcolor{red}{\mbox{\small{Skript S.#1}}}}$}
 \newcommand{\verweis}[2]{\small{(siehe auch \ref{#1}, #2 (S. \pageref{#1}))}}
@@ -36,12 +36,12 @@
 \newcommand{\matlab}[1]{\footnotesize{(Matlab: \texttt{#1})}\normalsize{}}
 
 %%%%%%%%%%
-% Farben %
+% Colors %
 %%%%%%%%%%
 \usepackage{xcolor}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Mathematische Operatoren %
+% Mathematical Operators %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \DeclareMathOperator{\sinc}{sinc}
 \DeclareMathOperator{\sgn}{sgn}
@@ -51,32 +51,15 @@
 \DeclareMathOperator{\cov}{cov}
 \DeclareMathOperator{\PolyGrad}{PolyGrad}
 
-%Makro für 'd' von Integral- und Differentialgleichungen 
+%Macro for 'd' in integral and differential equations
 \newcommand*{\diff}{\mathop{}\!\mathrm{d}}
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Fouriertransformationen %
+% Fourier Transformations %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage{trfsigns, trsym}
-%\unitlength1cm
-% Zeitbereich -- Frequenzbereich
-%\newcommand{\laplace}
-%{
-%\begin{picture}(1,0.5)
-%\put(0.2,0.1){\circle{0.14}}\put(0.27,0.1){\line(1,0){0.5}}\put(0.77,0.1){\circle*{0.14}}
-%\end{picture}
-%}
-% Frequenzbereich -- Zeitbereich
-%\newcommand{\Laplace}
-%{
-%\begin{picture}(1,0.5)
-%\put(0.2,0.1){\circle*{0.14}}\put(0.27,0.1){\line(1,0){0.45}}\put(0.77,0.1){\circle{0.14}}
-%\end{picture}
-%}
 
-
-% Fouriertransformationen
+% Fourier Transformations
 \unitlength1cm
 \newcommand{\FT}
 {
@@ -85,7 +68,6 @@
 \end{picture}
 }
 
-
 \newcommand{\IFT}
 {
 \begin{picture}(1,0.5)
@@ -93,40 +75,36 @@
 \end{picture}
 }
 
-
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Allgemeine Einstellungen %
+% General Settings %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%PDF Info
+% PDF Info
 \hypersetup{pdfauthor={\authorinfo},pdftitle={\titleinfo},colorlinks=false}
 \author{\authorinfo}
 \title{\titleinfo}
 
 %%%%%%%%%%%%%%%%%%%%%%%
-% Kopf- und Fusszeile %
+% Header and Footer %
 %%%%%%%%%%%%%%%%%%%%%%%
 \pagestyle{fancy}
 \fancyhf{}
-%Linien oben und unten
-\renewcommand{\headrulewidth}{0.5pt} 
+%Lines at the top and bottom
+\renewcommand{\headrulewidth}{0.5pt}
 \renewcommand{\footrulewidth}{0.5pt}
 
 \fancyhead[L]{\titleinfo{ }\tiny{(\versioninfo)}}
-%Kopfzeile rechts bzw. aussen
-\fancyhead[R]{Seite \thepage { }von \pageref{LastPage}}
-%Fusszeile links bzw. innen
+%Header right or outside
+\fancyhead[R]{Page \thepage { }of \pageref{LastPage}}
+%Footer left or inside
 \fancyfoot[L]{\footnotesize{\authorinfo}}
-%Fusszeile rechts bzw. ausen
+%Footer right or outside
 \fancyfoot[R]{\footnotesize{\today}}
-% Lizenz CC-BY-NC-SA
+% License CC-BY-NC-SA
 \input{header/lizenzen}
 \lizenz{cc-by-nc-sa}{small}
-% Einrücken verhindern versuchen
+% Avoid indentation
 \setlength{\parindent}{0pt}
 
-% Zeilenhöhe Tabellen:
+% Line height for tables:
 \newcommand{\arraystretchOriginal}{1.5}
 \renewcommand{\arraystretch}{\arraystretchOriginal}
-
