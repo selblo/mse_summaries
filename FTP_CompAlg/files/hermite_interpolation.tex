@@ -1,0 +1,136 @@
+\section{Hermite Interpolation (Osculation)}
+Erweiterung der dividierten Differenzen: Es sind jetzt auch Ableitungen an Messpunkten als
+Bedingungen möglich.
+
+Aus der Definition von $y(x)$ ist $y(x_0,x_0) = y'(x_0)$. Verallgemeinert ergibt das
+
+\begin{minipage}{9cm}
+
+\[y(\underbrace{x_0, \ldots x_n, x_{n+1}}_{(n+2)}) = \frac{y^{(n+1)}(\xi)}{(n+1)!}\]
+\[y(\underbrace{x_0, \ldots x_0}_{(n+1)}) = \lim_{\xi \rightarrow x_0} \frac{y^{(n)}(\xi)}{(n)!} = \frac{y^{(n)}(x_0)}{n!}\]
+\end{minipage}
+\begin{minipage}{6cm}
+Bsp. HS13/14 \\
+\[ y(x_0,x_1,x_1) = \frac{y(x_1,x_1) - y(x_1,x_0)}{x_1 - x_0} = \frac{y'(x_1) - \frac{y(x_1) - y(x_0)}{x_1 - x_0}}{x_1 - x_0}\]
+\end{minipage}
+
+
+Für die Hermite Interpolation werden dieselben Newton Tableaus verwendet, aber mit Wiederholungen (siehe Beispiel).
+Die rot markierten Werte werden wie üblich berechnet.
+
+Wichtig ist, dass bei der Berechnung der dividierten Differenzen keine Löcher entstehen (Ableitungen müssen Lückenlos vorhanden sein (z.B.: $y',y'',y'''$ good; $y',y'''$ bad))! Dann ist das
+Gleichungssystem nicht lösbar! Es kann bei unbestimmten Resultaten eine Variable eingesetzt werden,
+welche am Schluss ermittelt werden kann.
+
+\renewcommand{\arraystretch}{1.0}
+\begin{minipage}{10cm}
+	\begin{tabular}{|c|lll|}
+		\hline
+		$x$		&\multicolumn{3}{l|}{$y$}\\
+		\hline
+		$x_0=2$	&$y(x_0)=1$	&							&\\
+				&			&$\frac{y^{(1)}(x_0)}{1!}=1$&\\
+		$x_0=2$	&$y(x_0)=1$	&							&$\frac{y^{(2)}(x_0)}{2!}=0$\\
+				&			&$\frac{y^{(1)}(x_0)}{1!}=1$&\\
+		$x_0=2$	&$y(x_0)=1$	&							&\\
+				&			&							&\\
+		$x_1=4$	&$y(x_1)=2$	&							&\\
+				&			&$\frac{y^{(1)}(x_1)}{1!}=0$&\\
+		$x_1=4$	&$y(x_1)=2$	&							&$\frac{y^{(2)}(x_1)}{2!}=0$\\
+				&			&$\frac{y^{(1)}(x_1)}{1!}=0$&\\
+		$x_1=4$	&$y(x_1)=2$	&							&\\
+		\hline
+	\end{tabular}
+\end{minipage}
+\hfill
+\newcommand{\mycbox}[1]{\textcolor{red}{#1}}
+\begin{minipage}{10cm}
+	\begin{tabular}{|c|llllll|}
+		\hline
+		$x$	&\multicolumn{6}{l|}{$y$}\\
+		\hline
+		$2$	&\kreisS{$1$}{$a_0$}&			&			&			&				&\\
+			&		&\kreisS{$1$}{$a_1$}		&			&			&				&\\
+		$2$	&$1$	&			&\kreisS{$0$}{$a_2$}		&			&				&\\
+			&		&$1$		&			&\kreisM{\mycbox{$-\frac 18$}}{$a_3$}&				&\\
+		$2$	&$1$	&			&\mycbox{$-\frac 14$}&			&\kreisM{\mycbox{$\frac 1{16}$}}{$a_4$}	&\\
+			&		&\mycbox{$\frac 12$}	&			&\mycbox{$0$}		&				&\kreisS{\mycbox{$0$}}{$a_5$}\\
+		$4$	&$2$	&			&\mycbox{$-\frac 14$}&			&\mycbox{$\frac 1{16}$}	&\\
+			&		&$0$		&			&\mycbox{$\frac 18$}	&				&\\
+		$4$	&$2$	&			&$0$		&			&				&\\
+			&		&$0$		&			&			&				&\\
+		$4$	&$2$	&			&			&			&				&\\
+		\hline
+	\end{tabular}
+\end{minipage}\\
+\renewcommand{\arraystretch}{1.5}
+
+%TODO: achtung hier ist ein newpage
+\newpage
+
+Es werden die \textbf{modifizierten} Newton Polynome verwendet. In diesem Fall:
+
+\begin{center}
+    \begin{tabular}{ll}
+    \toprule
+        $\pi_0 = 1$ & $\pi_4 = (x-x_0) (x-x_0) (x-x_0) (x-x_1)$ \\
+        $\pi_1 = (x-x_0)$ & $\pi_5 = (x-x_0) (x-x_0) (x-x_0) (x-x_1) (x-x_1)$ \\
+        $\pi_2 = (x-x_0) (x-x_0)$ & $\pi_6 = (x-x_0) (x-x_0) (x-x_0) (x-x_1) (x-x_1) (x-x_1)$ \\
+        $\pi_3 = (x-x_0) (x-x_0) (x-x_0)$ & \\
+    \bottomrule
+    \end{tabular}
+\end{center}
+
+\begin{align}
+p_2(x)	&=a_0\cdot \pi_0+a_1\cdot \pi_1+a_2\cdot \pi_2+a_3\cdot \pi_3+a_4\cdot \pi_4+a_5\cdot \pi_5\nonumber\\[0.3cm]
+		&=a_0\cdot 1+a_1\cdot (x-x_0)+a_2\cdot (x-x_0)^2+a_3\cdot (x-x_0)^3+a_4\cdot (x-x_0)^3(x-x_1)+a_5\cdot (x-x_0)^3(x-x_1)^2\nonumber\\[0.3cm]
+		&=1+(x-2)-\frac 18(x-2)^3+\frac 1{16} (x-2)^3(x-4)\nonumber
+\end{align}
+
+\stepcounter{subsection}\stepcounter{subsection}
+\subsection{Fehlerformel}
+
+$$y(x)-p(x)=\frac{y^{(d)}(\xi)}{d!}(x-x_0)^{d_0}(x-x_1)^{d_1}\cdots (x-x_n)^{d_n}\qquad x,\xi \in \{\text{min } x_i,\text{max } x_i\}\quad\text{für}\quad i=0,1,\ldots,2$$
+$d$ ist die total Anzahl Bedingungen und $d_i$ die Anzahl Bedingungen pro Stützstelle $x_i$. ($d = \sum_{i=0}^n d_i$)
+
+\subsection{Fehlende Ableitungen}
+
+Bei fehlenden Ableitungsvorgaben werden Variablen eingesetzt und das Tableau mit diesen durchgerechnet. Am Schluss wird von hinten her auf die fehlenden Variablen geschlossen.\\
+
+\textbf{Beispiel:}\\
+Gesucht: Polynom 2. Ordnung, welches durch die Punkte $y(2)=1$ und $y(4)=1$ geht und die Ableitung $y'(4)=1$ aufweist.
+
+\begin{minipage}[c]{6cm}
+	\renewcommand{\arraystretch}{1.0}
+	\begin{tabular}{|c|llll|}
+		\hline
+		$x$	&\multicolumn{4}{l|}{$y$}\\
+		\hline
+		$2$	&\kreisS{$1$}{$a_0$}&	&&\\
+			&	&\kreisS{$\beta$}{$a_1$}&&\\
+		$2$	&$1$&	&\kreisB{$-\frac \beta2$}{$a_2$}&\\
+			&	&$0$&				  &\kreisB{$\frac{1+\beta}{4}$}{$a_3$}$\overset{!}{=}0$\\
+		$4$	&$1$&	&$\frac 12$&\\
+			&	&$1$&&\\
+		$4$	&$1$&	&&\\
+		\hline
+	\end{tabular}
+	\renewcommand{\arraystretch}{1.5}
+\end{minipage}
+\hfill
+\begin{minipage}[c]{12cm}
+
+	\vspace{0.5cm}
+
+	\begin{itemize}
+		\item Weil das Polynom die Ordnung $d=2$ aufweisen muss, gilt: $\frac{1+\beta}4=0$\\
+		Daraus folgt: $\beta=-1$
+		\item Das Lösungspolynom ist:
+		\begin{align} p(x)&=a_0+a_1(x-x_0)+a_2(x-x_0)^2+a_3(x-x_0)^2(x-x_1)\nonumber\\
+		&=1+\beta(x-x_0)-\frac \beta2(x-x_0)^2+\frac{1+\beta}4(x-x_0)^2(x-x_1)\big|_{\beta=-1}\nonumber\\
+		&=1-(x-2)+\frac 12(x-2)^2\nonumber
+		\end{align}
+	\end{itemize}
+\end{minipage}
+
+\vfill
