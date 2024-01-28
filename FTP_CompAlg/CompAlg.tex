@@ -5,8 +5,8 @@
 % Document Information %
 %%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\titleinfo}{Computational Algebra \& Numerical Analysis}
-\newcommand{\authorinfo}{R.~Koller, L.~Schmid, S.~Eicher, G.~Danuser, H.~Badertscher, ~~~~~~~~~~~~~~~~~~~~~~~~~~H.~Diethelm} % Do not remove any names! Initial authors stay first.
-\newcommand{\versioninfo}{$Revision: 239 $ - powered by \LaTeX}
+\newcommand{\authorinfo}{R.~Koller, L.~Schmid, S.~Eicher, G.~Danuser, H.~Badertscher, ~~~~~~~~~~~~~~~~~~~~~~~~~~H.~Diethelm, S.~Blöchlinger} % Do not remove any names! Initial authors stay first.
+\newcommand{\versioninfo}{Revision: 240 - powered by \LaTeX}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Standard Project-wide Header
@@ -20,6 +20,7 @@
 \usepackage{booktabs}
 \usepackage{bm}
 \usepackage{pgfplots}
+\usepackage{todonotes}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Custom Environments
@@ -52,20 +53,20 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\input{files/newton_interpolation}
-\input{files/hermite_interpolation}
-\input{files/multi_variate_polynomial_interpolation}
+\input{files/01_newton_interpolation}
+\input{files/02_hermite_interpolation}
+\input{files/03_multi_variate_polynomial_interpolation}
 \clearpage
-\input{files/splines}
+\input{files/04_splines}
 \newpage
-\input{files/least_squares_approximation}
+\input{files/05_least_squares_approximation}
 \newpage
-\input{files/error_propagation}
+\input{files/06_error_propagation}
 \newpage
-\input{files/differential_equations}
-\input{files/tabellen}
+\input{files/07_differential_equations}
+\input{files/08_tables}
 \newpage
-\section{Cheatsheet}
+\section{Idiotenseite}
 \input{idiotenseite/trigo/trigoInclude}
 
 \end{document}

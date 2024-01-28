@@ -1,8 +1,7 @@
 \section{Hermite Interpolation (Osculation)}
-Erweiterung der dividierten Differenzen: Es sind jetzt auch Ableitungen an Messpunkten als
-Bedingungen möglich.
+Extension of divided differences: Now, derivatives at data points are also possible as conditions.
 
-Aus der Definition von $y(x)$ ist $y(x_0,x_0) = y'(x_0)$. Verallgemeinert ergibt das
+From the definition of $y(x)$, we have $y(x_0, x_0) = y'(x_0)$. Generalized, this yields
 
 \begin{minipage}{9cm}
 
@@ -15,12 +14,14 @@ Bsp. HS13/14 \\
 \end{minipage}
 
 
-Für die Hermite Interpolation werden dieselben Newton Tableaus verwendet, aber mit Wiederholungen (siehe Beispiel).
-Die rot markierten Werte werden wie üblich berechnet.
+For Hermite interpolation, the same Newton tables are used, but with repetitions (see the example).
+The values marked in red are calculated as usual.
 
-Wichtig ist, dass bei der Berechnung der dividierten Differenzen keine Löcher entstehen (Ableitungen müssen Lückenlos vorhanden sein (z.B.: $y',y'',y'''$ good; $y',y'''$ bad))! Dann ist das
-Gleichungssystem nicht lösbar! Es kann bei unbestimmten Resultaten eine Variable eingesetzt werden,
-welche am Schluss ermittelt werden kann.
+It is important that no gaps occur in the calculation of the divided differences
+(derivatives must be continuously available, e.g., $y', y'', y'''$ good; $y', y'''$ bad)!
+Otherwise, the system of equations is unsolvable.
+In case of indeterminate results, a variable can be introduced, which can be determined at the end.
+
 
 \renewcommand{\arraystretch}{1.0}
 \begin{minipage}{10cm}
@@ -65,10 +66,9 @@ welche am Schluss ermittelt werden kann.
 \end{minipage}\\
 \renewcommand{\arraystretch}{1.5}
 
-%TODO: achtung hier ist ein newpage
 \newpage
 
-Es werden die \textbf{modifizierten} Newton Polynome verwendet. In diesem Fall:
+\textbf{Modified} Newton polynomials are used. In this case:
 
 \begin{center}
     \begin{tabular}{ll}
@@ -88,31 +88,34 @@ p_2(x)	&=a_0\cdot \pi_0+a_1\cdot \pi_1+a_2\cdot \pi_2+a_3\cdot \pi_3+a_4\cdot \p
 \end{align}
 
 \stepcounter{subsection}\stepcounter{subsection}
-\subsection{Fehlerformel}
+\subsection{Error Formula}
 
-$$y(x)-p(x)=\frac{y^{(d)}(\xi)}{d!}(x-x_0)^{d_0}(x-x_1)^{d_1}\cdots (x-x_n)^{d_n}\qquad x,\xi \in \{\text{min } x_i,\text{max } x_i\}\quad\text{für}\quad i=0,1,\ldots,2$$
-$d$ ist die total Anzahl Bedingungen und $d_i$ die Anzahl Bedingungen pro Stützstelle $x_i$. ($d = \sum_{i=0}^n d_i$)
+\[y(x) - p(x) = \frac{y^{(d)}(\xi)}{d!}(x-x_0)^{d_0}(x-x_1)^{d_1}\cdots (x-x_n)^{d_n}\]
+\[x, \xi \in \{\text{min } x_i, \text{max } x_i\}, \quad i = 0, 1, \ldots, 2\]
 
-\subsection{Fehlende Ableitungen}
+\(d\) is the total number of conditions, and \(d_i\) is the number of conditions per support point \(x_i\). (\(d = \sum_{i=0}^n d_i\))
 
-Bei fehlenden Ableitungsvorgaben werden Variablen eingesetzt und das Tableau mit diesen durchgerechnet. Am Schluss wird von hinten her auf die fehlenden Variablen geschlossen.\\
+\subsection{Missing Derivatives}
 
-\textbf{Beispiel:}\\
-Gesucht: Polynom 2. Ordnung, welches durch die Punkte $y(2)=1$ und $y(4)=1$ geht und die Ableitung $y'(4)=1$ aufweist.
+In case of missing derivative specifications, variables are introduced, and the tableau is computed with these. In the end, the missing variables are determined from the back.
+
+\textbf{Example:}
+
+Desired: 2nd order polynomial passing through points \(y(2)=1\) and \(y(4)=1\) with the derivative \(y'(4)=1\).
 
 \begin{minipage}[c]{6cm}
 	\renewcommand{\arraystretch}{1.0}
 	\begin{tabular}{|c|llll|}
 		\hline
-		$x$	&\multicolumn{4}{l|}{$y$}\\
+		\(x\) & \multicolumn{4}{l|}{\(y\)} \\
 		\hline
-		$2$	&\kreisS{$1$}{$a_0$}&	&&\\
-			&	&\kreisS{$\beta$}{$a_1$}&&\\
-		$2$	&$1$&	&\kreisB{$-\frac \beta2$}{$a_2$}&\\
-			&	&$0$&				  &\kreisB{$\frac{1+\beta}{4}$}{$a_3$}$\overset{!}{=}0$\\
-		$4$	&$1$&	&$\frac 12$&\\
-			&	&$1$&&\\
-		$4$	&$1$&	&&\\
+		2 & \kreisS{1}{\(a_0\)} & & & \\
+		& & \kreisS{\(\beta\)}{\(a_1\)} & & \\
+		2 & 1 & & \kreisB{\(-\frac \beta2\)}{\(a_2\)} & \\
+		& & 0 & & \kreisB{\(\frac{1+\beta}{4}\)}{\(a_3\)}\(\overset{!}{=}0\) \\
+		4 & 1 & & \(\frac 12\) & \\
+		& & 1 & & \\
+		4 & 1 & & & \\
 		\hline
 	\end{tabular}
 	\renewcommand{\arraystretch}{1.5}
@@ -123,13 +126,14 @@ Gesucht: Polynom 2. Ordnung, welches durch die Punkte $y(2)=1$ und $y(4)=1$ geht
 	\vspace{0.5cm}
 
 	\begin{itemize}
-		\item Weil das Polynom die Ordnung $d=2$ aufweisen muss, gilt: $\frac{1+\beta}4=0$\\
-		Daraus folgt: $\beta=-1$
-		\item Das Lösungspolynom ist:
-		\begin{align} p(x)&=a_0+a_1(x-x_0)+a_2(x-x_0)^2+a_3(x-x_0)^2(x-x_1)\nonumber\\
-		&=1+\beta(x-x_0)-\frac \beta2(x-x_0)^2+\frac{1+\beta}4(x-x_0)^2(x-x_1)\big|_{\beta=-1}\nonumber\\
-		&=1-(x-2)+\frac 12(x-2)^2\nonumber
-		\end{align}
+		\item Because the polynomial must have order \(d=2\), we have \(\frac{1+\beta}4=0\).\\
+		From this, we get \(\beta=-1\).
+		\item The solution polynomial is:
+		\begin{align*}
+			p(x) &= a_0 + a_1(x-x_0) + a_2(x-x_0)^2 + a_3(x-x_0)^2(x-x_1) \\
+			&= 1 + \beta(x-x_0) - \frac \beta2(x-x_0)^2 + \frac{1+\beta}4(x-x_0)^2(x-x_1)\big|_{\beta=-1} \\
+			&= 1 - (x-2) + \frac 12(x-2)^2
+		\end{align*}
 	\end{itemize}
 \end{minipage}
 
