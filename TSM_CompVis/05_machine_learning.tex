@@ -1,4 +1,43 @@
 
-\section{CNN and Machine Learning in General}
+\section{Convolutional Neural Networks (CNNs)}
 
-For this chapter I'd like to refer you to my summaries in Deep Learning and Machine Learning where the desired information is already written down in much more detail.
+
+\subsection{Network Layer Properties}
+
+Given an input shape of \mintinline{python}{(n, n, c)} and ignoring the batch dimension
+(\mintinline{python}{keras} default shape is \mintinline[breaklines]{python}{(batch_size, height, width, channels)}).
+Convolution layer arguments are \mintinline{python}{filters=f} and \mintinline{python}{kernel_size=k}.
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{@{}lll@{}}\toprule
+        Layer & Output shape & \# of params\\ \midrule
+        \mintinline{python}{Conv2D(f, k, padding='same')} &
+            \mintinline{python}{(n, n, f)} & \(k \cdot k \cdot c \cdot f + f\) \\
+        \mintinline{python}{Conv2D(f, k, padding='valid')} &
+            \mintinline{python}{(n-k+1, n-k+1, f)} & \(k \cdot k \cdot c \cdot f + f\) \\
+        \mintinline{python}{Conv2D(f, k, strides=(sr, sc), padding='same')} &
+            \mintinline{python}{(n/sr, n/sc, f)} & \(k \cdot k \cdot c \cdot f + f\) \\
+        \mintinline{python}{Conv2DTranspose(f, k, strides=(sr, sc), padding='same')} &
+            \mintinline{python}{(sr*n, sc*n, f)} & \(k \cdot k \cdot c \cdot f + f\) \\
+        \mintinline{python}{MaxPool2D(pool_size=(sr, sc))} &
+            \mintinline{python}{(n/sr, n/sc, c)} & \(0\)\\
+        \mintinline{python}{UpSampling2D(size=(sr, sc))} &
+            \mintinline{python}{(sr*n, sc*n, c)} & \(0\)\\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+The required \textbf{memory} of a layer is equal to the product of the output shape of a layer (times whatever the data type requires).
+
+\vspace{3mm}
+
+The \textbf{receptive field} of a given neuron can be calculated as follows:
+\begin{enumerate}
+    \item Start with the dimension of the last convolutional kernel (e.g.\ \(3 \times 3\)).
+    \item For every layer further upp, extend the area as follows:
+    \begin{itemize}
+        \item For every pooling layer of size \(p \times p\), increase the area dimensions by \(2 \cdot (p-1)\).
+        \item For every convolutional layer of kernel size \(k \times k\), increase the area dimensions by \(k-1\).
+    \end{itemize}
+\end{enumerate}

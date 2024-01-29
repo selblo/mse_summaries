@@ -1,18 +1,16 @@
 \section{Finding Multiple Objects}
 
-\todo[inline, color=red!50]{Add topic: Viola Jones (face detection)}
 
-The core problem is efficiently scanning many positions for possible faces. Potential approaches include:
+\subsection{Viola Jones Face Detection}
+
+The core problem with face detection (or object detection in general) is that there are many positions that have to be scanned for a possible face.
+Viola and Jones introduced a solution to this based on three main principles:
 \begin{itemize}
-	\item {\color{DodgerBlue4} Features}
-	\item {\color{DodgerBlue4} Classifier}
-	\item {\color{DodgerBlue4} Sliding Window}
-	\item {\color{Firebrick1} Haar Features}
-	\item {\color{Firebrick1} Boosting}
-	\item {\color{Firebrick1} Cascaded Classifiers}
+	\item \textbf{Boosting}: (Linearly) combine multiple weak classifiers into a strong one.
+	\item \textbf{Haar Features}: Use simple filters that only contain \(+1\) or \(-1\) in their masks.
+	\item \textbf{Cascaded classifiers}: Cascade multiple classifiers and reject false results early in the cascade.
 \end{itemize}
-
-\subsection{Boosting}
+\subsubsection{Boosting}
 Given input training data with weights, at each step $t \in 1..T$, train a weak classifier.
 Let it classify the training data and increase the weight on incorrectly classified samples.
 The final strong classifier $F(x)$ is a weighted, linear combination of the weak classifiers.
@@ -27,7 +25,7 @@ h_j (\theta) = \begin{cases}
 \end{cases}
 \]
 
-\subsection{Haar Features}
+\subsubsection{Haar Features}
 To avoid computationally intensive filter responses, Haar features use simple filters with $-1$ or $1$ in masks.
 Features are calculated on sliding sub-windows (e.g., $24\times24$ pixels) using integral images for fast computation.
 The humongous size of features can be evaluated efficiently using integral images.
@@ -46,9 +44,10 @@ The humongous size of features can be evaluated efficiently using integral image
 	\end{subfigure}
 \end{figure}
 
-\subsection{Face Detection}
+\subsubsection{Cascaded Classifiers}
 The challenge is evaluating thousands of possible position or scale combinations efficiently, with true faces being rare.
-A classifier with a high \emph{true} positive rate (85\%-95\%) and a low \emph{false} positive rate ($10^{-5}-10^{-6}$) is used in a cascade.
+A classifier with a high \emph{true} positive rate (85\%-95\%) and a very low \emph{false} positive rate ($10^{-5}-10^{-6}$)
+can be achieved by cascading classifiers with a very high TPR (\~99\%) and a moderately low FPR (\~30\%) (TPR and FPR rates can be multiplied).
 False results are rejected early in the processing.
 
 \begin{figure}[h]
@@ -58,7 +57,7 @@ False results are rejected early in the processing.
 \end{figure}
 
 \subsection{HOG for Human Detection}
-Detection pipeline:
+HOG stands for Histogram of Oriented Gradients. Detection pipeline:
 \begin{itemize}
 	\item Calculate HOG Descriptors
 	\item Collect HOGs in Detection Window
