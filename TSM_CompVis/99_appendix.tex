@@ -1,6 +1,9 @@
 
 \section{Python Code}
+
 \subsection{Binarisation and Filtering}
+
+
 \subsubsection{Binary Mask}
 \begin{minted}{python}
 mask = im > 0.8 # bright pixels will be True in the mask, others will be False
@@ -9,6 +12,7 @@ plt.imshow(mask)
 \begin{center}
 	\includegraphics[width=0.4\linewidth]{img/BinaryMask.png}
 \end{center}
+
 
 \subsubsection{Connected Component Analysis}
 \begin{minted}{python}
@@ -80,6 +84,7 @@ axs[1,1].set(title="binarized")
 	\includegraphics[width=0.7\linewidth]{img/BinarizedRiceGrains}
 \end{center}
 
+
 \subsection{Model Fitting Hough Lines}
 \begin{minted}{python}
 import skimage.feature
@@ -103,6 +108,7 @@ ax.imshow(im,cmap="gray")
 for ((x0,y0),(x1,y1)) in lines:
 ax.plot([x0,x1],[y0,y1],'b-')
 \end{minted}
+
 
 \subsection{Superpixel Segmentation}
 \begin{minted}{python}
@@ -137,4 +143,39 @@ plt.axis("off")
 
 # show the plots
 plt.show()
+\end{minted}
+
+
+\subsection{CNNs}
+
+\subsubsection{U-Net-like Architecture for Semantic Segmentation}
+
+\begin{minted}{python}
+inputs = Input(shape=(input_height, input_width, channels))
+x = inputs
+
+x = Conv2D(filters=8, kernel_size=3, padding='same', activation='relu')(x)
+t_1 = x
+
+x = Conv2D(filters=8, kernel_size=3, strides=(2, 2), padding='same', activation='relu')(x)
+t_2 = x
+
+x = Conv2D(filters=16, kernel_size=3, padding='same', activation='relu')(x)
+t_3 = x
+
+x = Conv2D(filters=16, kernel_size=3, strides=(2, 2), padding='same', activation='relu')(x)
+t_4 = x
+
+x = Conv2DTranspose(filters=16, kernel_size=3, strides=(2, 2), padding='same')(x)
+x = Concatenate(axis=3)([x, t_3])
+x = Conv2D(filters=16, kernel_size=3, padding='same', activation='relu')(x)
+
+x = Conv2DTranspose(filters=32, kernel_size=3, strides=(2, 2), padding='same')(x)
+x = Concatenate(axis=3)([x, t_1])
+x = Conv2D(filters=32, kernel_size=3, padding='same', activation='relu')(x)
+
+x = Conv2D(filters=num_classes, kernel_size=1, activation='softmax')(x)
+
+model = Model(inputs=inputs, outputs=x, name='unet')
+model.compile(loss='categorical_crossentropy', metrics=['accuracy'])
 \end{minted}

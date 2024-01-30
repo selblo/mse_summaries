@@ -10,9 +10,10 @@ Viola and Jones introduced a solution to this based on three main principles:
 	\item \textbf{Haar Features}: Use simple filters that only contain \(+1\) or \(-1\) in their masks.
 	\item \textbf{Cascaded classifiers}: Cascade multiple classifiers and reject false results early in the cascade.
 \end{itemize}
-\subsubsection{Boosting}
+
+\subsubsection{Boosting using AdaBoost (Adaptive Boosting)}
 Given input training data with weights, at each step $t \in 1..T$, train a weak classifier.
-Let it classify the training data and increase the weight on incorrectly classified samples.
+Let it classify the training data and increase the weight on incorrectly classified samples (therefor adaptive).
 The final strong classifier $F(x)$ is a weighted, linear combination of the weak classifiers.
 \[
 F(x) = \alpha_1 f_1(x) + \alpha_2 f_2(x) + \alpha_2 f_2(x) + \dots
@@ -46,8 +47,8 @@ The humongous size of features can be evaluated efficiently using integral image
 
 \subsubsection{Cascaded Classifiers}
 The challenge is evaluating thousands of possible position or scale combinations efficiently, with true faces being rare.
-A classifier with a high \emph{true} positive rate (85\%-95\%) and a very low \emph{false} positive rate ($10^{-5}-10^{-6}$)
-can be achieved by cascading classifiers with a very high TPR (\~99\%) and a moderately low FPR (\~30\%) (TPR and FPR rates can be multiplied).
+A classifier with a high \emph{true} positive rate ($85\%\ldots95\%$) and a very low \emph{false} positive rate ($10^{-5}\ldots10^{-6}$)
+can be achieved by cascading classifiers with a very high TPR ($\sim$99\%) and a moderately low FPR ($\sim$30\%) (TPR and FPR rates can be multiplied).
 False results are rejected early in the processing.
 
 \begin{figure}[h]
@@ -56,8 +57,9 @@ False results are rejected early in the processing.
 	\caption{Cascade Classifier Approach}
 \end{figure}
 
-\subsection{HOG for Human Detection}
-HOG stands for Histogram of Oriented Gradients. Detection pipeline:
+\subsection{HOG (Histogram of Oriented Gradients) for Human Detection}
+The technique counts occurrences of gradient orientation in localized portions of an image.
+Detection pipeline:
 \begin{itemize}
 	\item Calculate HOG Descriptors
 	\item Collect HOGs in Detection Window
@@ -79,14 +81,14 @@ Combining Classification, Localization, and Detection involves:
 		\item Sliding Windows applied at every possible pixel and at multiple scales
 		\item Subsampling factor of 12
 	\end{itemize}
-	\item Localisation
+	\item Localization
 	\begin{itemize}
 		\item Generate Bounding Box Prediction as a Regression Problem
 		\item Uses the first five layers in the CNN
 	\end{itemize}
 	\item Detection
 	\begin{itemize}
-		\item Combine Classification and Localisation
+		\item Combine Classification and Localization
 		\item Merge and accumulate bounding boxes
 	\end{itemize}
 \end{itemize}
@@ -101,8 +103,14 @@ Combining Classification, Localization, and Detection involves:
 Sliding windows have the drawback of a huge number of different positions and sizes that need evaluation.
 A better idea is to find image regions likely to contain an object, called region proposals.
 
-\subsection{R-CNN}
-Extract region proposals, compute CNN features, and classify regions using SVM.
+\subsection{Region Proposals}
+To avoid the huge number of possible positions and sizes that need to be evaluated with the sliding window approach,
+image regions that are likely to contain an object are identified. This is relatively fast for e.g. 1000 proposals (much less than sliding window approach).
+The regions can, for example, be obtained by Region Segmentation (graph based) or Hierarchical Grouping.
+
+
+\subsection{R-CNN (Region-based CNN)}
+Extract region proposals, compute CNN features, and classify regions using SVM.\@
 
 \begin{figure}[h]
 	\centering
