@@ -115,8 +115,8 @@ The error term can be interpreted as a derivative. However, it is not clear wher
 \textbf{Runge Phenomenon:} Potential oscillations at the definition boundaries of polynomial collocations.
 Caused by high $n$ and high $\frac{y^{(n+1)}(x)}{(n+1)!}$. \\
 \textbf{Chebyshev Arguments:} Adjustment of measurement points through a different distribution (no longer uniformly distributed $x_k$, but uniformly distributed on the unit circle)
-\[x_k = \cos({\frac{2k+1}{2(n+1)}\pi), \quad (k=0,1,\ldots,n)}) \]
-results in maximum amplitude $\max_{-1\leq x\leq 1}|\pi_{n+1}(x)| = \frac{1}{2^n}$.
+\[x_k = \cos(\frac{2k+1}{2(n+1)}\pi), \quad (k=0,1,\ldots,n) \]
+results in maximum amplitude of $\displaystyle \max_{-1\leq x\leq 1}|\pi_{n+1}(x)| = \frac{1}{2^n}$.
 With an affine transformation from the unit interval $[-1,1]$ to $[a,b]$: $x \rightarrow a+\frac{b-a}{2}(x+1)$
 \begin{center}
 \includegraphics[width=14cm]{bilder/TschbyNewtonVergleich.png}
@@ -126,8 +126,8 @@ With an affine transformation from the unit interval $[-1,1]$ to $[a,b]$: $x \ri
 \begin{liste}
   \item[+] No Runge Phenomenon (oscillations at the edge)
   \item[+] A single formula
-  \item[-] "Not embedded" (new measurements mean new polynomial calculation!)
-  \item[-] Practically: Measurements are often only uniformly possible (limited edge resolution)
+  \item[-] ``Not embedded'' (new measurements mean new polynomial calculation!)
+  \item[-] Practicality: Measurements are often only uniformly possible (limited edge resolution)
   \item[-] The range of interpolation is fixed (poor extrapolation outside the edge)
 \end{liste}
 
