@@ -96,7 +96,9 @@ $$\bm G = \bm U \bm D \bm V^T = \bm U \cdot \begin{bmatrix}
 \end{bmatrix} \cdot \bm V^T$$
 $\bm D$ ($(N+1) \times (m+1)$) is the central diagonal matrix with singular values,
 $\bm U$ ($(N+1) \times (N+1)$) and $\bm V$ ($(m+1) \times (m+1)$) are orthogonal and square
-matrices (meaning, among other things, that $\bm U^T = \bm U^{-1}$).\\
+matrices (meaning, among other things, that $\bm U^T = \bm U^{-1}$).
+The singular values $d_{ii}$ are the square roots of the eigenvalues of $G^T G$,
+where the eigenvalues are sorted in descending order.\\
 
 The decomposition itself is not further explained here and can be looked up elsewhere.
 SVD can be used to solve equation systems (as here), compute eigenvectors and eigenvalues,
