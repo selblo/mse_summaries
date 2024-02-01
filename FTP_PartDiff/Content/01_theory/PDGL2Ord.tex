@@ -1,0 +1,47 @@
+\subsection{PDGL 2.Ordnung}
+Lineare partielle Differentialgleichungen zweiter Ordnung haben die Form:
+$\boxed{\sum\limits_{i,j=1}^{n}{a_{ij}\partial_i\partial_j u}+\sum\limits_{i=1}^{n}{b_i\partial_i u}+cu=f}$
+
+\subsubsection{Klassifikation}
+Klassifikation nur für PDEs zweiter Ordnung!
+
+\begin{minipage}{9cm}
+  Eigenwertberechnung: (z.B. von $ \partial^2_xu+2\partial_x\partial_yu+\partial^2_yu=0 $) 
+  \begin{enumerate}
+    \item Symmetrische Matrix aufstellen und $\lambda$ in der Diagonalen abziehen. Z.B.: $A = \begin{pmatrix}
+      \partial_x^2 & \partial_x \partial_y \\
+      \partial_y \partial_x  & \partial_y^2
+    \end{pmatrix}$\\
+    Bei diagonalen Matrizen entsprechen die Eigenwerte den Diagonaleinträgen.
+    \item Determinante gleich 0 setzen: $\det(\mathbf{A}-\lambda \mathbf{I}) = 0\quad\Rightarrow\quad \lambda_i$
+    \item Gleichung lösen
+  \end{enumerate}
+\end{minipage}
+\begin{minipage}{9cm}
+  Alternativ (wenn z.B. sehr wüste PDE klassifiziert werden muss), können auch via Spur und Determinante die Vorzeichen der Eigenwerte herausgefunden werden:
+  \begin{enumerate}
+    \item Siehe links (Eigenwertberechnung): Matrix $A$ aufstellen
+    \item Determinante berechnen und versuchen aus Tabelle zu lesen:
+     $\det A = a_{11}a_{22} - a_{12}a_{21} = \lambda_1 \lambda_2$
+    \item Spur berechnen und versuchen aus Tabelle zu lesen:
+      $\tr(A) = a_{11} + a_{22} = \lambda_1 + \lambda_2$
+  \end{enumerate}
+  
+\end{minipage}
+
+\begin{center}
+\begin{tabular}{|l||l|l|l|l|l|}
+\hline
+\multirow{2}{*}{Klasse}&\multicolumn{3}{|c|}{Anzahl Eigenwerte} & det(A)&\multirow{2}{*}{Beispiel}\\
+& Positiv & Negativ & Verschwindend(=0) & für n=2 &\\
+\hline
+hyperbolisch& n-1 & 1 & 0 & det < 0 & Wellengleichung: $\frac{\partial^2 u}{\partial t^2} = \Delta u$ \\
+\hline
+parabolisch& n-1 & 0 & 1 & det = 0 & Wärmeleitung: $\frac{\partial u}{\partial t} = \Delta u$  \\
+\hline
+elliptisch&	n & 0 & 0 & det > 0 & Potential: $\Delta u = f$ \\
+\hline
+ultrahyperbolisch & >1 & >1 & 0 & - & -\\
+\hline
+\end{tabular}
+\end{center}

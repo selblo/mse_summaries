@@ -1,0 +1,42 @@
+
+% Define as main tex file
+% !TEX root = FTP_PartDiff.tex
+
+%%%%%%%%%%%%%%%%%%%%%%%%%
+% Dokumentinformationen %
+%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\titleinfo}{FTP\_PartDiff -- Partial Differential Equations}
+\newcommand{\authorinfo}{Theory: S. Eicher, Numerik: L. Schmid, S. Eicher, R.
+Koller, S. Boller, S. Bischof, D. Strebel, S. Blöchlinger}
+\newcommand{\versioninfo}{HS2023}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Standard projektübergreifender Header für
+% - Makros
+% - Farben
+% - Mathematische Operatoren
+%
+% DORT NUR ERGÄNZEN, NICHTS LÖSCHEN
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\include{header}
+
+% Möglichst keine Ergänzungen hier, sondern in header.tex
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\tableofcontents
+
+\newpage
+
+\input{Content/01_theory/Theory}
+\newpage
+\input{Content/02_numerics/numerics}
+\newpage
+\input{Content/03_transforms/Fourierreihe}
+\input{Content/03_transforms/FourierTransformation}
+\input{Content/03_transforms/LaplaceTransformation}
+\input{Content/04_calculation/calculation}
+
+\end{document}

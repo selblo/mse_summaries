@@ -1,0 +1,527 @@
+
+\section{Numerik}
+\subsection{Diskretisierung}
+\subsubsection{1.Ableitung}
+
+$$g'(x)\approx \frac{g(x+\Delta x)-g(x)}{\Delta x} \qquad\qquad \text{oder}
+\qquad\qquad \boxed{g'(x)\approx \frac{g(x+\Delta x)-g(x-\Delta x)}{2\Delta
+x}}\qquad \text{(Zentrale Differenz: Bessere Qualität)}$$
+\subsubsection{2.Ableitung}
+$\boxed{g''(x)\approx \frac{g(x-\Delta x)-2 g(x) + g(x+ \Delta x)}{\Delta x^2}}$ ist für zweite (bessere Qualität) Version die Gleiche
+
+\subsection{FDM}
+\textbf{TIPP:} Bei Anfangsbedingungen ungleich Null das Gleichungssystem selber von Hand herleiten, reduziert die Chance auf Fehler.
+\subsubsection{Grundgleichung: $-u''(x)=f(x)$}
+$ A^{(n)} \tilde{u}^{(n)} =f^{(n)}   $\\
+$A^{(n)}= \frac{1}{\Delta x^2} \tridiag_{n-1} (-1,2,-1) = \frac{1}{\Delta x^2}
+  \begin{bmatrix}
+             2& -1 & 0 & \ldots \\
+             -1& 2 & -1 & \ldots \\
+              0& -1 & 2 & \ldots \\
+              0& 0 & -1 & \ldots \\
+             \ldots
+           \end{bmatrix}$\qquad (eine $(n-1)\times(n-1)$-Matrize)\\
+Randwert: $u(0)= a \qquad u(n)=b $ \qquad
+$A^{(n)}\tilde{u}^{(n)} =\begin{bmatrix}
+             f(x_1^{(n)}) + \dfrac{a}{\Delta x^2} \\
+             f(x_2^{(n)}) \\
+             \vdots  \\
+             f(x_{(n-1)}^{(n)}) + \dfrac{b}{\Delta x^2}
+           \end{bmatrix} $\\
+\subsubsection{Grundgleichung: $T''(x) -  h T(x) = T_A$}
+$-T'' + h T(x) = h T_A$\\
+$A^{(n)}= \frac{1}{\Delta x^2} \tridiag_{n-1}
+(-1,2+h\Delta x^2,-1) = \frac{1}{\Delta x^2}
+  \begin{bmatrix}
+             2+h\Delta x^2& -1 & 0 & \ldots \\
+             -1& 2+h\Delta x^2 & -1 & \ldots \\
+              0& -1 & 2+h\Delta x^2 & \ldots \\
+              0& 0 & -1 & \ldots \\
+             \ldots
+           \end{bmatrix} $\\
+
+\subsubsection{Beispiel Hausübung 7}
+Gegeben: $ u''(x)=4(u(x)-x) $ mit den Randwerten $ u(0)=0 $  und $ u(1)=2 $ mit $\Delta x=1/3$.
+\\
+Gesucht: $ \tilde{u}(\frac{1}{3}) $ und $ \tilde{u}(\frac{2}{3}) $
+\\
+Lösen: Die Ableitung von $ u'' $ einsetzen, siehe oben, ergibt die allgemeine Gleichung von $ \frac{u(x-\Delta x)-2 u(x) + u(x+ \Delta x)}{\Delta x^2} =4 (u(x)-x) $, für die Punkte P1 und P2 ergibt das.
+\\
+P1: $ \frac{0-2 \tilde{u}(\frac{1}{3}) + \tilde{u}(\frac{2}{3})}{(\frac{1}{3})^2} =4(\tilde{u}(\frac{1}{3})-\frac{1}{3}) $
+\qquad \qquad
+P2: $ \frac{\tilde{u}(\frac{1}{3})-2 \tilde{u}(\frac{2}{3}) + 2}{(\frac{1}{3})^2} =4(\tilde{u}(\frac{2}{3})-\frac{2}{3}) $
+\\
+Nun das Gleichungssysteme lösen ergibt $ \tilde{u}(\frac{1}{3}) $ und $ \tilde{u}(\frac{2}{3}) $
+
+
+\subsection{Konvergenz}
+Ein Modell ist konvergent wenn bei $n\rightarrow\infty$ die Schätzung $\tilde{u}$ und $u$ übereinstimmt.\\
+
+$\boxed{||v||_{\Delta x}=\sqrt{\Delta x (v_1^2+v_2^2 + \ldots v_{n-1}^2)}= \sqrt{\Delta
+x}||v||}$\\
+Es konvergiert wenn: $\lim\limits_{n\to \infty
+}||\tilde{u}^{(n)}-u^{(n)}||_{1/n}=\sqrt{\frac{1}{n}}||\tilde{u}^{(n)}-u^{(n)}||=\sqrt{\frac{1}{n}}\sqrt{(\tilde{u}_1-u_1)^2
++ \ldots + (\tilde{u}_{n-1}-u_{n-1})}=0$\\
+
+\subsection{Konsistenz}
+Ein Modell ist konsistent wenn das Modell durch Vereinfachung mit der Realität übereinstimmt.
+
+\subsubsection{Residuum}
+Exakt: $A^{(n)}\cdot \tilde{u}^{(n)}-f^{(n)}=0$\\
+Residuum: $A^{(n)}\cdot (u^{(n)}-\tilde{u}^{(n)})=r^{(n)}$
+
+Eine Approximationsverfahren ist Konsistent, wenn $\boxed{\lim\limits_{n\rightarrow \infty}||r^{(n)}||_{1/n}=0}$ gilt.\\
+
+Konsistenz ist eine notwendige, aber nicht hinreichende Bedingung für die Konvergenz eines Verfahrens.
+
+\subsubsection{Taylor}
+$g(x)= \sum\limits_{k=0}^n\frac{1}{k!} g^{(k)}(x_0)(x-x_0)^k +
+\frac{1}{(n+1)!}g^{(n+1)}(\xi)(x-x_0)^{n+1}$ = Taylor
+Approximationspolynom  + Lagrangsches Restglied\\
+$\xi \longmapsto [x_0 < \xi < x]$\\
+
+Alternative
+$ f(x_0+h)=f(x_0)+f'(x_0)\frac{h}{1!}+...+f^{(n)}(x_0)\frac{h^n}{n!}+R_n(h) $ wobei $ h = x - x_0 $
+
+
+
+
+\subsubsection{Vorwärt/Rückwärtsdifferenz}
+$g'(x) - \frac{g(x+\Delta x) + g(x)}{\Delta x}= O(\Delta x) =
+\frac{g''(\xi)}{2}\Delta x \Rightarrow$  1. Ordnung
+
+
+\subsubsection{Zentraldifferenz}
+$g'(x) - \frac{g(x+\Delta x) + g(x-\Delta x)}{2\Delta x}= O(\Delta x^2) =
+\frac{g'''(\xi_1) + g'''(\xi_2)}{12}\Delta x^2 \Rightarrow$ 2. Ordnung
+
+
+
+\subsubsection{2.Ableitung}
+$g''(x) - \frac{g(x+\Delta x) -2 g(x)+ g(x-\Delta x)}{2\Delta x}= O(\Delta x^2) =
+\frac{g''''(\xi_1) + g''''(\xi_2)}{24}\Delta x^2 \Rightarrow$ 2. Ordnung\\
+\\
+Globaler Konsistenzfehler für 2. Ableitung: $||r^{(n)}||_{1/n}\leq \frac 1{12}\max\limits_{\xi\in[0,1]}|f''(\xi)|\cdot \Delta x^2$
+
+\subsection{Stabilität}
+Die Stabilität einer Matrize kann über deren Norm $||A||_*$ bestimmt werden.\\
+
+Es gilt: $||A||_*=\max\limits_{||x||_*=1}||A\cdot x||_*$\qquad$||A\cdot x||_*\leq||A||~||x||_*$\\
+
+Ein Approximationsverfahren ist stabil wenn, wenn unabhängig von der konstante $C$ gilt:
+$\boxed{||{A^{(n)}}^{-1}||_{1/n}\leq C}$\\
+
+
+
+Die Bestimmung von $||A||$ ist im Allgemeinen nicht einfach, darum wird $||A||$ oft über den Umweg der Diagonalisierung von A bestimmt.
+
+$y=A\cdot x\qquad\Rightarrow\qquad\tilde{y}=D\cdot\tilde{x}$\qquad mit\qquad $D=\begin{bmatrix}\lambda_1&&\\&\ddots&\\&&\lambda_n\end{bmatrix}$\\
+
+Es gilt $TAT^T=D$, wobei T die Transformationsmatrix vom $x$-Koordinatensystem zum $\tilde{x}$-Koordinatensystem darstellt. $T$ ist orthogonal.
+Die Diagonalelemente $\lambda_1,\ldots,\lambda_n$ werden auch Eigenwerte genannt.\\
+
+Daraus folgt: $\boxed{||A||=\max\limits_{k}|\lambda_k|}$ sowie $\boxed{||A^{-1}||=\{\min\limits_{k}|\lambda_k|\}^{-1}}$\\
+
+Eigenwerte bestimmen: $\boxed{\det(A-\lambda I)=|A-\lambda I|=0}\qquad \Rightarrow \qquad \lambda_1,\ldots,\lambda_n$\\
+Eigenvektoren bestimmen (für jedes $\lambda_i$): $(A-\lambda_i I) \cdot v_i=0\qquad \Rightarrow \qquad v_1,\ldots,v_n$\\
+
+\subsection{FDM für elliptisch PDGL (Poisson: $-\Delta u = f$)}
+%Dirichletsche Randbedingung ($u(x,y)= f(x,y) \forall (x,y)\epsilon \delta G)$\\
+
+Gleichung:    $-\Delta u(x,y)= f(x,y) \qquad
+-\Delta u(x,y) = -\left(\frac{g(x+\Delta x,y ) -2 g(x,y)+ g(x-\Delta x,y)}{2\Delta x} +
+\frac{g(x,y+\Delta y) -2 g(x,y)+ g(x,y-\Delta y)}{2\Delta y}\right)$\\
+
+$h=\Delta x = \Delta y \Rightarrow \boxed{-\frac 1 {h^2} (\tilde{u}_{j,k+1} +
+\tilde{u}_{j+1,k} + \tilde{u}_{j,k-1} + \tilde{u}_{j-1,k} - 4 \tilde{u}_{j,k})
+= f_{j, k}}$\\[0.4cm]
+
+
+$B \tilde{u} = f \Rightarrow B= \begin{bmatrix}
+             T& D & 0 & \ldots \\
+             D& T & D & \ldots \\
+              0& D & T & \ldots \\
+              0& 0 & D & \ldots \\
+             \ldots
+           \end{bmatrix}$
+wobei $T=\frac{1}{h^2}\begin{bmatrix}
+             4& -1 & 0 & \ldots \\
+             -1& 4 & -1 & \ldots \\
+              0& -1 & 4 & \ldots \\
+              0& 0 & -1 & \ldots \\
+             \ldots
+           \end{bmatrix}$
+und $D=\frac{1}{h^2}\begin{bmatrix}
+             -1& 0& 0 & \ldots \\
+             0 & -1 &  & \ldots \\
+              0& 0&-1 & \ldots \\
+             \ldots
+           \end{bmatrix}$\\
+   $\tilde{u}=\begin{bmatrix}
+                \tilde{u}_{1,1}\\
+                \tilde{u}_{2,1}\\
+                \vdots\\
+                \tilde{u}_{1,2}\\
+                \tilde{u}_{2,2}\\
+                \vdots
+              \end{bmatrix}$
+    $f=\begin{bmatrix}
+               f_{1,1}\\
+               f_{2,1}\\
+               \vdots\\
+               f_{1,2}\\
+               f_{2,2}\\
+               \vdots
+             \end{bmatrix} +
+             \frac{1}{h^2}\begin{bmatrix}
+                u(0,0) + u(1,0) + u(0,1)\\
+                u(2,0)\\
+                \vdots\\
+                u(0,2)\\
+                0\\
+                \vdots
+              \end{bmatrix}$ \\
+   Randbedingungen müssen in f eingearbeitet werden falls $u(x,y) \neq 0$ auf $\partial\Omega$
+
+
+\subsubsection{Irreguläre Gitter (für den Rand)}
+\begin{minipage}{3cm}
+	\includegraphics[width=3cm]{Content/02_numerics/irregulaereGitter.png}
+
+\end{minipage}
+\hfill
+\begin{minipage}{14cm}
+
+$- \frac{2}{h^2} \cdot \left(\frac{u(x+e \cdot h,y)-u(x,y)}{e(e+w)} +\frac{u(x-w \cdot h,y)-u(x,y)}{w(e+w)}+\frac{u(x,y+n \cdot h)-u(x,y)}{n(n+s)} + \frac{u(x,y-s \cdot h)-u(x,y)}{s(n+s)}\right)=f(x,y)$\\
+\\
+oder\\
+\\
+$- \frac{2}{h^2} \cdot \left(\frac{u(P_E) - u(P)}{e(e+w)} + \frac{u(P_W) - u(P)}{w(e+w)} + \frac{u(P_N) - u(P)}{n(n+s)} + \frac{u(P_S) - u(P)}{s(n+s)}\right) = f(x,y)$\\
+\\
+Wenn $\Delta x, \Delta y$ konstant ($w \cdot h = e \cdot h,\, n \cdot h = s \cdot h$) sowie $h=1$:\\
+\\
+$-\left(\frac{u(P_E) + u(P_W) - 2 u(P)}{\Delta x^2} + \frac{u(P_N) + u(P_S) - 2 u(P)}{\Delta y^2}\right) = f(x,y)$\\
+
+\end{minipage}
+\subsubsection{Neumann Rand
+%$\partial_n u(x,y) \forall (x,y) \epsilon \partial_n G$
+}
+\begin{minipage}{4cm}
+	\includegraphics[width=4cm]{Content/02_numerics/NeumannRand.png}
+\end{minipage}
+\hfill
+\begin{minipage}{14cm}
+Bei Neumann Rand-Bedingungen müssen die Randpunkte ebenfalls berechnet werden.
+In der Abbildung sind $P$, $P_N$ und $P_S$ auf dem Rand,
+$P_E$ ist liegt innerhalb, und $P_W$ ausserhalb von $\Omega$.
+Gegeben sei  die Neumannsche Randbedingung in $P$: $\boxed{\partFrac{u}{n}(P)=g(P)}$\\
+Aus der Ableitung $u_x(P) = \partFrac{u}{n}(P) = \frac{u(P_E)-u(P_W)}{2h}$
+kann der ausserhalb liegende Punkt $u(P_W)$ berechnet werden: $u(P_W)=u(P_E)-2h\cdot u_x(P)$.
+Somit gilt:
+
+$\boxed{\frac{2u(P_E) + u(P_N) +
+u(P_S)- 4 u(P) - 2h\cdot u_x(P)}{h^2}}$\\
+
+Sind $P_W$ und $P_E$ vertauscht, so ist das Vorzeichen umgekehrt:
+$u(P_W)=u(P_E)+2h\cdot u_x(P)$.\\
+
+\textbf{Spiegelmethode}:\\
+Wenn $u_x(x,y) = 0$, dann spricht man auch von der Spiegelmethode. Die Punkte $P_W$ und $P_E$ weisen dann die gleiche Wertigkeit auf ($P_W=P_E$).
+\end{minipage}
+
+
+\subsection{FDM für parabolische PDGL}
+	Wärmeleitungsgleichung: $\boxed{u_t(x,t)=u_{xx}(x,t)}$\qquad $f(0)=f(1)=0$ \qquad$ \overset{\_}{\Omega}=[0,1]\times [0,\infty]$\\
+
+	Randbedingungen: $u(x,0)=f(x) \qquad u(0,t)=u(1,t)=0\qquad x\in(0,1) \qquad t\in[0,\infty)$
+
+\newpage
+
+\subsubsection{Explizites Verfahren (Richardson-Verfahren)}
+$\boxed{\frac{\tilde{u}(x,t+\Delta t) - \tilde{u}(x,t)}{\Delta t} =
+\frac{\tilde{u}(x+\Delta x, t)-2\tilde{u}(x,y) + \tilde{u}( x - \Delta x, t )} {\Delta x^2}} \qquad \Delta x=\frac{1}{n} \qquad \Delta t=\frac{r}{n^2} \qquad \boxed{r=\frac{\Delta
+t}{\Delta x^2}}$\\
+
+\textbf{Idee:} Aus den Positionen $k$ wird $k+1$ berechnet: $\tilde{u}_{j,k+1} = r \tilde{u}_{j-1,k} + (1-2r)\tilde{u}_{j,k} + r \tilde{u}_{j+1,k}$\\
+Diskretisierung von t: k, k+1, \ldots\\
+Diskretisierung von x: j, j+1, \ldots\\
+
+\begin{itemize}
+\item Initialisierung, Randbedingung: $\tilde{u}_{j,0}=f(j/n)$ \qquad $\tilde{u}_{0,k}=\tilde{u}_{n,k}=0$
+\item Approximationsmatrize: $C^{(n)}=\tridiag_{n-1}(r,1-2r,r)=\begin{bmatrix}
+1-2r& r		& 0		& 0 	&\cdots\\
+r	& 1-2r  & r		& 0		&\cdots\\
+0	& r		& 1-2r 	& r 	&\cdots\\
+0	& 0		& r		& 1-2r 	&\cdots\\
+\vdots&	\vdots&\vdots&\vdots&\ddots
+\end{bmatrix}$
+\item Einen Schritt berechnen: $\tilde{u}^{(k+1)}=C^{(n)} \tilde{u}^{(k)}$
+\item $k$-Schritte berechnen: $\tilde{u}^{(k)}=\big\{C^{(n)}\big\}^k \tilde{u}^{(0)}$
+\end{itemize}
+
+\textbf{Konvergenzverhalten:} \\
+
+\begin{minipage}{6cm}
+\includegraphics[width=6cm]{Content/02_numerics/KonvExplizit.png}
+\end{minipage}
+\hfill
+\begin{minipage}{12cm}
+Verfahren ist stabil wenn: $||C^{(n)}|| < 1 \qquad \Rightarrow\qquad r < \frac{1}{2}$\\
+
+Dies macht es nötig, die Zeitschritte extrem klein zu wählen. Darum ist das Verfahren auch nicht wirklich praxistauglich, weil sehr hohe Rechenkapazität nötig sind.\\
+
+Der Grund für das schlechte Konvergenzverhalten kann geometrisch visualisiert werden. In die Berechnung des Wertes im Knoten $P$, werden die Werte aller schwarz eingefärbter Knoten eingehen. Von den Randwerten wird nur die 0-te Stufe berücksichtigt.
+\end{minipage}
+Damit das Verfahren mit $C^k$ für k-Schritte berechnet werden kann, müssen die
+rot eingefärbten Werte (links und rechts) gleich 0 sein (Boundary Condition).
+Für den Randvektor $\tilde{u}^{(0)}$ werden nur die untersten schwarzen 7 Punkte
+eingefüllt.
+
+\subsubsection{Implizites Verfahren}
+Im Unterschied zum expliziten Verfahren, das Werte vom vorherigen Zeitpunkt nutzt, wird hier das ein Gleichungssystem global gelöst.\\
+
+$\boxed{\frac{\tilde{u}(x,t) - \tilde{u}(x,t -\Delta t)}{\Delta t} =
+\frac{\tilde{u}(x+\Delta x, t)-2\tilde{u}(x,y) + \tilde{u}( x - \Delta x, t )} {\Delta x^2}}
+ \qquad \Delta x=\frac{1}{n} \qquad \Delta t=\frac{r}{n^2} \qquad \boxed{r=\frac{\Delta
+t}{\Delta x^2}}$\\
+
+$ \tilde{u}_{j,k} = - r \tilde{u}_{j-1,k+1} + (1+2r)\tilde{u}_{j,k+1} - r \tilde{u}_{j+1,k+1}$
+
+\textbf{Idee:} Die Ableitungen werden mittels Rückwärtsdifferenz berechnet\\
+
+
+\begin{itemize}
+\item Initialisierung, Randbedingung: $\tilde{u}_{j,0}=f(j/n)$ \qquad $\tilde{u}_{0,k}=\tilde{u}_{n,k}=0$
+\item Approximationsmatrize: $E^{(n)}=\tridiag_{n-1}(-r,1+2r,-r)=\begin{bmatrix}
+1+2r& -r		& 0		& 0 	&\cdots\\
+-r	& 1+2r  & -r		& 0		&\cdots\\
+0	& -r		& 1+2r 	& -r 	&\cdots\\
+0	& 0		& -r		& 1+2r 	&\cdots\\
+\vdots&	\vdots&\vdots&\vdots&\ddots
+\end{bmatrix}$
+\item Gleichung: $\tilde{u}^{(k)}=E^{(n)} \cdot \tilde{u}^{(k + 1)}$
+\item Einen Schritt berechnen: $\tilde{u}^{(k+1)}=\left\{E^{(n)}\right\}^{-1} \tilde{u}^{(k)}$
+\item $k$-Schritte berechnen: $\tilde{u}^{(k)}=\left\{E^{(n)}\right\}^{\bm{-}k} \tilde{u}^{(0)}$
+\end{itemize}
+
+\textbf{Vorteil:} Das implizite Verfahren ist immer stabil, unabhängig von der Zeitauflösung $\Delta t$\\
+\textbf{Nachteil:} Aufwendige Matrixinversion nötig.
+
+\subsubsection{Crank Nicolson -Verfahren (gemischtes Verfahren)}
+
+Die Idee des Verfahrens von Crank-Nicolson ist es die beiden Approximationen
+
+$\boxed{\frac{\tilde{u}(x,t+\Delta t) - \tilde{u}(x,t)}{\Delta t} =
+\frac{\tilde{u}(x+\Delta x, t)-2\tilde{u}(x,t) + \tilde{u}( x - \Delta x, t )} {\Delta x^2}}$\\
+$\boxed{\frac{\tilde{u}(x,t+\Delta t) - \tilde{u}(x,t)}{\Delta t} =
+\frac{\tilde{u}(x+\Delta x, t+\Delta t)-2\tilde{u}(x,t+\Delta t) + \tilde{u}( x - \Delta x, t +\Delta t)} {\Delta x^2}}$
+
+zu mitteln. Mit dieser Idee geht das stetige Problem in folgendes diskretes Problem über:
+
+$-r \tilde{u}_{j-1,k+1} + (2+2r)\tilde{u}_{j,k+1} - r \tilde{u}_{j+1,k+1} = r
+\tilde{u}_{j-1,k} + (2-2r)\tilde{u}_{j,k} + r \tilde{u}_{j+1,k} $
+
+Wie bei den anderen Verfahren gilt: $\Delta x=\frac{1}{n} \qquad \Delta t=\frac{r}{n^2} \qquad \boxed{r=\frac{\Delta
+t}{\Delta x^2}}$
+\begin{itemize}
+\item Initialisierung, Randbedingung: $\tilde{u}_{j,0}=f(j/n)$ \qquad $\tilde{u}_{0,k}=\tilde{u}_{n,k}=0$
+\item Approximationsmatrizen:\\
+$F^{(n)}=E^{(n)}+I=\tridiag_{n-1}(-r,2+2r,-r)=\begin{bmatrix}
+2+2r& -r	& 0		& 0 	&\cdots\\
+-r	& 2+2r  & -r	& 0		&\cdots\\
+0	& -r	& 2+2r 	& -r 	&\cdots\\
+0	& 0		& -r	& 2+2r 	&\cdots\\
+\vdots&	\vdots&\vdots&\vdots&\ddots
+\end{bmatrix}$\\
+$G^{(n)}=C^{(n)}+I=\tridiag_{n-1}(~r,~2-2r,~r~)=\begin{bmatrix}
+2-2r& r		& 0		& 0 	&\cdots\\
+r	& 2-2r  & r		& 0		&\cdots\\
+0	& r		& 2-2r 	& r 	&\cdots\\
+0	& 0		& r		& 2-2r 	&\cdots\\
+\vdots&	\vdots&\vdots&\vdots&\ddots
+\end{bmatrix}$
+\item Gleichung: $F^{(n)} \cdot \tilde{u}^{(k+1)}=G^{(n)} \cdot \tilde{u}^{(k)}$
+\item Einen Schritt berechnen: $\tilde{u}^{(k+1)}=\left\{F^{(n)}\right\}^{-1} \cdot G^{(n)}\cdot \tilde{u}^{(k)}$
+\item $k$-Schritte berechnen: $\tilde{u}^{(k)}=\left(\left\{F^{(n)}\right\}^{-1} \cdot G^{(n)}\right)^{k}\cdot \tilde{u}^{(0)}$
+\end{itemize}
+
+\subsection{FDM für Hyperbolische PDGL}
+
+\begin{minipage}{8cm}
+$u_{tt}=u_{xx} \rightarrow \text{homogen}$\\
+$u_{tt} -u_{xx}= v(x,t) \rightarrow \text{inhomogen}$
+\end{minipage}
+\begin{minipage}{5cm}
+Anfangsbedingungen:\\
+$u(x,0)=f(x) \quad u_t(x,0)=g(x)$
+\end{minipage}\\
+
+\subsubsection{Leap-Frog-Schema}
+$\tilde{u}_{j,k+1}=r^2 \tilde{u}_{j-1,k} + 2(1-r^2)\tilde{u}_{j,k}+ r^2
+\tilde{u}_{j+1,k}-\tilde{u}_{j,k-1} \qquad r = \frac{\Delta t}{\Delta x}$\\
+\\
+$\tilde{u}_{j,0} = f(j\Delta x) \qquad \tilde{u}_{j,1}= f(j\Delta x) + g(j\Delta x)\Delta t + f''(j \Delta x) \frac{\Delta t^2}{2} $\\
+
+\subsubsection{Transportgleichung}
+$$u_x(x,t) + u_t(x, t) = 0 \qquad u(x,0)=f(x) \longrightarrow u(x,t)=f(x-t)$$
+
+
+\subparagraph{Downwind Scheme}
+$$\frac{\tilde{u}(x,t+\Delta t)-\tilde{u}(x,t)}{\Delta t} + \frac{\tilde{u}(x + \Delta x,t) - \tilde{u}(x, t)}{\Delta x} = 0 \qquad
+\tilde{u}_{j,k+1}=(1+r)\tilde{u}_{j,k} - r\tilde{u}_{j+1,k} \quad r=\frac{\Delta t}{\Delta x} \quad \text{Meist Divergent}$$
+
+\subparagraph{Upwind Scheme}
+$$\frac{\tilde{u}(x,t+\Delta t)-\tilde{u}(x,t)}{\Delta t} + \frac{\tilde{u}(x,t) - \tilde{u}(x-\Delta x,
+t)}{\Delta x} = 0 \qquad
+\tilde{u}_{j,k+1}=(1-r)\tilde{u}_{j,k} + r\tilde{u}_{j-1,k} \quad \text{Konvergent für} \quad r=\frac{\Delta t}{\Delta x} \leq 1$$
+
+\subparagraph{Centered Scheme}
+$$\frac{\tilde{u}(x,t+\Delta t)-\tilde{u}(x,t)}{\Delta t} + \frac{\tilde{u}(x + \Delta x,t) - \tilde{u}(x - \Delta x, t)}{2 \Delta x} = 0 \qquad
+\tilde{u}_{j,k+1}= - \frac{r}{2}\tilde{u}_{j+1,k} + \tilde{u}_{j,k} + \frac{r}{2}\tilde{u}_{j-1,k} \quad r=\frac{\Delta t}{\Delta x} $$
+
+
+\subparagraph{Lax-Wendroff Scheme}
+$$\tilde{u}_{j,k+1}=  A\tilde{u}_{j+1,k} + B \tilde{u}_{j,k} + C \tilde{u}_{j-1,k} \quad r=\frac{\Delta t}{\Delta x} \quad A = \frac{r^2 - r}{2} \quad B = 1- r^2 \quad C= \frac{r^2 +r}{2}$$
+
+\subsection{FVM (Finite Volumen Methode, Verfahren von Voronoi)}
+$\Delta u=0$\qquad in \quad$\Omega$\\
+$u(x,y)=f(x,y)$ \qquad auf \quad$\partial\Omega$\\
+Der Satz von Gauss sagt: $\boxed{\oint\limits_{\Gamma}{\Delta u(x,y) dx dy}=\int\limits_{\Gamma}{\mathrm{div}~\mathrm{grad}~ u(x,y) dx dy}=\oint\limits_{\partial\Gamma}{\mathrm{grad}~ u(x,y) d\vec{n}}}$\\
+
+
+Wobei der Randnormalvektor $\vec{n}$ immer senkrecht gegen das Aussengebiet $\Gamma$ gerichtet wird.\\
+
+$\Rightarrow$ $\oint\limits_{\Gamma}{\Delta u(x,y) dx dy}=\oint\limits_{\partial\Gamma}{\mathrm{grad}~ u(x,y) d\vec{n}}=0$
+
+\begin{minipage}{4cm}
+	\includegraphics[width=4cm]{Content/02_numerics/FVMPrinzip.png}
+\end{minipage}
+\hfill
+\begin{minipage}{14cm}
+	$\frac{u(P_E)-u(P_P)}{h}\cdot h+\frac{u(P_N)-u(P_P)}{h}\cdot h+\frac{u(P_W)-u(P_P)}{h}\cdot h+\frac{u(P_S)-u(P_P)}{h}\cdot h\approx 0$\\
+
+	$\Rightarrow\tilde{u}(P_E)+\tilde{u}(P_N)+\tilde{u}(P_W)+\tilde{u}(P_S)-4\cdot\tilde{u}(P_P)=0$
+\end{minipage}
+
+\textbf{Vorteile:}\\
+\begin{itemize}
+\item Man kann mit Flussgrössen und Bilanzen rechnen, dadurch kann der
+Laplace-Operator $(\Delta)$ verzichtet werden und somit die aufwendige Mathematik umgangen werden.
+\item Es kann mit komplizierten Geometrien gerechnet werden.
+\end{itemize}
+
+\begin{minipage}{6cm}
+	\includegraphics[width=6cm]{Content/02_numerics/FVM1.png}
+\end{minipage}
+\hfill
+\begin{minipage}{12cm}
+\textbf{Vorgehen bei der Berechnung:}\\
+\begin{enumerate}
+\item Punkte $P_1,\ldots,P_n$ wählen.
+\item Aufteilen des Bereichs in kleine Teilbereiche, z.B. durch Mittelsenkrechte
+\item Rand diskretisieren.\\
+\end{enumerate}
+
+Für $P_i$-Zelle: $\sum\limits_{j} \dfrac{u(P_{i,j}) - u(P_i)}{\delta_{i,j}} \cdot \lambda_{i,j} = 0$
+
+Für P1-Zelle:\quad $\frac{\tilde{u}(P_2)-\tilde{u}(P_1)}{\delta_{1,2}}\cdot\lambda_{1,2}+\frac{\tilde{u}(P_3)-\tilde{u}(P_1)}{\delta_{1,3}}\cdot\lambda_{1,3}+\frac{\tilde{u}(R_1)-\tilde{u}(P_1)}{\delta_1}\cdot\lambda_1=0$\\
+
+Für P2-Zelle:\quad $\frac{\tilde{u}(P_1)-\tilde{u}(P_2)}{\delta_{1,2}}\cdot\lambda_{1,2}+\frac{\tilde{u}(P_3)-\tilde{u}(P_2)}{\delta_{2,3}}\cdot\lambda_{2,3}+\frac{\tilde{u}(R_2)-\tilde{u}(P_2)}{\delta_2}\cdot\lambda_2=0$\\
+
+Für P3-Zelle:\quad $\frac{\tilde{u}(P_2)-\tilde{u}(P_3)}{\delta_{2,3}}\cdot\lambda_{2,3}+\frac{\tilde{u}(P_1)-\tilde{u}(P_3)}{\delta_{1,3}}\cdot\lambda_{1,3}+\frac{\tilde{u}(R_3)-\tilde{u}(P_3)}{\delta_3}\cdot\lambda_3=0$\\
+\end{minipage}
+
+\begin{minipage}{6cm}
+	\includegraphics[width=6cm]{Content/02_numerics/FVM2.png}
+\end{minipage}
+\hfill
+\begin{minipage}{12cm}
+
+ $\frac{\tilde{u}(P_E)-\tilde{u}(P_N)}{1/4\cdot\sqrt{2}}\cdot\frac{\sqrt{2}}{2}+\frac{\tilde{u}(P_W)-\tilde{u}(P_N)}{1/4\cdot\sqrt{2}}\cdot\frac{\sqrt{2}}{2}+\frac{\tilde{u}(R_N)-\tilde{u}(P_N)}{1/4}\cdot 1=0$\\
+
+ $(\tilde{u}_E-\tilde{u}_N)\cdot 2 + (\tilde{u}_W-\tilde{u}_N)\cdot 2 + (1/2-\tilde{u}_N)\cdot 4=0$\\
+
+ $0\cdot\tilde{u}_S+2\cdot\tilde{u}_E+2\cdot\tilde{u}_W-8\cdot\tilde{u}_N+2=0$
+
+
+\end{minipage}
+
+\begin{minipage}{6cm}
+\includegraphics[width=6cm]{Content/02_numerics/fvm_beispiel.pdf}
+\end{minipage}
+\hfill
+\begin{minipage}{12cm}
+
+u1: $\frac{u(b_1) - u(p_1)}{h/2} \cdot h + \frac{u(b_2) - u(p_1)}{h/2} \cdot h +
+\frac{u(b_3) - u(p_1)}{h/2} \cdot s_2 + \frac{u(p_2) - u(p_1)}{h} \cdot s_1 $\\
+\colorbox{yellow}{Achtung wenns schnell gehen muss: $\frac{u(b_2) - u(p_1)}{h/2}
+\cdot h = (u(b_2) - u(p_1)) \cdot 2$}
+
+\end{minipage}
+
+example with $\Delta u(x,y) \neq 0$ and two voronoi points: \\
+The function $u(x,y)$ is defined on the square $\Omega =[0,3]\times [0,3]$. The function $u(x,y)$ satisfies in $\Omega$ $$  \Delta u(x,y)+4=0 $$ and $u(x,y)=0$ on the boundary of $\Omega$. Determine approximate values for $u(1,1)$ and $u(2,2)$. Use finite volumes à la Voronoi with Voronoi-points $(1,1)$ and $(2,2)$
+
+
+\begin{minipage}{6cm}
+  \begin{tikzpicture}
+
+    \draw[thick,-latex] (0,0) -- (3.3,0) node[anchor=north](){${x}$};
+    \draw[thick,-latex] (0,0) -- (0,3.3) node[anchor= west](){${y}$};
+
+
+    \foreach \x in {0,1,...,3}  {   % for x-axis
+      \draw [] (\x,0) -- (\x,-0.1) node[anchor=north](){0};
+      \draw [] (0,\x) -- (-0.1,\x)  node[anchor=east](){0};
+      \node[anchor=center] () at (\x,0) {\textbullet};
+      \node[anchor=center] () at (0, \x) {\textbullet};
+      \node[anchor=center] () at (3, \x) {\textbullet};
+      \node[anchor=center] () at (\x, 3) {\textbullet};
+    }
+
+
+    \node[anchor=center, red] () at (1, 1) {\textbullet};
+    \node[anchor=center, red] () at (2, 2) {\textbullet};
+    \node[anchor=west, red] () at (1, 1) {$\tilde u_1$};
+    \node[anchor=east, red] () at (2, 2) {$\tilde u_2$};
+
+    \draw[green, thick] (1, 1) -- (2, 2);
+    \draw[red, thick] (0, 0) -- (0, 3);
+    \draw[red, thick] (0, 0) -- (3, 0);
+    \draw[red, thick] (3, 0) -- (3, 3);
+    \draw[red, thick] (0, 3) -- (3, 3);
+    \draw[blue, thick] (1,1) -- (0,1);
+    \draw[blue, thick] (2,2) -- (3,2);
+    \draw[green, thick] (0,3) -- (3,0);
+
+
+  \end{tikzpicture}
+
+\end{minipage}
+\hfill
+\begin{minipage}{12cm}
+$$ \frac{1}{2} \int_{0}^{3} \int_{0}^{3} -4 \,dxdy = -18 $$
+Function integrated over the voronoi cell example 68 in the script
+$$
+\frac{0-\tilde u_1}{\textcolor{blue}{1}} \textcolor{red}{6} + \frac{\tilde u_2  -\tilde u_1}{\textcolor{green}{\sqrt{2}}} \textcolor{green}{3\sqrt{2}} = -18
+$$
+$$
+\frac{0-\tilde u_2}{\textcolor{blue}{1}} \textcolor{red}{6} + \frac{\tilde u_1 -\tilde u_2}{\textcolor{green}{\sqrt{2}}} \textcolor{green}{3\sqrt{2}} = -18$$
+
+$$ A = \begin{bmatrix}
+-9 &  3\\
+3 & -9
+\end{bmatrix} \begin{pmatrix}
+\tilde u_1 \\
+\tilde u_2
+\end{pmatrix}= \begin{pmatrix}
+-18 \\
+-18
+\end{pmatrix}
+$$
+
+
+\end{minipage}
+
+
+\input{Content/02_numerics/FEM}
