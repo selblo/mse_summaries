@@ -1,87 +1,89 @@
 \section{Laplace Transformation}
 	$$\boxed{F(s)=\int\limits_0^\infty f(t)e^{-st}dt} \qquad s=\sigma +j\omega$$\\
-	- Definitionsbereich nur für \textbf{kausale} Systeme $\boxed{t\geq 0}$\\
-	- Integrierbar über das Intervall $(0,\infty)$\\
-	- Wachstum kleiner als der von eienr Exponentialfunktion $\boxed{\sigma > 0}$\\
-	- $\sigma$ ist der Dämpfungsfaktor: $e^{-s}=e^{-\sigma} \cdot e^{-j\omega}$ \\
-	- Fourier-Transformierte $F(\omega)$ kann durch die
-	Laplace-Transformation $F(s)$ ausgedrückt werden.  \\
-	- Fourier $\longleftrightarrow$ Laplace Umwandlungen nur wenn Polstelle
-	($\sigma > 0$) dh. links von $j\omega$ Achse und kausal!\\
-	- $f(0+)$: Entspricht der Anfangsbedingung zum Zeitpunkt > 0 (kausal).
-  
- 	\subsection{Eigenschaften}
+	- Applicable only for \textbf{causal} systems $\boxed{t\geq 0}$\\
+	- Integrable over the interval $(0,\infty)$\\
+	- Growth less than that of an exponential function $\boxed{\sigma > 0}$\\
+	- $\sigma$ is the damping factor: $e^{-s}=e^{-\sigma} \cdot e^{-j\omega}$ \\
+	- Fourier-transform $F(\omega)$ can be expressed through Laplace transformation $F(s)$.  \\
+	- Fourier $\longleftrightarrow$ Laplace transformations only if there is a pole ($\sigma > 0$), i.e.,
+		to the left of the $j\omega$ axis and causal!\\
+	- $f(0+)$: Corresponds to the initial condition at a time greater than 0 (causal).
+
+ 	\subsection{Properties}
  	    \label{sec:Laplace Umwandulungen}
   		\renewcommand{\arraystretch}{2}
 		\begin{tabular}{|l|l c p{5.5cm}|}
         	\hline
-        	Linearität & 
+        	Linearity &
  			$\alpha\cdot f(t) + \beta\cdot g(t)$ & $\FT$ & $\alpha\cdot F(s) +
  			\beta\cdot G(s)$ \\
  			\hline
- 			Verschiebung im Zeitbereich &
+ 			Time-domain shift &
  			$f(t\pm t_0) $ & $\FT$ & $ F(s)e^{\pm t_0 s}$ \\
  			\hline
- 			Dämpfung (Verschiebung im Frequenzbereich) &
+ 			Damping (Frequency-domain shift) &
  			$f(t)e^{\mp\alpha t}$ & $\FT$ & $F(s\pm\alpha)$ \\
  			\hline
- 			"Ahnlichkeit&
+ 			Similarity&
  			$f(\alpha t)$ & $\FT$ & $\frac{1}{\alpha}F \left (\frac{s}{\alpha} \right )
  			\quad 0 <\alpha \in\mathbb{R}$ \\
  			\hline
- 			Faltung im Zeitbereich &
+ 			Time-domain convolution &
  			$f(t) \ast g(t)$ & $\FT$ &
  			$F(s) \cdot G(s)$\\
- 			\hline 			
- 			Faltung im Frequenzbereich &
+ 			\hline
+ 			Frequency-domain convolution &
  			$f(t) \cdot g(t)$ & $\FT$ & $\frac{1}{2 \pi j} F(s) \ast G(s)$ \\
  			\hline
- 			Differentiation im Zeitbereich &
- 			$f'(t)$ & $\FT$ & $sF(s) - f(0+)$ \\ 
+ 			Time-domain differentiation &
+ 			$f'(t)$ & $\FT$ & $sF(s) - f(0+)$ \\
  			&
- 			$f''(t)$ & $\FT$ & $s^2 F(s) - sf(0+) - f'(0+)$\\ 
+ 			$f''(t)$ & $\FT$ & $s^2 F(s) - sf(0+) - f'(0+)$\\
  			&
  			$f^{(n)}(t)$ & $\FT$ & $s^nF(s) - s^{n-1}f(0+) - s^{n-2} f'(0+) - \ldots
  			-s f^{(n-2)}(0+) - f^{(n-1)}(0+)$ \\
  			\hline
- 			Diffrentation im Frequenzbereich &
+ 			Frequency-domain differentiation &
  			$(-t)^n f(t)$ & $\FT$ & $F^{(n)}(s)$ \\
  			\hline
  			Integration &
  			$\int\limits_0^t f(\tau)d\tau$ & $\FT$ & $\frac{F(s)}{s}$ \\
  			\hline
- 			Anfangswert &
+ 			Initial value &
  			$\lim_{t\rightarrow 0} f(t)$ muss exist. & $=$ & $\lim_{s\rightarrow
  			\infty} sF(s)$ \\
  			\hline
- 			Endwert &
- 			$\lim_{t\rightarrow \infty} f(t)$ muss exist. & $=$ & 
+ 			Final value &
+ 			$\lim_{t\rightarrow \infty} f(t)$ muss exist. & $=$ &
  			$\lim_{s\rightarrow 0} sF(s)$ \\
  			\hline
        	\end{tabular}
 		\renewcommand{\arraystretch}{1}
-		
-		\subsection{Von Laplace zu Fourier}
+
+
+		\subsection{From Laplace to Fourier}
 			$s \rightarrow j\omega$ \hspace{0.5cm}
-			Dies kann nur gemacht werden wenn Polstelle ($\sigma > 0$) links von
-			$j\omega$-Achse ist und das System kausal ist.
-			
-		\subsection{Rücktransformation (Komplexe Integration)}
+			This can only be done if the pole ($\sigma > 0$) is to the left of
+			the $j\omega$-axis and the system is causal.
+
+
+		\subsection{Inverse Transformation (Complex Integration)}
 			$$f(t)=\int\limits_{x-j\infty}^{x+j\infty}F(s) \cdot e^{st} \cdot ds$$
-			
-		\subsection{Vorgehen Rücktransformation}
+
+
+		\subsection{Procedure for Inverse Transformation}
 		\begin{tabular}{ll}
-  			1. Ansatz & Versuchen Zähler Gleichnamig mit Nenner machen un danach
-  			kürzen (Korrekturen!) \\
-  			2. Ansatz & Partitialbruchzerlegung
+  			1. Approach & Attempt to make the numerator have the same denominator as the denominator
+  			and then simplify (corrections may be needed!) \\
+  			2. Approach & Partial fraction decomposition
 		\end{tabular}
-			
+
 		\newpage
-		
-		\subsection{Rücktransformation über Tabelle}
+
+		\subsection{Inverse Transformation via Table}
 			\begin{center}
 				\input{Content/03_transforms/laplaceTabelle}
 			\end{center}
 			\vfill
-		
-				
+
+

@@ -1,125 +1,120 @@
+
 \section{Theory}
 
-\subsection{Begriffe und Klassifikation}
+\subsection{Terms and Classification}
 
-\subsubsection{Ordnung}
+\subsubsection{Order}
 
-Wie bei gewöhnlichen Differentialgleichungen ist die Ordnung
-die höchste Ableitung der unbekannten Funktion, die in der
-Differentialgleichung vorkommt.\\
+As in ordinary differential equations, the order is the highest derivative of the unknown function appearing in the differential equation.\
 
-\textbf{PDGL 1. Ordnung: } \qquad$F\biggl(x_1,\dots,x_n, u, \frac{\partial u}{\partial x_1},\dots,\frac{\partial u}{\partial x_n}\biggr)$
+\textbf{PDE 1st Order: } \qquad$F\biggl(x_1,\dots,x_n, u, \frac{\partial u}{\partial x_1},\dots,\frac{\partial u}{\partial x_n}\biggr)$
 
-Sie kann durch Substitution $\frac{\partial u}{\partial x_i}\to p_i$ durch  $F(x_1,\dots,x_n,u,p_1,\dots,p_n),$
-ausgedrückt werden.\\
+It can be expressed by the substitution $\frac{\partial u}{\partial x_i}\to p_i$ as $F(x_1,\dots,x_n,u,p_1,\dots,p_n).$\
 
-\textbf{PDGL 2. Ordnung: } \qquad $F\biggl(x_1,\dots,x_n,u,
+\textbf{PDE 2nd Order: } \qquad $F\biggl(x_1,\dots,x_n,u,
 \frac{\partial u}{\partial x_1},\dots,\frac{\partial u}{\partial x_n},
 \frac{\partial^2 u}{\partial x_1^2},\dots,\frac{\partial^2 u}{\partial x_n^2}\biggr)$
 
-Sie kann durch Substitution $\frac{\partial u}{\partial x_i}\to p_i,~\frac{\partial^2 u}{\partial x_i\partial x_j}\to t_{ij}$ durch
+It can be expressed by substitution $\frac{\partial u}{\partial x_i}\to p_i,~\frac{\partial^2 u}{\partial x_i\partial x_j}\to t_{ij}$ as
 $F(x_1,\dots,x_n,u,p_1,\dots,p_n,t_{11},t_{12},\dots,t_{n,n-1},t_{nn})$
-ausgedrückt werden.\\
-\textbf{Beispiel Übung}\\
+.\
+\textbf{Example Exercise}\
 \begin{tabular}{lclcl}
-$\frac{\partial^2 u}{\partial x_1 \partial x_2} = 0$ & $\Rightarrow$ & 
-    $F(t_{12}) = t_{12} = 0$ & $\Leftrightarrow$ &
-    $F \left( \frac {\partial^2 u}{\partial x_1 \partial x_2} \right) = 0$ \\
-$\frac{\partial u}{\partial x_1} = \frac{\partial u}{\partial x_2} $ & $\Rightarrow$ & 
-    $F(p_1,p_2) = p_1 - p_2 = 0$ & $\Leftrightarrow$ & 
-    $F \left( \frac{\partial u}{\partial x_1}, \frac{\partial u}{\partial x_2} \right) = 0$ \\
-$x_1 \frac{\partial u}{\partial x_1} + x_2 \frac{\partial u}{\partial x_2} = \frac{\partial u}{\partial x_3} $ & 
-    $\Rightarrow$ & $F(x_1,x_2,p_1,p_2,p_3) = x_1 p_1 + x_2 p_2 - p_3$ & $\Leftrightarrow$ &
-    $F\left( x_1,x_2,\frac{\partial u}{\partial x_1},\frac{\partial u}{\partial x_2},\frac{\partial u}{\partial x_3} \right)
-    = x_1\frac{\partial u}{\partial x_1} + x_2\frac{\partial u}{\partial x_2} - \frac{\partial u}{\partial x_3} = 0$
+$\frac{\partial^2 u}{\partial x_1 \partial x_2} = 0$ & $\Rightarrow$ &
+$F(t_{12}) = t_{12} = 0$ & $\Leftrightarrow$ &
+$F \left( \frac {\partial^2 u}{\partial x_1 \partial x_2} \right) = 0$ \\
+$\frac{\partial u}{\partial x_1} = \frac{\partial u}{\partial x_2} $ & $\Rightarrow$ &
+$F(p_1,p_2) = p_1 - p_2 = 0$ & $\Leftrightarrow$ &
+$F \left( \frac{\partial u}{\partial x_1}, \frac{\partial u}{\partial x_2} \right) = 0$ \\
+$x_1 \frac{\partial u}{\partial x_1} + x_2 \frac{\partial u}{\partial x_2} = \frac{\partial u}{\partial x_3} $ &
+$\Rightarrow$ & $F(x_1,x_2,p_1,p_2,p_3) = x_1 p_1 + x_2 p_2 - p_3$ & $\Leftrightarrow$ &
+$F\left( x_1,x_2,\frac{\partial u}{\partial x_1},\frac{\partial u}{\partial x_2},\frac{\partial u}{\partial x_3} \right)
+= x_1\frac{\partial u}{\partial x_1} + x_2\frac{\partial u}{\partial x_2} - \frac{\partial u}{\partial x_3} = 0$
 
 \end{tabular}
 
-\subsubsection{Laplace-Operator}
+\subsubsection{Laplace Operator}
 \begin{tabular}{ll}
-Kartesisch: $\Delta u(x,y,z)=\frac{\partial^2u}{\partial x^2}+\frac{\partial^2u}{\partial y^2}+\frac{\partial^2u}{\partial z^2}$
-& Zylinder: $\Delta f ( \rho , \phi , z ) = \frac{1}{\rho} \frac{\partial}{\partial \rho}
-\left( \rho\,\frac{\partial f}{\partial \rho} \right) +
+Cartesian: $\Delta u(x,y,z)=\frac{\partial^2u}{\partial x^2}+\frac{\partial^2u}{\partial y^2}+\frac{\partial^2u}{\partial z^2}$
+& Cylindrical: $\Delta f ( \rho , \phi , z ) = \frac{1}{\rho} \frac{\partial}{\partial \rho}
+\left( \rho,\frac{\partial f}{\partial \rho} \right) +
 \frac{1}{\rho^2}\frac{\partial^2 f}{\partial \phi^2} +
 \frac{\partial^2 f}{\partial z^2}$ \\
 Polar: $\Delta f(r, \varphi ) =
 \frac{1}{r}\frac{\partial f}{\partial r} r \frac{\partial f}{\partial r} + \frac{1}{r^2} \frac{\partial^2 f}{\partial \varphi^2}$
-& Kugel: $\Delta f ( r , \vartheta , \phi ) = \frac{1}{\rho^2}\frac{\partial}{\partial \rho} \left(\rho^2 \frac{\partial f}{\partial \rho}\right) + \frac{1}{\rho^2 \sin\theta} \frac{\partial}{\partial \theta} \left(\sin\theta \frac{\partial f}{\partial \theta}\right) + \frac{1}{\rho^2 \sin^2\theta} \frac{\partial^2 f}{\partial \varphi^2}$
+& Spherical: $\Delta f ( r , \vartheta , \phi ) = \frac{1}{\rho^2}\frac{\partial}{\partial \rho} \left(\rho^2 \frac{\partial f}{\partial \rho}\right) + \frac{1}{\rho^2 \sin\theta} \frac{\partial}{\partial \theta} \left(\sin\theta \frac{\partial f}{\partial \theta}\right) + \frac{1}{\rho^2 \sin^2\theta} \frac{\partial^2 f}{\partial \varphi^2}$
 \end{tabular}
 
-\subsubsection{Umwandlung in System niedriger Ordnung}
+\subsubsection{Conversion to Lower Order System}
 
 \begin{tabular}{ll}
-Gegeben:& $F\biggl(x,y,u,\frac{\partial u}{\partial x},\frac{\partial u}{\partial y},
+Given:& $F\biggl(x,y,u,\frac{\partial u}{\partial x},\frac{\partial u}{\partial y},
 \frac{\partial^2 u}{\partial x^2},\frac{\partial^2 u}{\partial x\partial y},
 \frac{\partial^2u}{\partial y^2}\biggr)=0.$\\[0.2cm]
 Substitution: & $p=\frac{\partial u}{\partial x},\qquad q=\frac{\partial u}{\partial y}$\\[0.2cm]
-Für zweite Ableitungen: & $\frac{\partial^2 u}{\partial x^2}=\frac{\partial p}{\partial x},\quad \frac{\partial^2 u}{\partial x\partial y}=\frac{\partial p}{\partial y}=\frac{\partial q}{\partial x},\quad\frac{\partial^2 u}{\partial y^2}=\frac{\partial q}{\partial y}$\\[0.2cm]
-Gleichungssystem 1.Ordnung& $p=\frac{\partial u}{\partial x},\quad q=\frac{\partial u}{\partial y},\quad\frac{\partial p}{\partial y}=\frac{\partial q}{\partial x}$
+For second derivatives: & $\frac{\partial^2 u}{\partial x^2}=\frac{\partial p}{\partial x},\quad \frac{\partial^2 u}{\partial x\partial y}=\frac{\partial p}{\partial y}=\frac{\partial q}{\partial x},\quad\frac{\partial^2 u}{\partial y^2}=\frac{\partial q}{\partial y}$\\[0.2cm]
+System of 1st order equations& $p=\frac{\partial u}{\partial x},\quad q=\frac{\partial u}{\partial y},\quad\frac{\partial p}{\partial y}=\frac{\partial q}{\partial x}$
 \end{tabular}
 
-\subsubsection{Notationen einer PDGL, Gebiet $\Omega$}
+
+
+\subsubsection{Notations of a PDE, Domain $\Omega$}
 \begin{minipage}{4cm}
 	\begin{tabular}{ll}
 	\includegraphics[width=3cm]{Content/01_theory/Gebiet}&
 	\end{tabular}
 \end{minipage}
-\begin{minipage}{4cm}	
+\begin{minipage}{4cm}
 	\begin{tabular}{ll}
-		$\overset{\circ}{\Omega}$ & Innere Punkte\\
-		$\partial\Omega$ & Rand\\
-		$\overset{\_}{\Omega}$ & Gebiet $\Omega$ und Rand $\partial\Omega$\\
+		$\overset{\circ}{\Omega}$ & Interior points\\
+		$\partial\Omega$ & Boundary\\
+		$\overset{\_}{\Omega}$ & Domain $\Omega$ and boundary $\partial\Omega$\\
 	\end{tabular}
 \end{minipage}
 
-Das Gebiet einer PDGL \textbf{muss} offen sein, nur dann ist die partielle
-Ableitung überall definiert. Das Gebiet ist offen, wenn um jeden Punkt im Gebiet
-$\Omega$ ein kleiner Ball gezeichnet werden kann, welches sich auch im Gebiet $\Omega$ befindet.\\
+The domain of a PDE \textbf{must} be open; only then is the partial derivative defined everywhere. The domain is open if, around every point in the domain $\Omega$, a small ball can be drawn that also lies within the domain $\Omega$.\
 
 \begin{minipage}{4cm}
-	Kein Gebiet:\\
-	\includegraphics[width=4cm]{Content/01_theory/gebiet_1.pdf}\\
+Not a domain:\
+\includegraphics[width=4cm]{Content/01_theory/gebiet_1.pdf}\\
 
 \end{minipage}
 \begin{minipage}{4cm}
-  	Gebiet:\\
-  	\includegraphics[width=4cm]{Content/01_theory/gebiet_2.pdf}\\
+Domain:\
+\includegraphics[width=4cm]{Content/01_theory/gebiet_2.pdf}\\
 \end{minipage}
 
-\textbf{Lösung einer PDGL:}\\
+\textbf{Solution of a PDE:}\\
 \begin{tabular}{ll}
-Gegeben:& Gebiet $\Omega$, PDGL,Randwerte $\partial\Omega$\\
-Lösung:& Funktion $u$: $\overset{\_}{\Omega}\rightarrow \mathbb{R}$, PDGL in $\Omega$ und Randwerte auf $\partial\Omega$\\
+Given:& Domain $\Omega$, PDE, boundary values $\partial\Omega$\\
+Solution:& Function $u$: $\overset{\_}{\Omega}\rightarrow \mathbb{R}$, PDE in $\Omega$ and boundary values on $\partial\Omega$\\
 \end{tabular} \\
-'gut gestellt' wen die Angaben die Lösung eindeutig bestimmen
+'well-posed' when the information uniquely determines the solution
 
-\subsubsection{Klassifikation einer PDGL}
+\subsubsection{Classification of a PDE}
 \begin{tabular}{lll}
-Ordnung:& \multicolumn{2}{l}{Höchste vorkommende partielle Ableitung}\\
-Typ:& Linear: & Linear in $u, x_1,...,x_n, \frac{\partial u}{\partial x_1},\ldots,\frac{\partial u}{\partial x_n}$\\
-& Quasilinear: &  Linear in $\frac{\partial u}{\partial x_1},\ldots,\frac{\partial u}{\partial x_n}$\\
-& Nichtlineare: & Alles andere
+Order:& \multicolumn{2}{l}{Highest occurring partial derivative}\\
+Type:& Linear: & Linear in $u, x_1,...,x_n, \frac{\partial u}{\partial x_1},\ldots,\frac{\partial u}{\partial x_n}$\\
+& Quasilinear: & Linear in $\frac{\partial u}{\partial x_1},\ldots,\frac{\partial u}{\partial x_n}$\\
+& Nonlinear: & Everything else
 \end{tabular}
 
 \input{Content/01_theory/Characteristic.tex}
 \input{Content/01_theory/Separation.tex}
 
-\subsection{Hamilton-Jacobi Theorie}
-Die Hamilton-Jacobi Theorie geht von einer Gesamtenergie $H(x_i,p_i)$ in Abhängigkeit von Ort
-und Impuls aus.
-Dazu muss eine Funktion $S(x_i,t)$ gefunden werden, für welche
+\subsection{Hamilton-Jacobi Theory}
+The Hamilton-Jacobi Theory starts with a total energy $H(x_i,p_i)$ depending on position and momentum. To achieve this, a function $S(x_i,t)$ must be found for which
 \begin{align*}
-    \frac{\partial S}{\partial t} = H\left(x_i,p_i\right) = H\left(x_i,\frac{\partial S}{\partial x_i}\right)
-    && \text{mit} \quad
-    p_i = \frac{\partial S}{\partial x_i}
+\frac{\partial S}{\partial t} = H\left(x_i,p_i\right) = H\left(x_i,\frac{\partial S}{\partial x_i}\right)
+&& \text{with} \quad
+p_i = \frac{\partial S}{\partial x_i}
 \end{align*}
-Diese kann meist durch Integration gelöst werden.
-Dabei werden die Integrationskonstanten $P_i$ eingeführt.
-Die \emph{Bahnparameter} $Q_i$ sind
+This can usually be solved by integration, introducing integration constants $P_i$.
+The \emph{trajectory parameters} $Q_i$ are
 \[
     Q_i = \frac{\partial S}{\partial P_i}
 \]
-und die Bahnkurve hat die Form
+and the trajectory has the form
 \[
     x_i(t,Q_i,P_i)
 \]
@@ -130,5 +125,3 @@ und die Bahnkurve hat die Form
 \input{Content/01_theory/Elliptische.tex}
 %\input{Content/01_theory/Parabolische.tex}
 \input{Content/01_theory/Hyperbolische.tex}
-
-

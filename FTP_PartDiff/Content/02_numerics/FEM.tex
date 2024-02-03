@@ -1,70 +1,83 @@
 \clearpage
+
+
 \section{FEM}
 
-Der Vektorraum $\mathbb{V}$ hat undendlich viele Dimensionen. Falls wir n unabhängige Funktionen $v_1,\ldots,v_n$ wählen, dann spannen die Funktionen $a_1\cdot v_1(x)+\ldots+a_n\cdot v_n(x)$ einen n dimensionalen Teilraum $\mathbb{V}^{(n)}$  von $\mathbb{V}$ auf. Dabei gilt:\\
+The vector space $\mathbb{V}$ has infinitely many dimensions.
+If we choose n independent functions $v_1,\ldots,v_n$,
+then the functions $a_1\cdot v_1(x)+\ldots+a_n\cdot v_n(x)$
+span an n-dimensional subspace $\mathbb{V}^{(n)}$ of $\mathbb{V}$.
+The following holds:\\
 
 $\boxed{\tilde{u}^{(n)}=a_1\cdot v_1(x)+\ldots+a_n\cdot v_n(x)}$
-\subsection{Das Verfahren von Ritz}
-\textbf{Ritzsche Matrize: }
+\subsection{The Method of Ritz}
+\textbf{Ritz Matrix: }
 $R^{(n)}=\begin{bmatrix}
 	R_{1,1}& R_{1,2}&\cdots\\
 	R_{2,1}& R_{2,2}&\cdots\\
 	\vdots & \vdots &\ddots\\
-\end{bmatrix}$ \qquad mit \qquad $R_{j,k}^{(n)}=\int\limits_{0}^{1}{v_j'(x)\cdot
+\end{bmatrix}$ \qquad with \qquad $R_{j,k}^{(n)}=\int\limits_{0}^{1}{v_j'(x)\cdot
 v_k'(x) dx}$\\
-\textbf{Ritzscher Vektor: } 
+\textbf{Ritz Vector: }
 $r^{(n)}=\begin{bmatrix}
 	r_1\\
 	r_2\\
 	\vdots\\
-\end{bmatrix}$ \qquad mit \qquad $r_{k}^{(n)}=\int\limits_{0}^{1}{f(x)\cdot v_k(x) dx}$\\
+\end{bmatrix}$ \qquad with \qquad $r_{k}^{(n)}=\int\limits_{0}^{1}{f(x)\cdot v_k(x) dx}$\\
 
-\textbf{Lösung nach Ritz:} $R^{(n)}\cdot a=r^{(n)}\qquad \Rightarrow \qquad a=\left\{R^{(n)}\right\}^{-1}\cdot r^{(n)}$
-\subsection{Das Verfahren von Galerkin}
-\textbf{Galerksche Matrize: }
+\textbf{Solution according to Ritz:}
+$R^{(n)}\cdot a=r^{(n)}\qquad \Rightarrow \qquad a=\left\{R^{(n)}\right\}^{-1}\cdot r^{(n)}$
+
+
+\subsection{The Method of Galerkin}
+\textbf{Galerkin Matrix: }
 $G^{(n)}=\begin{bmatrix}
 	G_{1,1}& G_{1,2}&\cdots\\
 	G_{2,1}& G_{2,2}&\cdots\\
 	\vdots & \vdots &\ddots\\
-\end{bmatrix}$ \qquad mit \qquad $G_{j,k}^{(n)}=\int\limits_{0}^{1}{\underbrace{(v_j''(x))}_{v_j \text{ in Form von DGL!}}\cdot v_k(x) dx}$\\
-\textbf{Galerkscher Vektor: } 
+\end{bmatrix}$ \qquad with \qquad $G_{j,k}^{(n)}=\int\limits_{0}^{1}{\underbrace{(v_j''(x))}_{v_j \text{ in Form von DGL!}}\cdot v_k(x) dx}$\\
+\textbf{Galerkin Vector: }
 $g^{(n)}=\begin{bmatrix}
 	g_1\\
 	g_2\\
 	\vdots\\
-\end{bmatrix}$ \qquad mit \qquad $g_{k}^{(n)}=\int\limits_{0}^{1}{f(x)\cdot v_k(x) dx}$\\
+\end{bmatrix}$ \qquad with \qquad $g_{k}^{(n)}=\int\limits_{0}^{1}{f(x)\cdot v_k(x) dx}$\\
 
-\textbf{Lösung nach Galerkin:} $G^{(n)}\cdot a+g^{(n)}=0\qquad \Rightarrow
-\qquad a=\textcolor{red}{\mathbf{-}}\left\{G^{(n)}\right\}^{-1}\cdot g^{(n)}$ \quad nach Ritz $G^{(n)} = -R^{(n)} \quad g^{(n)} = r^{(n)}$\\
+\textbf{Solution according to Galerkin:} $G^{(n)}\cdot a+g^{(n)}=0\qquad \Rightarrow
+\qquad a=\textcolor{red}{\mathbf{-}}\left\{G^{(n)}\right\}^{-1}\cdot g^{(n)}$ \quad according to Ritz $G^{(n)} = -R^{(n)} \quad g^{(n)} = r^{(n)}$\\
 
-Die obige Matrix ist nur für die PDGL $-u''(x) = f(x)$ mit dem Ansatz
-$\tilde{u}(x) = a_1 \cdot v_1(x) + a_2 \cdot v_2(x)$ gültig. Ansonsten muss ein
-Gleichungssystem für $v_k$ = $v_1$ und $v_2$ aufgestellt werden (Beispiel
-für DGL: $u''(x) + u(x) + x = 0$):\\
+The above matrix is only valid for the PDE $-u''(x) = f(x)$ with the ansatz
+$\tilde{u}(x) = a_1 \cdot v_1(x) + a_2 \cdot v_2(x)$.
+Otherwise, a system of equations for $v_k$ = $v_1$ and $v_2$ must be established
+(example for ODE: $u''(x) + u(x) + x = 0$):\\
+
 $\int\limits_{0}^{1}{(a_1 \cdot v_1''(x) + a_2 \cdot v_2''(x) + a_1 \cdot
-v_1(x) + a_2 \cdot v_2(x) + x) \cdot v_k(x) dx} = 0 \rightarrow G_{j,k}^{(n)}=\int\limits_{0}^{1}(v_j''(x) + v_j(x))\cdot v_k(x) dx$
+v_1(x) + a_2 \cdot v_2(x) + x) \cdot v_k(x) dx} = 0
+\rightarrow G_{j,k}^{(n)}=\int\limits_{0}^{1}(v_j''(x) + v_j(x))\cdot v_k(x) dx$
 
-\subsection{Gewichtete Residuen}
-Gewichtungsfunktionen: $\{w_1(x),\ldots,w_n(x)\}$
 
-\textbf{Matrize (gewichtete Residuen): }
+\subsection{Weighted Residuals}
+Weighting functions: $\{w_1(x),\ldots,w_n(x)\}$
+
+\textbf{Matrix (weighted residuals): }
 $M^{(n)}=\begin{bmatrix}
 	M_{1,1}& M_{1,2}&\cdots\\
 	M_{2,1}& M_{2,2}&\cdots\\
 	\vdots & \vdots &\ddots\\
-\end{bmatrix}$ \qquad mit \qquad $M_{j,k}^{(n)}=\int\limits_{0}^{1}{v_j''(x)\cdot w_k(x) dx}$\\
-\textbf{Vektor (gewichtete Residuen): } 
+\end{bmatrix}$ \qquad with \qquad $M_{j,k}^{(n)}=\int\limits_{0}^{1}{v_j''(x)\cdot w_k(x) dx}$\\
+\textbf{Vector (weighted residuals): }
 $m^{(n)}=\begin{bmatrix}
 	m_1\\
 	m_2\\
 	\vdots\\
-\end{bmatrix}$ \qquad mit \qquad $m_{k}^{(n)}=\int\limits_{0}^{1}{f(x)\cdot w_k(x) dx}$\\
+\end{bmatrix}$ \qquad with \qquad $m_{k}^{(n)}=\int\limits_{0}^{1}{f(x)\cdot w_k(x) dx}$\\
 
-\textbf{Lösung der gewichteten Residuen:} $M^{(n)}\cdot a+m^{(n)}=0\qquad \Rightarrow \qquad a=\textcolor{red}{\mathbf{-}}\left\{M^{(n)}\right\}^{-1}\cdot m^{(n)}$
+\textbf{Solution of the weighted residuals:}
+$M^{(n)}\cdot a+m^{(n)}=0\qquad \Rightarrow \qquad a=\textcolor{red}{\mathbf{-}}\left\{M^{(n)}\right\}^{-1}\cdot m^{(n)}$
 
-\subsection{Punktkollokation}
-Im Sinne einer Punktkollokation (einzelne Punkte müssen zwischen wahrem Resultat und Approximation übereinstimmen) werden $n$ Stützstellen im Intervall von $[0,1]$ gewählt.\\
-
+\subsection{Point Collocation}
+In the context of point collocation (individual points must match between the true result and the approximation),
+$n$ support points are chosen in the interval $[0,1]$.
 $\begin{bmatrix}
 	v_1''(x_1)& v_2''(x_1)&\cdots\\
 	v_1''(x_2)& v_2''(x_2)&\cdots\\
@@ -79,20 +92,19 @@ a_2\\
 -f(x_1)\\
 -f(x_2)\\
 \vdots
-\end{bmatrix}$\qquad Das Gleichungssystem nach a auflösen\\
+\end{bmatrix}$\qquad Solve the system of equations for a\\
 
-Die obige Matrix ist nur für die PDGL $-u''(x) = f(x)$ mit dem Ansatz
-$\tilde{u}(x) = a_1 \cdot v_1(x) + a_2 \cdot v_2(x)$ gültig. Ansonsten muss die
-DGL mit den Ansatzfunktionen aufgestellt und an beiden Punkten eingesetzt
-werden, um $a_1$ und $a_2$ zu bestimmen:\\
-DGL: $u''(x) + u(x) = -x$ $\Rightarrow$ Gleichung an Punkt 1: $a_1 \cdot
+The above matrix is only valid for the PDE $-u''(x) = f(x)$ with the ansatz
+$\tilde{u}(x) = a_1 \cdot v_1(x) + a_2 \cdot v_2(x)$. Otherwise, the
+differential equation (DE) must be formulated with the trial functions, and
+substituted at both points to determine $a_1$ and $a_2$:\\
+DE: $u''(x) + u(x) = -x$ $\Rightarrow$ Equation at Point 1: $a_1 \cdot
 v_1''(x_1) + a_2 \cdot v_2''(x_1) + a_1 \cdot v(x_1) + a_2 \cdot v(x_1) = - x_1$
 
 
-
-
-\subsection{Bereichskollokation}
-Im Gegensatz zur Punktkollokation müssen nicht einzelne Punkte sondern ganze Bereiche (Intervalle $I_k$) übereinstimmen. Für $-u''(x) = f(x)$ wird dieses Gleichungssystem aufgestellt.
+\subsection{Domain Collocation}
+In contrast to point collocation, entire domains (intervals $I_k$) rather than individual points must match.
+For $-u''(x) = f(x)$, this system of equations is set up.
 
 $\begin{bmatrix}
 	\int_{I_1} v_1'' & \int_{I_1} v_2''& \cdots\\
@@ -108,46 +120,50 @@ a_2\\
 -\int_{I_1} f(x)\\
 -\int_{I_2} f(x)\\
 \vdots
-\end{bmatrix}$\qquad Das Gleichungssystem nach a auflösen
+\end{bmatrix}$\qquad Solve the system of equations for a
 
 
-\subsection{Das Verfahren von Gauss (MSE)}
+\subsection{Gauss's Method (MSE)}
 
-\textbf{Gausscher Matrize: }
+\textbf{Gauss Matrix: }
 $Q^{(n)}=\begin{bmatrix}
 	Q_{1,1}& Q_{1,2}&\cdots\\
 	Q_{2,1}& Q_{2,2}&\cdots\\
 	\vdots & \vdots &\ddots\\
-\end{bmatrix}$ \qquad mit \qquad $Q_{j,k}^{(n)}=\int\limits_{0}^{1}{v_j''(x)\cdot v_k''(x) dx}$\\
-\textbf{Gausscher Vektor: } 
+\end{bmatrix}$ \qquad with \qquad $Q_{j,k}^{(n)}=\int\limits_{0}^{1}{v_j''(x)\cdot v_k''(x) dx}$\\
+\textbf{Gauss Vector: }
 $q^{(n)}=\begin{bmatrix}
 	q_1\\
 	q_2\\
 	\vdots\\
-\end{bmatrix}$ \qquad mit \qquad $q_{k}^{(n)}=\int\limits_{0}^{1}{f(x)\cdot v_k''(x) dx}$\\
+\end{bmatrix}$ \qquad with \qquad $q_{k}^{(n)}=\int\limits_{0}^{1}{f(x)\cdot v_k''(x) dx}$\\
 
-\textbf{Lösung nach Gauss:} $Q^{(n)}\cdot a+q^{(n)}=0\qquad \Rightarrow \qquad a=\textcolor{red}{\mathbf{-}}\left\{Q^{(n)}\right\}^{-1}\cdot q^{(n)}$
+\textbf{Solution according to Gauss:}
+$Q^{(n)}\cdot a+q^{(n)}=0\qquad \Rightarrow \qquad a=\textcolor{red}{\mathbf{-}}\left\{Q^{(n)}\right\}^{-1}\cdot q^{(n)}$
 
-\subsection{Finite Elemente}
+\subsection{Finite Elements}
 
-Die besprochenen Verfahren setzen die Wahl eines Satzes $v_1(x),\ldots,v_n(x)$ von Grundfunktionen voraus. Bei FEM wird mit lokalen Trägern (Grundfunktionen) gearbeitet, diese sind nur auf einem kleinen Intervall ungleich null. Der Vorteil dieses Vorgehens liegt darin, dass in einem Bereich nur ein Träger die Approximationsfunktion beeinflusst. Der Nachteil liegt in der hohen Anzahl der so benötigten Träger.\\
+The discussed methods assume the choice of a set $v_1(x),\ldots,v_n(x)$ of basic functions.
+In FEM, local supports (basic functions) are used, which are non-zero only on a small interval.
+The advantage of this approach is that in a given region,
+only one support influences the approximation function.
+The disadvantage lies in the high number of required supports.
 
-\textbf{WICHTIG:} Alle Verfahren werden mit einer Diskretisierung von $h=1/3$
-vorgestellt.
+\textbf{IMPORTANT:} All methods are presented with a discretization of $h=1/3$.
 
-\subsubsection{Knotenvariablen}
-Als erstes werden auf dem Intervall $[0,1]$ $n$, normalerweise gleichverteilte, Knotenstellen eingeführt.
+\subsubsection{Node Variables}
+First, on the interval $[0,1]$, $n$ nodes, usually uniformly distributed, are introduced.
 
 \begin{minipage}{11cm}
-Dadurch wird das Intervall $[0,1]$ in Teilintervalle (Maschen) zerlegt.\\
- 
-Für $n=3$:\quad $I_1=[0,1/3]$\quad $I_1=[1/3,2/3]$\quad $I_1=[2/3,1]$\\
+This divides the interval $[0,1]$ into subintervals (meshes).
 
-Als nächstes wird jeder Knotenstelle $x_k$ eine Ansatzvariable (Knotenvariable) zugeordnet.\\
+For $n=3$:\quad $I_1=[0,1/3]$\quad $I_1=[1/3,2/3]$\quad $I_1=[2/3,1]$
 
-Ansatz: \quad $\tilde{u}(0)=a_0$\quad $\tilde{u}(1/3)=a_1$\quad $\tilde{u}(2/3)=a_2$\quad $\tilde{u}(1)=a_3$\\
+Next, each node $x_k$ is assigned an approximation variable (node variable).
 
-Zusatzbedingungen:
+Approximation: \quad $\tilde{u}(0)=a_0$\quad $\tilde{u}(1/3)=a_1$\quad $\tilde{u}(2/3)=a_2$\quad $\tilde{u}(1)=a_3$
+
+Additional conditions:
 \begin{tabular}{llll}
 $v_0(0)=1$&$v_0(1/3)=0$&$v_0(2/3)=0$&$v_0(1)=0$\\
 $v_1(0)=0$&$v_1(1/3)=1$&$v_1(2/3)=0$&$v_1(1)=0$\\
@@ -161,9 +177,9 @@ $v_3(0)=0$&$v_3(1/3)=0$&$v_3(2/3)=0$&$v_3(1)=1$\\
 \end{minipage}
 
 
-\subsubsection{Formfunktionen}
-Die lokalen Grundfunktionen sollen aus Teilstücken einfacher Funktionen, z.B: Polynomen, die nur auf einer einzelnen Masche definiert sind zusammengesetzt werden.\\
-Zwei mögliche Formfunktionen sind Beispielsweise:\quad $l_1(x)=1-x$\quad und \quad $l_2(x)=x$\\
+\subsubsection{Shape Functions}
+The local basic functions are intended to be composed of sections of simpler functions, such as polynomials, defined only on a single mesh.\\
+Two possible shape functions are, for example, $l_1(x)=1-x$ and $l_2(x)=x$.
 
 \begin{minipage}{8cm}
 	\begin{tabular}{lc|c|c}
@@ -190,15 +206,19 @@ $\Longrightarrow$
 	$v_3=$&$0$&$0$&$l_2(3x-2)$\\
 	\end{tabular}
 \end{minipage}
-\subsubsection{Elementmatrizen}
-Grundsätzlich kann die Ansatzvariable durch jedes Verfahren bestimmt werden.
-Weil bei einer linearen Ansatzfunktion die zweite Ableitung trivial $(=0)$ ist die Wahl des Ritzschen Verfahren erzwungen.
 
-Die Integrale werden maschenweise ausgewertet:\\
+
+\subsubsection{Element Matrices}
+In principle, the approximation variable can be determined by any method.
+Because in a linear approximation function, the second derivative is trivial ($=0$),
+the choice of the Ritz method is enforced.
+
+The integrals are evaluated element-wise:\\
 
  $\int\limits_{0}^{1}{}=\int\limits_{0}^{1/3}{}+\int\limits_{1/3}^{2/3}{}+\int\limits_{2/3}^{1}{}$\\
- 
-Durch diesen Ansatz wird die Ritzsche Matrize über jede Masche einzeln berechnet und danach zur globalen Ritzschen Matrize aufsummier:\\
+
+ This approach calculates the Ritz matrix for each mesh individually and
+ then sums them up to form the global Ritz matrix:\\
 
 \qquad $R^{(4)}=R^{(4,1)}+R^{(4,2)}+R^{(4,3)}=
 \begin{bmatrix}
@@ -221,7 +241,7 @@ Durch diesen Ansatz wird die Ritzsche Matrize über jede Masche einzeln berechne
 \end{bmatrix}
 $\\
 
-Die mit $*$ bezeichneten $2\times 2$ Matrizen heissen Maschenmatrizen:\\
+The $2\times 2$ matrices marked with $*$ are called mesh matrices:\\
 
 $M^{(4,1)}=M^{(4,2)}=M^{(4,3)}=
 \begin{bmatrix}
@@ -231,12 +251,13 @@ $M^{(4,1)}=M^{(4,2)}=M^{(4,3)}=
 	-1 & 1\\
 	1 & -1\\
 \end{bmatrix}\qquad\Rightarrow\qquad\boxed{M=\frac 1h\cdot
-\underset{\text{\textbf{E}: Elementmatrize}}{\underbrace{\begin{bmatrix}
+\underset{\text{\textbf{E}: Element matrix}}{\underbrace{\begin{bmatrix}
 	-1 & 1\\
 	1 & -1\\
 \end{bmatrix}}}=\frac 1h\cdot \mathbf{E}}$\\
 
-Die Elementmatrize wird nun in die entsprechende Ritzsche Matrize eingesetzt und überlagert. Für die Quantisierung von $h=1/3$ ergibt sich:\\
+The element matrix is now inserted into the corresponding Ritz matrix and superimposed.
+For the quantization of $h=1/3$, we get:\\
 
 $R^{4}=
 \begin{bmatrix}
@@ -252,7 +273,7 @@ $R^{4}=
 	0 & 0 & 3 & -3 \\
 \end{bmatrix}$\\
 
-Der Ritzsche Vektor muss mittels Integration berechnet werden:\\
+The Ritz vector must be calculated by integration:\\
 
 $r^4=
 \begin{bmatrix}
@@ -262,9 +283,10 @@ $r^4=
 	\int\limits_{0}^{1}{f(x)\cdot v_3(x)dx}\\
 \end{bmatrix}$\\
 
-Das Ritzsche Gleichungssystem dazu ist: $\boxed{R^4\cdot a+r^4=0} \qquad\Rightarrow\qquad a=-\left\{R^4\right\}^{-1}\cdot r^4$\\
+The corresponding Ritz equation system is: $\boxed{R^4\cdot a+r^4=0} \qquad\Rightarrow\qquad a=-\left\{R^4\right\}^{-1}\cdot r^4$\\
 
-\textbf{Anfangsbedingungen:} Die Anfangsbedingungen $a_0$ und $a_n$ können direkt eingesetzt werden.\\
+\textbf{Initial conditions:} The initial conditions $a_0$ and $a_n$ can be directly substituted.\\
+
 
 $a_0=10$\qquad$a_3=20$\\
 
@@ -300,15 +322,16 @@ $
 	\begin{bmatrix}
 		-\left(r^4_1+3\cdot a_0\right)\\
 		-\left(r^4_2+3\cdot a_3\right)\\
-	\end{bmatrix}		
+	\end{bmatrix}
 $
 
-\subsubsection{Die Finite Elemente Handrechnung}
-\textbf{Problemstellung:} $u''(x)+f(x)=0\qquad f(x)=20\qquad u(0)=10\qquad u(1)=20$\\
+\subsubsection{Finite Element Manual Calculation}
+\textbf{Problem statement:} $u''(x)+f(x)=0\qquad f(x)=20\qquad u(0)=10\qquad u(1)=20$\\
 
-Die Approximation soll auf den \textbf{NICHT} gleichverteilten Intervallen: $[0,1/6]$,\quad $[1/6,1/2]$,\quad $[1/2,1]$\\
+The approximation should be performed on the \textbf{NON}-uniform intervals:
+$[0,1/6]$,\quad $[1/6,1/2]$,\quad $[1/2,1]$\\
 
-Die Entsprechenden Elementmatrizen E sind:\\
+The corresponding element matrices E are:\\
 
 $
 	\frac{1}{1/6}\begin{bmatrix}
@@ -339,7 +362,7 @@ $\\
 \\
 
 \begin{minipage}{10cm}
-Der Ritzsche Vektor und die Ritzsche Matrize sind:\\
+The Ritz Vector and the Ritz Matrix are:\\
 
 $R^n=
 \begin{bmatrix}
@@ -414,7 +437,7 @@ $R^n\cdot a +r^n=0 \qquad\Rightarrow\qquad
 	0\\
 	0\\
 	0
-\end{bmatrix}	
+\end{bmatrix}
 $\\
 \\
 
@@ -465,29 +488,32 @@ $
 
 
 
-\subsubsection{h-Strategie}
+\subsubsection{h-Strategy}
 
-Die Grundidee der h-Strategie ist die Verfeinerung der Auflösung. Mit anderen Worten die Maschenbreite $h$ wird verkleinert. Um den ganzen Bereich dennoch abdecken zu können sind mehr Maschen notwendig.
+The basic idea of the h-strategy is to refine the resolution. In other words,
+the mesh width $h$ is reduced. To cover the entire range, more meshes are required.
 
-\subsubsection{p-Strategie}
-Bei der p-Strategie bleibt das Netz bestehen. Die Ansatzfunktionen sollen nun durch Polynome höherer Ordnung zusammengesetzt werden, dazu werden neue Knoten und Knotenvariablen eingeführt werden.\\
+\subsubsection{p-Strategy}
+With the p-strategy, the mesh remains unchanged.
+The trial functions should now be composed of higher-order polynomials,
+and new nodes and node variables are introduced.\\
 
-\textbf{Problemstellung:} $u''(x)+f(x)=0\qquad u(0)=a_0\qquad u(1)=a_6$\\
+\textbf{Problem statement:} $u''(x)+f(x)=0\qquad u(0)=a_0\qquad u(1)=a_6$\\
 
-Die Approximation soll auf dem gleichverteilten Intervallen gelten: $[0,1/3]$,\quad $[1/3,2/3]$,\quad $[2/3,1]$\\
+The approximation should apply to the equally spaced intervals: $[0,1/3]$,\quad $[1/3,2/3]$,\quad $[2/3,1]$\\
 
 \begin{minipage}{4cm}
-	Formfunktionen:\\
+	Shape functions:\\
 
 	$q_1(x)=(1-x)\cdot(1-2x)$\\
 	$q_2(x)=4x\cdot(1-x)$\\
 	$q_3(x)=-x\cdot(1-2x)$\\
-	
-	Elementmatrize: $\boxed{E=\frac{1}{3}
+
+	Element matrix: $\boxed{E=\frac{1}{3}
 	\begin{bmatrix}
 		-7& 8 & -1\\
 		8& -16& 8\\
-		-1& 8& -7	
+		-1& 8& -7
 	\end{bmatrix}}$\\
 \end{minipage}
 \hfill
@@ -509,14 +535,14 @@ Die Approximation soll auf dem gleichverteilten Intervallen gelten: $[0,1/3]$,\q
 \includegraphics[width=6cm]{Content/02_numerics/FEM2Ord}
 \end{minipage}\\
 
-$\underset{\text{Ritzsche Matrize $R^{(8)}$ für } h=1/3}{\underbrace{\begin{bmatrix}
+$\underset{\text{Ritz Matrix $R^{(8)}$ for } h=1/3}{\underbrace{\begin{bmatrix}
 	-7& 8 & -1& 0& 0& 0& 0\\
 	 8& -16& 8& 0& 0& 0& 0\\
-	-1& 8& -14& 8& -1& 0& 0\\ 
+	-1& 8& -14& 8& -1& 0& 0\\
 	 0& 0& 8& -16& 8& 0& 0\\
-	 0& 0& -1& 8& -14& 8& -1\\ 
+	 0& 0& -1& 8& -14& 8& -1\\
 	 0& 0& 0& 0& 8& -16& 8\\
-	 0& 0& 0& 0& -1& 8& -7	
+	 0& 0& 0& 0& -1& 8& -7
 \end{bmatrix}}}\cdot\begin{bmatrix}
 	a_0\\
 	a_1\\
@@ -526,7 +552,7 @@ $\underset{\text{Ritzsche Matrize $R^{(8)}$ für } h=1/3}{\underbrace{\begin{bma
 	a_5\\
 	a_6\\
 \end{bmatrix}
-+\underset{\text{Ritzscher Vektor $r^{(8)}$ für } h=1/3}{\underbrace{\begin{bmatrix}
++\underset{\text{Ritz Vector $r^{(8)}$ for } h=1/3}{\underbrace{\begin{bmatrix}
 	\int\limits_{0}^{1}{f(x)\cdot v_0(x)dx}\\
 	\int\limits_{0}^{1}{f(x)\cdot v_1(x)dx}\\
 	\int\limits_{0}^{1}{f(x)\cdot v_2(x)dx}\\
@@ -547,26 +573,33 @@ $\underset{\text{Ritzsche Matrize $R^{(8)}$ für } h=1/3}{\underbrace{\begin{bma
 \end{bmatrix}
 $\\
 
-\textbf{Vorteil der p-Strategie gegenüber der h-Strategie:} Bei beiden Strategien steigt die Dimension der Systemmatrizen an. Es besteht jedoch die berechtigte Hoffnung, dass der Zuwachs der benötigt wird, um eine vergleichbare Genauigkeit zu errreichen, bei der p-Strategie weitaus geringer ist als bei der h-Strategie. 
+\textbf{Advantage of the p-Strategy over the h-Strategy:}
+In both strategies, the dimension of the system matrices increases.
+However, there is a justified hope that the increase required to achieve comparable accuracy
+is much smaller with the p-strategy than with the h-strategy.
 
-\subsection{Konformität und Vollständigkeit}
-Muss nun die Approximationslösung zweimal ableitbar sein, so gilt der Ansatz des letzten Abschnitt nicht mehr als konform.
+\subsection{Conformity and Completeness}
+If the approximate solution must now be differentiable twice,
+the approach of the last section is no longer considered conforming.
 
-Um die einmalige Differenzierbarkeit an den Knoten zu gewährleisten müssen neue Grundfunktionen gefunden werden.\\
+To ensure single differentiability at the nodes, new basic functions must be found.\\
 
 $\tilde{u}(x)=a_0v_0(x)+a_1v_1(x)+a_2v_2(x)+a_3v_3(x)+\tilde{a}_0\tilde{v}_0(x)+\tilde{a}_1\tilde{v}_1(x)+\tilde{a}_2\tilde{v}_2(x)+\tilde{a}_3\tilde{v}_3(x)$\\
 
-Zwei Grundfunktionen stellen den richtigen Wert and den Knoten sicher. Zwei weitere Grundfunktionen werden benötigt um die erste Ableitung (Steigung) an den Übergangknoten sicherzustellen, sie sorgen für die Vollständigkeit der Grundfunktionen. (Ohne die zwei weiteren Grundfunktionen wäre an den Übergangsknoten nur eine Steigung von Null möglich.)
+Two basic functions ensure the correct value at the nodes.
+Two additional basic functions are needed to ensure the first derivative (slope)
+at the transition nodes; they ensure the completeness of the basic functions.
+(Without the two additional basic functions, only a slope of zero would be possible at the transition nodes.)
 
-\subsection{Hermetische Polynome dritter Ordnung}
-Übereinstimmung bis zur 1.Ableitung an den Knotenpunkten\\
+\subsection{Hermite Polynomials of Third Order}
+Agreement up to the 1st derivative at the nodes\\
 
-\textbf{Problemstellung:} $u''(x)+f(x)=0\qquad u(0)=a_0\qquad u'(0)=\tilde{a}_0 \qquad u(1)=a_3\qquad  u'(1)=\tilde{a}_3$\\
+\textbf{Problem statement:} $u''(x)+f(x)=0\qquad u(0)=a_0\qquad u'(0)=\tilde{a}_0 \qquad u(1)=a_3\qquad  u'(1)=\tilde{a}_3$\\
 
-Die Approximation soll auf dem gleichverteilten Intervallen gelten: $[0,1/3]$,\quad $[1/3,2/3]$,\quad $[2/3,1]$\\
+The approximation should apply to the equally spaced intervals: $[0,1/3]$,\quad $[1/3,2/3]$,\quad $[2/3,1]$\\
 
 \begin{minipage}{4cm}
-Formfunktionen:\\
+Shape functions:\\
 $h_1(x)=2x^3-3x^2+1$\\
 $h_2(x)=x^3-2x^2+x$\\
 $h_3(x)=-2x^3+3x^2$\\
@@ -608,7 +641,7 @@ $E=\frac{1}{30}
 \\
 
 
-$\underset{\text{Ritzsche Matrize $R^{(8)}$ für } h=1/3}{\underbrace{\frac{3}{30}\begin{bmatrix}
+$\underset{\text{Ritz Matrix $R^{(8)}$ for } h=1/3}{\underbrace{\frac{3}{30}\begin{bmatrix}
 	-36 & -1 & 36 & -1 & 0  & 0  & 0  & 0 \\
 	-1  & -4/9  & 1  & 1/9  & 0  & 0  & 0  & 0\\
 	36  & 1  & -72  & 0  & 36  & -1  & 0  & 0\\
@@ -627,7 +660,7 @@ $\underset{\text{Ritzsche Matrize $R^{(8)}$ für } h=1/3}{\underbrace{\frac{3}{3
 	a_3\\
 	\tilde{a}_3\\
 \end{bmatrix}
-+\underset{\text{Ritzscher Vektor $r^{(8)}$ für } h=1/3}{\underbrace{\begin{bmatrix}
++\underset{\text{Ritz Vector $r^{(8)}$ for } h=1/3}{\underbrace{\begin{bmatrix}
 	\int\limits_{0}^{1}{f(x)\cdot v_0(x)dx}\\
 	\int\limits_{0}^{1}{f(x)\cdot \tilde{v}_0(x)dx}\\
 	\int\limits_{0}^{1}{f(x)\cdot v_1(x)dx}\\
@@ -648,11 +681,6 @@ $\underset{\text{Ritzsche Matrize $R^{(8)}$ für } h=1/3}{\underbrace{\frac{3}{3
 	0\\
 \end{bmatrix}
 $\\
-
-
-
-
-
 
 
 %\subsection{FEM für parabolische PDEs}

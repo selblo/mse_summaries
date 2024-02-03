@@ -1,74 +1,71 @@
-\subsection{Methode Separation}
-Wahl eines geeigneten Koordinatensystems ist wichtig.
 
+\subsection{Method Separation}
+Choosing a suitable coordinate system is important.
 
 \begin{enumerate}
-\item \textbf{Ansatz} (Höchste Ableitung ausschlaggebend): 
+\item \textbf{Approach} (Highest derivative decisive):
 	\begin{itemize}
-		\item Für PDGL 1.Ordnung: $U(x,y)=X(x) + Y(y)$
-		\item Für PDGL 2.Ordnung: $U(x,y)=X(x) \cdot Y(y)$ 
+		\item For PDE 1st Order: $U(x,y)=X(x) + Y(y)$
+		\item For PDE 2nd Order: $U(x,y)=X(x) \cdot Y(y)$
 	\end{itemize}
-\item \textbf{Einsetzen: } Ansatz in PDGL einsetzen.
-\item \textbf{Separation: } Auf jeder Seite der PDGL darf nur noch eine Variable vorkommen. Die beiden jetzt gewöhnlichen DGL sind über eine Konstante gekoppelt (fixieren der Variable). Wahl der Konstante: Wenn Schwingung erwartet wird: $-k^2$, sonst $k$, ausser man weiss es besser ;-).
-\item \textbf{Lösen der DGL's: } Man erhält eine Familie von Lösungen	
-\item \textbf{Gesamtlösung "'Zusammenbasteln"': } (Linearkombination der Lösungen), Randbedingungen einhalten!
+\item \textbf{Substitution: } Substitute the approach into the PDE.
+\item \textbf{Separation: } Each side of the PDE should only have one variable. The two resulting ordinary differential equations are coupled by a constant (fixing the variable). Choice of constant: If oscillation is expected, $-k^2$, otherwise $k$, unless you know better ;-).
+\item \textbf{Solving the ODEs: } Obtain a family of solutions
+\item \textbf{Constructing the General Solution: } (Linear combination of solutions), adhere to boundary conditions!
 \end{enumerate}
 
 \begin{minipage}{0.49\textwidth}
-\textbf{Beispiel 1: } PDGL: $\frac1x\partFrac{u}{x}+\frac1y\partFrac{u}{y}=\frac{1}{y^2}$
+\textbf{Example 1: } PDE: $\frac1x\partFrac{u}{x}+\frac1y\partFrac{u}{y}=\frac{1}{y^2}$
 \begin{enumerate}
-	\item Ansatz:\\[0.4cm]
-	$u(x,y)=X(x) + Y(y)$ (1.Ordnung)
-	\item Einsetzen:\\[0.4cm]
+	\item Approach:\\[0.4cm]
+	$u(x,y)=X(x) + Y(y)$ (1st Order)
+	\item Substitution:\\[0.4cm]
 	$\partFrac{u}{x}=X'(x)$\qquad $\partFrac{u}{y}=Y'(y)$ \quad $\Rightarrow$ \quad $\frac{X'(x)}{x}+\frac{Y'(y)}{y}=\frac{1}{y^2}$
 	\item Separation:\\[0.4cm]
 	$\frac{X'(x)}{x}=k=\frac{1}{y^2}-\frac{Y'(y)}{y}$
-	\item DGL'2 lösen:\\[0.4cm]
+	\item Solving ODEs:\\[0.4cm]
 	$X'(x)=k\cdot x \quad\Rightarrow\quad X(x)=\frac12 kx^2+C_x$\\
 	$Y'(y)=\frac1y-ky \quad\Rightarrow\quad Y(y)=\ln(y)-\frac12 ky^2+C_y$
-	\item Linearkombination:\\[0.4cm]
+	\item Linear Combination:\\[0.4cm]
 	$u(x,y)=\frac12 kx^2 - \frac12 ky^2+ln(y)+C$
 \end{enumerate}
 
-\textbf{Beispiel 2: } PDGL: $x^2\partFrac{^2u}{x^2}+x\partFrac{u}{x}+y^2\partFrac{^2u}{y^2}+y\partFrac{u}{y}=0$\\ 
-Randbedingungen: $\Omega=[1,2]\times[1,2]$ \qquad $u=0$ auf $\partial\Omega$
+\textbf{Example 2: } PDE: $x^2\partFrac{^2u}{x^2}+x\partFrac{u}{x}+y^2\partFrac{^2u}{y^2}+y\partFrac{u}{y}=0$\\
+Boundary conditions: $\Omega=[1,2]\times[1,2]$ \qquad $u=0$ on $\partial\Omega$
 \begin{enumerate}
-	\item Ansatz:\\[0.4cm]
-	$u(x,y)=X(x) \cdot Y(y)$ (2.Ordnung)
-	\item Einsetzen:\\[0.4cm]
+	\item Approach:\\[0.4cm]
+	$u(x,y)=X(x) \cdot Y(y)$ (2nd Order)
+	\item Substitution:\\[0.4cm]
 	$x^2X''(x)Y(y)+xX'(x)Y(y)+y^2X(x)Y''(y)+yX(x)Y'(y)=0$
-	\item Separation: Division durch $X(x)Y(y)$\\[0.4cm]
+	\item Separation: Division by $X(x)Y(y)$\\[0.4cm]
 	$\frac{x^2X''(x)}{X(x)}+\frac{xX'(x)}{X(x)}+\frac{y^2Y''(y)}{Y(y)}+\frac{yY'(y)}{Y(y)}=0\quad\Rightarrow\quad \frac{x^2X''(x)}{X(x)}+\frac{xX'(x)}{X(x)}=k=-\frac{y^2Y''(y)}{Y(y)}-\frac{yY'(y)}{Y(y)}$
-	\item DGL'2 lösen:\\[0.4cm]
-	$\frac{x^2X''(x)}{X(x)}+\frac{xX'(x)}{X(x)}=k\quad\Rightarrow\quad x^2X''(x)+xX'(x)-kX(x)=0$\qquad mit $X(1)=X(2)=0$\\
-	$\frac{y^2Y''(y)}{Y(y)}-\frac{yY'(y)}{Y(y)}=-k\quad\Rightarrow\quad y^2Y''(y)+yY'(y)+kY(y)=0$\qquad mit $Y(1)=Y(2)=0$\\[0.4cm]
-	Lösung der DGL hier nicht gemacht.
+	\item Solving ODEs:\\[0.4cm]
+	$\frac{x^2X''(x)}{X(x)}+\frac{xX'(x)}{X(x)}=k\quad\Rightarrow\quad x^2X''(x)+xX'(x)-kX(x)=0$\qquad with $X(1)=X(2)=0$\\
+	$\frac{y^2Y''(y)}{Y(y)}-\frac{yY'(y)}{Y(y)}=-k\quad\Rightarrow\quad y^2Y''(y)+yY'(y)+kY(y)=0$\qquad with $Y(1)=Y(2)=0$\\[0.4cm]
+	Solution of ODEs not done here.
 \end{enumerate}
 \end{minipage}
 \hfill
 \begin{minipage}{0.49\textwidth}
-\textbf{Beispiel 3: }PDGL: $\partFrac{^2u}{t^2}=\partFrac{^2u}{x^2}$ \quad $u(t=0,x)=0$\\
-Randbedingungen: $x=[0,\pi]$ \\
+\textbf{Example 3: }PDE: $\partFrac{^2u}{t^2}=\partFrac{^2u}{x^2}$ \quad $u(t=0,x)=0$\\
+Boundary conditions: $x=[0,\pi]$ \\
 \qquad\qquad $\partFrac{u}{t}(t=0,x)=\sin^3(x)=\frac34\sin(x)-\frac14\sin(3x)$
 \begin{enumerate}
-	\item Ansatz:\\[0.4cm]
-	$u(t,x)=T(t) \cdot X(x) $ (2.Ordnung)
-	\item Einsetzen:\\[0.4cm]
+	\item Approach:\\[0.4cm]
+	$u(t,x)=T(t) \cdot X(x) $ (2nd Order)
+	\item Substitution:\\[0.4cm]
 	$T''(t)\cdot X(x) = X''(x)\cdot T(t)$
 	\item Separation:\\[0.4cm]
 	$\frac{X''(x)}{X(x)}= -\mu^2=\frac{T''(t)}{T(t)}$
-	\item DGL'2 lösen:\\[0.4cm]
+	\item Solving ODEs:\\[0.4cm]
 		$X(x)=\sin(\mu x) \qquad T(t)=\sin(\mu t)$\\
 		$X(x)=\cos(\mu x) \qquad T(t)=\cos(\mu t)$
-	\item Linearkombination:\\[0.4cm]
-		Die Randbedingungen $x=0$ und $x=\pi$ können nur mit $\sin(\mu x) $ und  positivem, ganzzahligen $\mu$ erfüllt werden. $cos(nx)$-Therme fallen weg.\\[0.4cm]
+	\item Linear Combination:\\[0.4cm]
+		The boundary conditions $x=0$ and $x=\pi$ can only be satisfied with $\sin(\mu x) $ and positive, integer $\mu$. $cos(nx)$ terms are eliminated.\\[0.4cm]
 		$u(t,x)=\sum\limits_{n=1}^{\infty}{a_n\sin(nx)\sin(nt)} + \sum\limits_{n=1}^{\infty}{b_n\sin(nx)\cos(nt)}$\\[0.4cm]
-		Die Koeffizienten $a_n$ und $b_n$ müssen mit Hilfe der Anfangsbedingungen zur Zeit $t=0$ bestimmt werden:\\[0.4cm]
+		The coefficients $a_n$ and $b_n$ must be determined using the initial conditions at time $t=0$:\\[0.4cm]
 		$u(0,x)=\sum\limits_{n=1}^{\infty}{b_n\sin(nx)}=0 \quad\Rightarrow\quad b_n=0$\\[0.2cm]
-		$\partFrac{u}{t}(\pi,x)=\sum\limits_{n=1}^{\infty}{a_nn\sin(nx)}=\sin^3(x)=\frac34\sin(x)-\frac14\sin(3x) \quad\Rightarrow\quad a_1=\frac34 \quad a_3=-\frac{1}{12}\quad a_k=0$ für $k\neq 1,3$\\[0.4cm]
+		$\partFrac{u}{t}(\pi,x)=\sum\limits_{n=1}^{\infty}{a_nn\sin(nx)}=\sin^3(x)=\frac34\sin(x)-\frac14\sin(3x) \quad\Rightarrow\quad a_1=\frac34 \quad a_3=-\frac{1}{12}\quad a_k=0$ for $k\neq 1,3$\\[0.4cm]
 		$u(t,x)=\frac34\sin(x)\sin(t)-\frac1{12}\sin(3x)\sin(3t)$
 \end{enumerate}
 \end{minipage}
-
-
-
