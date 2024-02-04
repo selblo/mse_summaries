@@ -1,33 +1,54 @@
 
-\section{Stochastic Processes}
-A stochastic process (SP) is a sequence of random variables indexed in time order: $ Y_1, Y_2, Y_3, ..., Y_t $.
-Realization of a stochastic process yield a time series.
-Taking a sample from the stochastic process means sampling a possible future behaviour of the system.
-Using only past data to predict a future is hard, which is why a model of the system behaviour is chosen first.
-We then try to predict a new value given past observations as $ Y_t | Y_{t-1} = Y_t | Y_1, Y_2, ... Y_{t-1} $. Time series can exhibit three major patterns:
+\section{Basics}
 
-Trend: pattern exists when there is a long-term increase or decrease in the data.
+\textbf{Stochastic process (SP)}: sequence of random variables indexed in time order: $ Y_1, Y_2, \ldots, Y_t, \ldots $
 
-Seasonal: pattern exists when a series is influenced by seasonal factors in a predictable and fixed way.
+Realization of an SP yields a time series: $ \hat{Y}_1=y_1, \hat{Y}_2=y_2, \ldots, \hat{Y}_t=y_t, \ldots $
 
-Cyclic: pattern exists when data exhibit rises and falls that are not of fixed period
+\begin{minipage}[t]{0.55\textwidth}
+\textbf{Statistical forecasting notation:}\\
+\begin{tabular}{ll}
+    Past observations & $I = \{\hat{Y}_1=y_1, \hat{Y}_2=y_2, \ldots, \hat{Y}_{t-1}=y_{t-1}\}$ \\
+    Conditioning & $Y_t | I$ \\
+    Point forecast & \(\mean(Y_t | I)\) \\
+    Forecast variance & \(\var(Y_t | I)\) \\
+    Conditioning on time series & $Y_{t|t-1} = Y_t | \{y_1, y_2, \ldots, y_{t-1}\}$ \\
+    \(h\)-step forecast & \(Y_{T+h|t-1} = \E[Y_{T+h} | \{y_1, y_2, \ldots, y_{t-1}\}]\) \\
+\end{tabular}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.40\textwidth}
+\textbf{Time series expressions:}\\
+\begin{tabular}{ll}
+    Trend & long-term increase/decrease \\
+    Seasonal & predictable, seasonal changes \\
+    Cyclic & changes that are not of a fixed period \\
+\end{tabular}
+\end{minipage}
 
-\section{Autocorrelation}
-(Linear) Correlation of random variables of a time series at different times: $ AutoCorr(t_1, t_2) = Cor(X_t{_1}, X_{t_2}) $.
-Plotting the autocorrelation for different time lags produces a correlogram or Autocorrelation Function (ACF).
-Seasonality can be seen by high positive values at lags that are multiples of the seasonality; a trend can be seen by higher absolute values for small lags.
-A time series with both patterns will show a mix of both in the ACF. White noise series will produce values below the critical threshold of $ \pm 1.96 / \sqrt{T} $ for all lags.
+\begin{minipage}[t]{0.5\textwidth}
+\textbf{Autocorrelation function} (aka Autocorrelogram):\\
+\begin{tabular}{ll}
+    Seasonality & High positive values at multiples of seasonality \\
+    Trend & Higher absolute values for small lags \\
+    White Noise & All values below critical threshold of \(\pm 1.96 / \sqrt{T}\) \\
+\end{tabular}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.46\textwidth}
+\textbf{Statistical Hypothesis Testing (SHT)}:
+\begin{itemize}
+    \item Test time series against null hypothesis (e.g.\ white noise)
+    \item Statistical test (e.g.\ Ljung-Box) yields p-Value
+    \item Very small p-Value \(\Leftrightarrow\) reject null hypothesis
+\end{itemize}
+\end{minipage}
 
-\section{Statistical Hypothesis Testing (SHT)}
-SHT is toolbox to decide if given data supports a particular given hypothesis.
-It works by choosing a null hypothesis, e.g. the time series is white noise.
-We then choose a statistical test, e.g. Ljung‐Box and compute its test statistics for a given signifance level, e.g. 5\%.
-If the p-Value is very small, that means it is very unlikely to sample a series this extreme given the null hypothesis. We thus reject the hypothesis.
 
 \section{Forecasting}
-Computation of forecast at different points in time with $ \hat{y}_{t|t-1} $ as the fitted value of $ y $ at time $ t $ given past values up to time $ t - 1 $.
-We can perform $ h-$ step forecasts by iteratively applying one step forecasts.
-Often, a model is chosen that is well suited to the characteristics of the time series and then fitted to it. This model can then be used to perform forecasts.
+forecast $ \hat{y}_{t|t-1} $ $\Leftrightarrow$ fitted value of $ y $ at time $ t $ given past values up to time $ t - 1 $
+We can perform $h$ step forecasts by iteratively applying one step forecasts.
+There are different models to perform forecasts.
 
 \subsection{Simple Forecast Methods}
 Average: Forecast of all future values is equal to mean of historical data.

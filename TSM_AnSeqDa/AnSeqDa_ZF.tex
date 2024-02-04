@@ -2,19 +2,43 @@
 
 \usepackage{comment} % enables the use of multi-line comments (\ifx \fi)
 \usepackage{amsmath}
-\usepackage{geometry}
+\usepackage[left=0.7cm,right=0.7cm,top=0.5cm,bottom=0.7cm,includehead,
+headheight=0.7cm, headsep=0.3cm]{geometry}
+\usepackage[indent=0cm]{parskip}
 \usepackage{enumitem}
 \usepackage{titlesec}
+\usepackage{booktabs}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage[english]{babel,varioref}
+\usepackage{enumitem}
+\setlist{nosep}
+\setlist{leftmargin=*}
 
-\geometry{margin=1.5cm}
+% Document information
+\newcommand{\titleinfo}{TSM\_AnSeqDa -- Analysis of Sequential Data}
+\newcommand{\authorinfo}{Selvin Blöchlinger}
+\newcommand{\version}{1.0}
+\newcommand{\versioninfo}{HS24}
 
+% Spacing
 \titlespacing{\section}{\parskip}{1pt}{1pt}
 \titlespacing{\subsection}{\parskip}{1pt}{1pt}
 \titlespacing{\subsubsection}{\parskip}{1pt}{1pt}
 
-\begin{document}
+% Header / Footer
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\titleinfo{ }\tiny{(\versioninfo{ V}\version)}\normalsize\qquad\authorinfo{ }}
+\fancyhead[R]{Page{ }\thepage{ }of{ }\pageref{LastPage}}
 
-\textbf{Analysis of Sequential Data}
+% Math Operators
+\DeclareMathOperator{\var}{var}
+\DeclareMathOperator{\mean}{mean}
+\DeclareMathOperator{\E}{E}
+
+
+\begin{document}
 
 \input{01_time_series.tex}
 \input{02_digital_signals.tex}
