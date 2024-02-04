@@ -1,0 +1,119 @@
+
+\section{Digital Signals}
+Very common type of sequential data that results from sampling an analog signal (A/D Conversion).
+Sampling frequency $ f_s = \frac{1}{T_s} $, where $ T_s $ is the sampling period in [s]. Sampling frequency must be at least double the highest present
+frequency in the analog signal, else aliasing occurs.
+Normalized frequencies and normalized sampling periods are expressed in cycles per sample and samples per circle
+and are calculated by dividing the analog by the digital frequency/sampling period.
+
+\subsection{Discrete Fourier Spectrum}
+Every periodic signal can be decomposed into its frequency components and their respective amplitudes.
+This transformation transfers the signal from the time to the frequency domain.
+Transforming the other way can be done via an Inverse Discrete Fourier Transform.
+
+The spectrum of a signal shows additional frequencies mirrored at $ \frac{f_s} {2} $ due to sampling and eulers formula.
+The amplitudes of a spectrum can also be expressed in dB.
+
+\subsection{Linear Time-Invariant Systems}
+Class of signal transformations that map input sequences to output sequences such that the output response is a scaled and time-shifted version of the input,
+and the system characteristics remain constant over time. Examples are a delay system or a moving average.
+
+LTI Systems outputs can be calculated by convolving the input $ \textbf{x} $ with the impulse response of the system
+$ \textbf{h} $ as $ y_n = \sum_{k=-\infty}^{\infty} x_k \cdot h_{n-k} $.
+
+the frequency response $ H(\omega) $ provides a mapping of how the amplitude and phase of different sinusoidal components in an input signal are affected by the LTI system.
+
+Filters Attenuate or amplify certain frequencies of the input signal. Examples include high- and lowpass filters.
+
+\section{Speech Signals}
+One of the most challenging temporal signals to analyse.
+
+Phonemes are the smallest sound units that distinguish words. While phones are the concrete,
+physical sounds produced in actual speech, including their variations and nuances and are therefore speaker dependent.
+
+Fundamental frequencies of speech signals range from 50 Hz (deep mans voice) to 400Hz (child).
+
+\subsection{Short Time Speech Analysis}
+As the main information of a speech signal lies in the change of the spectral characteristics over time,
+we use a shifting window approach and calculate the spectrum for every window.
+
+Analyzing only a window of the signal is equivalent to multiplying the signal with a rectangular window function.
+Multiplying the window with signal in the time domain means convolution of the spectra of the two signals in the frequency domain.
+
+Spectograms show the temporal change of the frequencies by contouring high energy frequencies darker for all windows of the speech signal.
+Formants are high energy areas in the spectograms.
+
+\subsection{Speech Recognition}
+Speech recognition is the technology that converts spoken language into written text,
+allowing computers to understand and process verbal commands or transcribe spoken words.
+Very difficult because human voices can be very different, humans make mistakes, background noises and different acoustics for different environments.
+Also, there are no word boundaries in human speech.
+
+\subsubsection{Feature Extraction}
+For speech recognition, spectograms and the formants are important features.
+Unimportant information can be filtered out by many means, e.g. DFT-Cepstrum to extract the source (vocal excitation) from the filter (vocal tract) components.
+A Mel-Spectrum is a spectrum that more closely resembles the characteristics of the human ear.
+Mel-Cepstrum: IDFT of Log(Mel-Spectrum). The Fast Cochlea Transform (FCT) is a signal processing technique inspired by the auditory processing in the human cochlea.
+
+\subsubsection{Classical Approaches: Rule- based and Pattern Matching}
+Both require feature extraction from the speech singal.
+
+Rule- based: Classification is based on rules for each class derived from human knowledge/observation.
+Very difficult because not generalizeable for different speakers.
+
+Pattern Matching: Classification based on a distortion measure between a feature pattern and given reference patterns for each class (kNN, SVMs).
+Main problem is that the patterns can also vary in the temporal structure.
+We can use Dynamic Time Warping (DTW) to align the extracted features to the reference features by
+locally stretching or squeezing pattern by duplicating or dropping feature vectors.
+
+\subsubsection{Statistical Classification}
+To calculate joined probabilities, we can use bayes rule: $ P(X | W) = \frac{P(W | X) \cdot P(W)}{P(X)} $
+
+Given extracted feature  $ X $ from the speech recognizer, the MAP classifier must choose the word sequence $ W $
+that has the highest a-posteriori probability of all possible word sequences.
+
+\subsubsection{Hidden Markov Model (HMM)}
+Defined by N states, state transition probabilities as well observation probability distribution in each emitting state.
+
+Forward Algorithm: Given a HMM $ \lambda $, a sequence of emitted observations $ \textbf{X} = x_1, x_2, ..., x_T $,
+we want to efficiently calculate $ P(\textbf{X} | \lambda) $. Known as Evaluation problem.
+Brute force approach would be to simply try out all state combinations and see which one has the highest likelihood of giving the seen sequence.
+Forward algorithm takes advantage of independent states and instead keeps the probabilities for emitting the observations for each state. Forward: Addition.
+
+Viterbi Algorithm: Given a HMM $ \lambda $, a sequence of emitted observations $ \textbf{X} = x_1, x_2, ..., x_T $,
+we want to efficiently calculate the most likely state sequence $ Q* = \max_Q P(Q | \textbf{X}, \lambda) $.
+Known as Decoding Problem. Same idea as Forward, but instead of adding all possibilities, we always take the max.
+N-best Viterbi outputs the N-best state sequences instead of only the best.
+
+Forward-Backward algorithm/Baum-Welch algorithm: Given a sequence of emitted observations $ \textbf{X} = x_1, x_2, ..., x_T $ and a model structure,
+find parameters for HMM $ \omega $ such that $ \omega* = max_{\lambda} P(\textbf{X} | \lambda) $.
+Known as Estimation Problem. How HMMs are trained.
+Forward-Backward estimates the probabilities of the sequence given the current models while Baum-Welch applies changes to optimize the parameters,
+kind of like backpropagation.
+
+\subsubsection{HMM Speech Recognizer}
+Speech recognition is done with HMMs of sub-units that are concatenated to word and sentence recognition networks.
+Viterbi then finds the most likely path through the network.
+State sequence $ \xrightarrow{} $ subunit sequence $ \xrightarrow{} $ word sequence $ \xrightarrow{} $ sentence
+
+Lexicon: Describes pronounciation of all words allowed; Language model: Describes all utterances allowed and their probabilities.
+Typically, Mel-Cepstrum, Delta-Cepstrum or other are used as features.
+
+Disadvantages: HMM assumptions never totally met in practice: Conditional independence of states and observations;
+Training HMMs is not inherently discriminative but rather likelihood maximizing.
+
+\subsubsection{Deep Learning Speech Recognizer}
+\textbf{Datasets}: Split dataset into training and test/evaluation sets.
+\textbf{Word Error Rate}: Count substitutions (S), insertions (I), delections (D) and divide by number of words in ground truth.
+\textbf{Data Preprocessing} Scale input data to have zero mean and unit variance.
+\textbf{Initialization}: use random gaussian distributed weights.
+\textbf{Overfitting}: Memorizing the training set. Use dropout to mitigate.
+\textbf{Batch Size}: Compromise between faster and more optimal training.
+\textbf{Batch Normalization}: Scale the activations to have zero mean and unit variance (only during training).
+
+Normal Depp Neural Networks (DNN) classify only input patterns of constant size (e.g. image), so other architectures are used.
+
+\textbf{DNN-HMM}: Use DNN as feature extractor for HMM; \textbf{CNN}: Use CNN on spectogram;
+\textbf{LSTM vs. GRU}: both types of recurrent neural network (RNN) architectures designed to address the vanishing gradient problem in traditional RNNs.
+LSTMs have a more complex memory cell that consists of a cell state and three gates - input gate, forget gate, and output gate.
+GRUs have a simpler memory cell with two gates - reset gate and update gate.

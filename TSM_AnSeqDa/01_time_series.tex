@@ -1,0 +1,166 @@
+
+\section{Stochastic Processes}
+A stochastic process (SP) is a sequence of random variables indexed in time order: $ Y_1, Y_2, Y_3, ..., Y_t $.
+Realization of a stochastic process yield a time series.
+Taking a sample from the stochastic process means sampling a possible future behaviour of the system.
+Using only past data to predict a future is hard, which is why a model of the system behaviour is chosen first.
+We then try to predict a new value given past observations as $ Y_t | Y_{t-1} = Y_t | Y_1, Y_2, ... Y_{t-1} $. Time series can exhibit three major patterns:
+
+Trend: pattern exists when there is a long-term increase or decrease in the data.
+
+Seasonal: pattern exists when a series is influenced by seasonal factors in a predictable and fixed way.
+
+Cyclic: pattern exists when data exhibit rises and falls that are not of fixed period
+
+\section{Autocorrelation}
+(Linear) Correlation of random variables of a time series at different times: $ AutoCorr(t_1, t_2) = Cor(X_t{_1}, X_{t_2}) $.
+Plotting the autocorrelation for different time lags produces a correlogram or Autocorrelation Function (ACF).
+Seasonality can be seen by high positive values at lags that are multiples of the seasonality; a trend can be seen by higher absolute values for small lags.
+A time series with both patterns will show a mix of both in the ACF. White noise series will produce values below the critical threshold of $ \pm 1.96 / \sqrt{T} $ for all lags.
+
+\section{Statistical Hypothesis Testing (SHT)}
+SHT is toolbox to decide if given data supports a particular given hypothesis.
+It works by choosing a null hypothesis, e.g. the time series is white noise.
+We then choose a statistical test, e.g. Ljung‐Box and compute its test statistics for a given signifance level, e.g. 5\%.
+If the p-Value is very small, that means it is very unlikely to sample a series this extreme given the null hypothesis. We thus reject the hypothesis.
+
+\section{Forecasting}
+Computation of forecast at different points in time with $ \hat{y}_{t|t-1} $ as the fitted value of $ y $ at time $ t $ given past values up to time $ t - 1 $.
+We can perform $ h-$ step forecasts by iteratively applying one step forecasts.
+Often, a model is chosen that is well suited to the characteristics of the time series and then fitted to it. This model can then be used to perform forecasts.
+
+\subsection{Simple Forecast Methods}
+Average: Forecast of all future values is equal to mean of historical data.
+
+Naïve: Forecast of all future values is equal to the last observed value.
+
+Seasonal Naïve : Forecast of all future values is equal to the last observed value from the same season.
+
+Drift: Forecast equal to last value plus average change in historical values. Results in a straight line between last observed and last forecasted values.
+
+\subsection{Residual Analysis}
+Residuals in forecasting are defined as the difference between observed value and its fitted value: $ e_t = y_t - \hat{y}_{t|t-1} $.
+Residuals should have zero mean. If they do not, the forecast performed with the fitted model is biased. The should also be uncorrelated.
+If they are not, the residuals contain information not captured by the fitted model. Residuals are also assumed to have constant variance and to be normally distributed.
+
+\subsection{Evaluating Forecast Accuracy}
+The residuals produced by fitting a model should be indistinguishable from white noise by fulfilling all criteria above.
+We can use SHT with a test like Ljung Box to test whether this is true.
+Small p-values lead to rejecting the null hypothesis meaning residuals are correlated.
+Having small residuals does not guarantee good forecasting performance.
+
+Forecast Errors are also used for evaluating forecasts. The data is split into a training and a test set.
+The training set is used for fitting the chosen model while the test set is used to evaluate its performance.
+Based on the test set containing $ n $ values, different error metrics can be computed:
+$ MAE = \frac{1}{n} \sum_{i=1}^{n} |y_i - \hat{y}_i| $,
+$ MSE = \frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 $,
+$ MAPE = \frac{1}{n} \sum_{i=1}^{n} \left| \frac{y_i - \hat{y}_i}{y_i} \right| \times 100 $,
+$ RMSE = \sqrt{\frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2} $,
+$ MASE = \frac{1}{n} \sum_{i=1}^{n} \frac{|y_i - \hat{y}_i|}{\frac{1}{n-1} \sum_{i=2}^{n} |y_i - y_{i-1}|} $,
+$ SSE = \sum_{t=1}^{n} (y_t - \hat{y}_t)^2 $.
+$ MAE $, $ MSE $, $ RMSE $ and $ SSE $ are all scale dependent.
+$ MAPE $ is scale independent but is only sensible if $ y_t \gg 0 \text{ for all } t $, and $ y $ has a natural zero.
+
+Cross-validation for time series involves iteratively splitting a time-ordered dataset into training and test sets,
+ensuring that the test set comes after the corresponding training set,
+to assess the performance of a model on multiple folds and mitigate the risk of temporal information leakage
+(giving the model access to the future it is supposed to predict).
+
+\subsection{Prediction Intervals}
+A prediction interval gives a region within which we expect the forecast value with a specific probability.
+It serves as a measure of confidence in the prediction. The 95\% prediction interval for an $ h $-step forecast can be computed
+as $ \hat{y}_{T+h|T} \pm 1.96 \hat{\sigma}_h $, with $ \hat{\sigma}_h $ as the stddev of the $ h $-step distribution.
+Assuming the residuals are normally distributed, $ \hat{\sigma}_h $ can be estimated for different forecast methods as:
+
+$ \text{Mean: } \hat{\sigma} \cdot \sqrt{1+1/T}, \text{Naïve: } \hat{\sigma} \cdot \sqrt{h},
+\text{Seasonal Naïve: } \hat{\sigma} \cdot \sqrt{k+1}, \text{Drift: } \hat{\sigma} \cdot \sqrt{h \cdot (1+h/T)} $
+where $ \hat{\sigma} $ is the stddev of the residuals, $ T $ is the number of historical values, $ h $ is the integer part of $ (h-1)/m $ and $ m $ is the seasonal period.
+
+\section{Exponential Smoothing}
+Exponential smoothing is a time series forecasting method that assigns exponentially decreasing weights to past observations,
+providing a weighted average of historical data to generate a smoothed forecast with a focus on recent trends.
+Parameters such as $ \alpha $ or $ \phi $ can be found via optimization of the $ SSE $.
+
+\subsection{Simple Exponential Smoothing (SES)}
+A a weighted moving average, whose weights decrease exponentially:
+$ \hat{y}_{t} = \alpha \cdot y_{t-1} + \alpha \cdot (1 - \alpha) \cdot \hat{y}_{t-1} + \alpha \cdot (1 - \alpha)^2 \cdot \hat{y}_{t-2} + ... $
+where $ 0 \le \alpha \le 1 $. The weights sum up to one as a geometric series.
+SES provides flat forecasts for all time horizons as it does not incorporate any trend or cyclic components.
+
+Forecast Equation: $ \hat{y}_{t+h|t} = \ell_t $;
+Smoothing Equation: $ \ell_t = \alpha \cdot y_t + (1 - \alpha) \cdot \ell_{t-1} $
+
+\subsection{Trend Methods}
+\textbf{Holt's linear trend}
+Forecast Equation: $ \hat{y}_{t+h|t} = \ell_t + h \cdot b_{t-1} $;
+Smoothing Equation: $ \ell_t = \alpha \cdot y_t + (1 - \alpha) \cdot (\ell_{t-1} + b_{t-1}) $;
+Trend Equation: $ b_t = \beta \cdot (\ell_t - \ell_{t-1}) + (1 - \beta) \cdot b_{t-1} $
+
+\textbf{Holt's linear with damped trend}
+Forecast Equation: $ \hat{y}_{t+h|t} = \ell_t + h \cdot \phi \cdot b_{t-1} $;
+Smoothing Equation: $ \ell_t = \alpha \cdot y_t + (1 - \alpha) \cdot (\ell_{t-1} + \phi \cdot b_{t-1}) $;
+Trend Equation: $ b_t = \beta \cdot (\ell_t - \ell_{t-1}) + (1 - \beta) \cdot \phi \cdot b_{t-1} $
+
+\subsection{Seasonal Methods}
+Holt-Winters is an extension to Holt's method to capture seasonality.
+
+\textbf{Additive:} seasonality component is constant
+
+Forecast Equation: $ \hat{y}_{t+h|t} = \ell_t + hb_{t-1} + s_{t-m+h-m(q+1)} $;
+Smoothing Equation: $ \ell_t = \alpha (y_t - s_{t-m}) + (1 - \alpha)(\ell_{t-1} + b_{t-1}) $;
+Trend Equation: $ b_t = \beta (\ell_t - \ell_{t-1}) + (1 - \beta) b_{t-1} $;
+Seasonality Equation: $ s_t = \gamma (y_t - \ell_{t-1} - b_{t-1}) + (1 - \gamma) s_{t-m} $;
+
+\textbf{Multiplicative}: seasonality component is proportional to series level
+
+Forecast Equation: $ \hat{y}_{t+h|t} = (\ell_t + hb_{t-1}) \cdot s_{t-m+h-m(q+1)} $;
+Smoothing Equation: $ \ell_t = \alpha \frac{y_t}{s_{t-m}} + (1 - \alpha)(\ell_{t-1} + b_{t-1}) $;
+Trend Equation: $ b_t = \beta (\ell_t - \ell_{t-1}) + (1 - \beta) b_{t-1} $;
+Seasonality Equation: $ s_t = \gamma \frac{y_t}{\ell_{t-1} + b_{t-1}} + (1 - \gamma) s_{t-m} $;
+
+\subsection{Exponential Smoothing State Space Models (ETS)}
+Contrary to pure forecasting methods, State Space Models can provide point forecasts as well as prediction intervals.
+They assume three components that make up the time series:
+
+Error: {Additive, Multiplicative}
+
+Trend: {None, Additive, Additive damped}
+
+Sesonal: {None, Additive, Multiplicative}
+
+\noindent
+Automatic Forecasting aims to find the best performing model out of all possible permutations above by choosing
+the model with the lowest $ AIC = -2 \ln(\mathcal{L}) + 2k $ or $ AICc = AIC + \frac{2k(k+1)}{n-k-1} $,
+where $ \mathcal{L} $ is the likelihood of the model, $ k $ is the number of estimated parameters in the model and $ n $ is the number of observations.
+
+\section{Autoregressive Integrated Moving Average (ARIMA)}
+Combines autoregressive (AR) and moving average (MA) components along with differencing (I).
+
+\subsection{Random Walk (with drift)}
+$ y_t = c + y_{t-1} + \epsilon_t $
+
+\subsection{Stationarity}
+Refers to a time series property where statistical properties, such as mean and variance, remain constant over time,
+providing a stable and predictable behavior. Stationary processes drop quickly to zero and no seasonality visible in the ACF.
+Non-stationary processes decrease more slowly or not at all.
+
+\subsection{Differencing}
+Change between observations in the time series. Can be done multiple times or for observations in the same season.
+Differencing can help with obtaining a stationary time series. Finding the correct number of differences to obtain stationarity can be automated.
+Backshift notation: $ By_t = y_{t-1} \text{; } y_t' = y_t - y_{t-1} = (1 - B) \cdot y_t \text{; } y_t'' = (1 - B)^2 \cdot y_t$
+
+\subsection{Autoregressive (AR) and Moving Average (MA) models}
+Autoregressive Models use multiple regression with lagged values of $ y_t $ as predictors:
+$ y_t = c + \phi_1 y_{t-1} + \phi_2 y_{t-2} + \ldots + \phi_p y_{t-p} + \varepsilon_t $, denoted as AR(p)
+
+They work only on stationary data. All $ \phi $ values are restricted such that the complex roots of the characteristic polynom lie outside the unit circle.
+
+Moving Average Models use multiple regression with past noise as predictors:
+$ y_t = c + \varepsilon_t - \theta_1 \varepsilon_{t-1} - \theta_2 \varepsilon_{t-2} - \ldots - \theta_q \varepsilon_{t-q} $, denoted as MA(p)
+
+Any $ MA(q) $ process can be written as an $ AR(\infty) $ when the roots of the characteristic polynom lie outside the unit circle.
+
+\subsection{ARMA and ARIMA models}
+ARMA: $ y_t = c + \phi_1 y_{t-1} + \phi_2 y_{t-2} + \ldots + \phi_p y_{t-p} + \theta_1 \varepsilon_{t-1} + \theta_2 \varepsilon_{t-2} + \ldots - \theta_q \varepsilon_{t-q} $
+
+ARIMA: Combine ARMA with differencing; p = order of the autoregressive part; d = degree of first differencing involved; q = order of the moving average part
