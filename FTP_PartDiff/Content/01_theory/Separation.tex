@@ -1,20 +1,21 @@
 
-\subsection{Method Separation}
+\subsection{Method of Separation}
 Choosing a suitable coordinate system is important.
 
 \begin{enumerate}
 \item \textbf{Approach} (Highest derivative decisive):
 	\begin{itemize}
-		\item For PDE 1st Order: $U(x,y)=X(x) + Y(y)$
-		\item For PDE 2nd Order: $U(x,y)=X(x) \cdot Y(y)$
+		\item For PDEs of 1st Order: $U(x,y)=X(x) + Y(y)$
+		\item For PDEs of 2nd Order: $U(x,y)=X(x) \cdot Y(y)$
 	\end{itemize}
-\item \textbf{Substitution: } Substitute the approach into the PDE.
-\item \textbf{Separation: } Each side of the PDE should only have one variable. The two resulting ordinary differential equations are coupled by a constant (fixing the variable). Choice of constant: If oscillation is expected, $-k^2$, otherwise $k$, unless you know better ;-).
+\item \textbf{Substitution: } Substitute the approach into the PDE.\@
+\item \textbf{Separation: } Each side of the PDE should only have one variable.
+	The two resulting ordinary differential equations are coupled by a constant $k$ (fixing the variable). If oscillation is expected, $k<0$ and $k=-\lambda^2$.
 \item \textbf{Solving the ODEs: } Obtain a family of solutions
 \item \textbf{Constructing the General Solution: } (Linear combination of solutions), adhere to boundary conditions!
 \end{enumerate}
 
-\begin{minipage}{0.49\textwidth}
+\begin{minipage}[t]{0.49\textwidth}
 \textbf{Example 1: } PDE: $\frac1x\partFrac{u}{x}+\frac1y\partFrac{u}{y}=\frac{1}{y^2}$
 \begin{enumerate}
 	\item Approach:\\[0.4cm]
@@ -46,7 +47,7 @@ Boundary conditions: $\Omega=[1,2]\times[1,2]$ \qquad $u=0$ on $\partial\Omega$
 \end{enumerate}
 \end{minipage}
 \hfill
-\begin{minipage}{0.49\textwidth}
+\begin{minipage}[t]{0.49\textwidth}
 \textbf{Example 3: }PDE: $\partFrac{^2u}{t^2}=\partFrac{^2u}{x^2}$ \quad $u(t=0,x)=0$\\
 Boundary conditions: $x=[0,\pi]$ \\
 \qquad\qquad $\partFrac{u}{t}(t=0,x)=\sin^3(x)=\frac34\sin(x)-\frac14\sin(3x)$
@@ -61,7 +62,7 @@ Boundary conditions: $x=[0,\pi]$ \\
 		$X(x)=\sin(\mu x) \qquad T(t)=\sin(\mu t)$\\
 		$X(x)=\cos(\mu x) \qquad T(t)=\cos(\mu t)$
 	\item Linear Combination:\\[0.4cm]
-		The boundary conditions $x=0$ and $x=\pi$ can only be satisfied with $\sin(\mu x) $ and positive, integer $\mu$. $cos(nx)$ terms are eliminated.\\[0.4cm]
+		The boundary conditions $x=0$ and $x=\pi$ can only be satisfied with $\sin(\mu x) $ and a positive, integer $\mu$. The $cos(nx)$ terms are eliminated.\\[0.4cm]
 		$u(t,x)=\sum\limits_{n=1}^{\infty}{a_n\sin(nx)\sin(nt)} + \sum\limits_{n=1}^{\infty}{b_n\sin(nx)\cos(nt)}$\\[0.4cm]
 		The coefficients $a_n$ and $b_n$ must be determined using the initial conditions at time $t=0$:\\[0.4cm]
 		$u(0,x)=\sum\limits_{n=1}^{\infty}{b_n\sin(nx)}=0 \quad\Rightarrow\quad b_n=0$\\[0.2cm]

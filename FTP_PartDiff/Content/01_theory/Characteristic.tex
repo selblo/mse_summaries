@@ -54,15 +54,13 @@ The solution is now determined by the boundary values.
 \begin{enumerate}
 	\item PDE with boundary conditions and domain: $\partFrac ux+2\partFrac uy=3$, \; $u(0,y)=g(y)=\sin(y) \Rightarrow u(0,y_0) = g(y_0) = \sin(y_0)$\\
 	Terms in matrix form: $\begin{bmatrix}a\\b\\c\end{bmatrix}=\begin{bmatrix}1\\2\\3\end{bmatrix}$
-	\item Calculate characteristics from PDE $\rightarrow$ ODE: 	$\frac {d}{dt}\begin{bmatrix}x(t)\\y(t)\\u(t)\end{bmatrix}=\begin{bmatrix}1\\2\\3\end{bmatrix}$
+	\item Calculate characteristics from PDE $\rightarrow$ ODE: $\frac {d}{dt}\begin{bmatrix}x(t)\\y(t)\\u(t)\end{bmatrix}=\begin{bmatrix}1\\2\\3\end{bmatrix}$
 	\item Solve ODEs (for standard ODEs, see \ref{sec:dgls} on page \pageref{sec:dgls}.):
 	$\begin{bmatrix}x\\y\\u\end{bmatrix}=\begin{bmatrix}1t+x_0\\2t+y_0\\3t+u_0\end{bmatrix}$
 	\item Substitute initial conditions: $\begin{bmatrix}x\\y\\u\end{bmatrix}=\begin{bmatrix}1t+x_0\\2t+y_0\\3t+u_0\end{bmatrix}\Bigg|_{t=0}=
 	\begin{bmatrix}x_0\\y_0\\u_0\end{bmatrix}=\begin{bmatrix}0\\y_0\\\sin(y_0)\end{bmatrix}$\\
-	Solution of ODE is: $\begin{bmatrix}x\\y\\u\end{bmatrix}=\begin{bmatrix}1\\2\\3\end{bmatrix}\cdot t+ \begin{bmatrix}0\\y_0\\\sin(y_0)\end{bmatrix}$\\
-
+	Solution of ODE is: $\begin{bmatrix}x\\y\\u\end{bmatrix}=\begin{bmatrix}1\\2\\3\end{bmatrix}\cdot t+ \begin{bmatrix}0\\y_0\\\sin(y_0)\end{bmatrix}$
 	\item Eliminate all variables except $u,x,y$: $u=3x+\sin(y-2x)$
 	\item Verification:
 	Derive the result ($u=3x+\sin(y-2x)$) and substitute it into the original PDE $\partFrac ux+2\partFrac uy=3$ to check if it is satisfied.
-
 \end{enumerate}

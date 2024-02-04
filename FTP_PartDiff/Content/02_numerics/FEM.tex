@@ -1,13 +1,13 @@
 \clearpage
 
 
-\section{FEM}
+\section{FEM (Finite Element Method)}
 
 The vector space $\mathbb{V}$ has infinitely many dimensions.
 If we choose n independent functions $v_1,\ldots,v_n$,
 then the functions $a_1\cdot v_1(x)+\ldots+a_n\cdot v_n(x)$
 span an n-dimensional subspace $\mathbb{V}^{(n)}$ of $\mathbb{V}$.
-The following holds:\\
+The following applies:\\
 
 $\boxed{\tilde{u}^{(n)}=a_1\cdot v_1(x)+\ldots+a_n\cdot v_n(x)}$
 \subsection{The Method of Ritz}
@@ -16,14 +16,16 @@ $R^{(n)}=\begin{bmatrix}
 	R_{1,1}& R_{1,2}&\cdots\\
 	R_{2,1}& R_{2,2}&\cdots\\
 	\vdots & \vdots &\ddots\\
-\end{bmatrix}$ \qquad with \qquad $R_{j,k}^{(n)}=\int\limits_{0}^{1}{v_j'(x)\cdot
-v_k'(x) dx}$\\
+\end{bmatrix}$ \quad with \quad $R_{j,k}^{(n)}=\int\limits_{0}^{1}{v_j'(x)\cdot v_k'(x) dx}$
+\quad and \quad $j, k = 1,\ldots,n$\\
+
 \textbf{Ritz Vector: }
 $r^{(n)}=\begin{bmatrix}
 	r_1\\
 	r_2\\
 	\vdots\\
-\end{bmatrix}$ \qquad with \qquad $r_{k}^{(n)}=\int\limits_{0}^{1}{f(x)\cdot v_k(x) dx}$\\
+\end{bmatrix}$ \quad with \quad $r_{k}^{(n)}=\int\limits_{0}^{1}{f(x)\cdot v_k(x) dx}$
+\quad and \quad $k = 1,\ldots,n$\\
 
 \textbf{Solution according to Ritz:}
 $R^{(n)}\cdot a=r^{(n)}\qquad \Rightarrow \qquad a=\left\{R^{(n)}\right\}^{-1}\cdot r^{(n)}$
@@ -35,13 +37,16 @@ $G^{(n)}=\begin{bmatrix}
 	G_{1,1}& G_{1,2}&\cdots\\
 	G_{2,1}& G_{2,2}&\cdots\\
 	\vdots & \vdots &\ddots\\
-\end{bmatrix}$ \qquad with \qquad $G_{j,k}^{(n)}=\int\limits_{0}^{1}{\underbrace{(v_j''(x))}_{v_j \text{ in Form von DGL!}}\cdot v_k(x) dx}$\\
+\end{bmatrix}$ \quad with \quad $G_{j,k}^{(n)}=\int\limits_{0}^{1}{\underbrace{(v_j''(x))}_{\mathclap{v_j \text{ in the form of the DE!}}}\cdot v_k(x) dx}$
+\quad and \quad $j, k = 1,\ldots,n$\\
+
 \textbf{Galerkin Vector: }
 $g^{(n)}=\begin{bmatrix}
 	g_1\\
 	g_2\\
 	\vdots\\
-\end{bmatrix}$ \qquad with \qquad $g_{k}^{(n)}=\int\limits_{0}^{1}{f(x)\cdot v_k(x) dx}$\\
+\end{bmatrix}$ \quad with \quad $g_{k}^{(n)}=\int\limits_{0}^{1}{f(x)\cdot v_k(x) dx}$
+\quad and \quad $k = 1,\ldots,n$\\
 
 \textbf{Solution according to Galerkin:} $G^{(n)}\cdot a+g^{(n)}=0\qquad \Rightarrow
 \qquad a=\textcolor{red}{\mathbf{-}}\left\{G^{(n)}\right\}^{-1}\cdot g^{(n)}$ \quad according to Ritz $G^{(n)} = -R^{(n)} \quad g^{(n)} = r^{(n)}$\\
@@ -78,6 +83,7 @@ $M^{(n)}\cdot a+m^{(n)}=0\qquad \Rightarrow \qquad a=\textcolor{red}{\mathbf{-}}
 \subsection{Point Collocation}
 In the context of point collocation (individual points must match between the true result and the approximation),
 $n$ support points are chosen in the interval $[0,1]$.
+
 $\begin{bmatrix}
 	v_1''(x_1)& v_2''(x_1)&\cdots\\
 	v_1''(x_2)& v_2''(x_2)&\cdots\\
@@ -92,11 +98,11 @@ a_2\\
 -f(x_1)\\
 -f(x_2)\\
 \vdots
-\end{bmatrix}$\qquad Solve the system of equations for a\\
+\end{bmatrix}$\qquad Solve the system of equations for $a$.\\
 
 The above matrix is only valid for the PDE $-u''(x) = f(x)$ with the ansatz
 $\tilde{u}(x) = a_1 \cdot v_1(x) + a_2 \cdot v_2(x)$. Otherwise, the
-differential equation (DE) must be formulated with the trial functions, and
+DE must be formulated with the trial functions, and
 substituted at both points to determine $a_1$ and $a_2$:\\
 DE: $u''(x) + u(x) = -x$ $\Rightarrow$ Equation at Point 1: $a_1 \cdot
 v_1''(x_1) + a_2 \cdot v_2''(x_1) + a_1 \cdot v(x_1) + a_2 \cdot v(x_1) = - x_1$
@@ -120,7 +126,7 @@ a_2\\
 -\int_{I_1} f(x)\\
 -\int_{I_2} f(x)\\
 \vdots
-\end{bmatrix}$\qquad Solve the system of equations for a
+\end{bmatrix}$\qquad Solve the system of equations for $a$.
 
 
 \subsection{Gauss's Method (MSE)}
@@ -143,8 +149,8 @@ $Q^{(n)}\cdot a+q^{(n)}=0\qquad \Rightarrow \qquad a=\textcolor{red}{\mathbf{-}}
 
 \subsection{Finite Elements}
 
-The discussed methods assume the choice of a set $v_1(x),\ldots,v_n(x)$ of basic functions.
-In FEM, local supports (basic functions) are used, which are non-zero only on a small interval.
+The discussed methods assume the choice of a set $v_1(x),\ldots,v_n(x)$ of basis functions.
+In FEM, local supports (basis functions) are used, which are non-zero only on a small interval.
 The advantage of this approach is that in a given region,
 only one support influences the approximation function.
 The disadvantage lies in the high number of required supports.
@@ -152,9 +158,12 @@ The disadvantage lies in the high number of required supports.
 \textbf{IMPORTANT:} All methods are presented with a discretization of $h=1/3$.
 
 \subsubsection{Node Variables}
+
+\begin{minipage}[]{12cm}
 First, on the interval $[0,1]$, $n$ nodes, usually uniformly distributed, are introduced.
 
-\begin{minipage}{11cm}
+\vspace{1cm}
+
 This divides the interval $[0,1]$ into subintervals (meshes).
 
 For $n=3$:\quad $I_1=[0,1/3]$\quad $I_1=[1/3,2/3]$\quad $I_1=[2/3,1]$
@@ -172,13 +181,13 @@ $v_3(0)=0$&$v_3(1/3)=0$&$v_3(2/3)=0$&$v_3(1)=1$\\
 \end{tabular}
 \end{minipage}
 \hfill
-\begin{minipage}{8cm}
-\includegraphics[width=8cm]{Content/02_numerics/Traeger1.png}
+\begin{minipage}[]{6cm}
+\includegraphics[width=\linewidth]{Content/02_numerics/Traeger1.png}
 \end{minipage}
 
 
 \subsubsection{Shape Functions}
-The local basic functions are intended to be composed of sections of simpler functions, such as polynomials, defined only on a single mesh.\\
+The local basis functions are intended to be composed of sections of simpler functions, such as polynomials, defined only on a single mesh.\\
 Two possible shape functions are, for example, $l_1(x)=1-x$ and $l_2(x)=x$.
 
 \begin{minipage}{8cm}
@@ -259,7 +268,7 @@ $M^{(4,1)}=M^{(4,2)}=M^{(4,3)}=
 The element matrix is now inserted into the corresponding Ritz matrix and superimposed.
 For the quantization of $h=1/3$, we get:\\
 
-$R^{4}=
+$R^{(4)}=
 \begin{bmatrix}
 	-3 & 3 & 0 & 0 \\
 	3 & -3-3 & 3 & 0 \\
@@ -275,7 +284,7 @@ $R^{4}=
 
 The Ritz vector must be calculated by integration:\\
 
-$r^4=
+$r^{(4)}=
 \begin{bmatrix}
 	\int\limits_{0}^{1}{f(x)\cdot v_0(x)dx}\\
 	\int\limits_{0}^{1}{f(x)\cdot v_1(x)dx}\\
@@ -283,12 +292,12 @@ $r^4=
 	\int\limits_{0}^{1}{f(x)\cdot v_3(x)dx}\\
 \end{bmatrix}$\\
 
-The corresponding Ritz equation system is: $\boxed{R^4\cdot a+r^4=0} \qquad\Rightarrow\qquad a=-\left\{R^4\right\}^{-1}\cdot r^4$\\
+The corresponding Ritz equation system is: $\boxed{R^{(4)}\cdot a+r^{(4)}=0} \qquad\Rightarrow\qquad a=-\left\{R^{(4)}\right\}^{-1}\cdot r^{(4)}$\\
 
-\textbf{Initial conditions:} The initial conditions $a_0$ and $a_n$ can be directly substituted.\\
+\textbf{Initial conditions:} The initial conditions $a_0$ and $a_n$ can directly be substituted.
 
 
-$a_0=10$\qquad$a_3=20$\\
+$a_0=10$\qquad$a_3=20$
 
 $
 	\begin{bmatrix}
@@ -297,7 +306,7 @@ $
 	\end{bmatrix}\cdot
 	\begin{bmatrix}
 		10\\a_1\\a_2\\20
-	\end{bmatrix}+r^4=0\qquad\Rightarrow\qquad
+	\end{bmatrix}+r^{(4)}=0\qquad\Rightarrow\qquad
 	\begin{bmatrix}
 		-6 & 3 \\
 		 3 & -6 \\
@@ -308,7 +317,7 @@ $
 	\begin{bmatrix}
 		30\\60
 	\end{bmatrix}+
-	r^4=0
+	r^{(4)}=0
 $\\
 
 $
@@ -320,8 +329,8 @@ $
 	 	 3 & -6 \\
 	\end{bmatrix}^{-1}\cdot
 	\begin{bmatrix}
-		-\left(r^4_1+3\cdot a_0\right)\\
-		-\left(r^4_2+3\cdot a_3\right)\\
+		-\left(r^{(4)}_1+3\cdot a_0\right)\\
+		-\left(r^{(4)}_2+3\cdot a_3\right)\\
 	\end{bmatrix}
 $
 
@@ -509,7 +518,8 @@ The approximation should apply to the equally spaced intervals: $[0,1/3]$,\quad 
 	$q_2(x)=4x\cdot(1-x)$\\
 	$q_3(x)=-x\cdot(1-2x)$\\
 
-	Element matrix: $\boxed{E=\frac{1}{3}
+	Element matrix:\\
+	$\boxed{E=\frac{1}{3}
 	\begin{bmatrix}
 		-7& 8 & -1\\
 		8& -16& 8\\
@@ -582,14 +592,14 @@ is much smaller with the p-strategy than with the h-strategy.
 If the approximate solution must now be differentiable twice,
 the approach of the last section is no longer considered conforming.
 
-To ensure single differentiability at the nodes, new basic functions must be found.\\
+To ensure single differentiability at the nodes, new basis functions must be found.\\
 
 $\tilde{u}(x)=a_0v_0(x)+a_1v_1(x)+a_2v_2(x)+a_3v_3(x)+\tilde{a}_0\tilde{v}_0(x)+\tilde{a}_1\tilde{v}_1(x)+\tilde{a}_2\tilde{v}_2(x)+\tilde{a}_3\tilde{v}_3(x)$\\
 
-Two basic functions ensure the correct value at the nodes.
-Two additional basic functions are needed to ensure the first derivative (slope)
-at the transition nodes; they ensure the completeness of the basic functions.
-(Without the two additional basic functions, only a slope of zero would be possible at the transition nodes.)
+Two basis functions ensure the correct value at the nodes.
+Two additional basis functions are needed to ensure the first derivative (slope)
+at the transition nodes; they ensure the completeness of the basis functions.
+(Without the two additional basis functions, only a slope of zero would be possible at the transition nodes.)
 
 \subsection{Hermite Polynomials of Third Order}
 Agreement up to the 1st derivative at the nodes\\

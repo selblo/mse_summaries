@@ -36,7 +36,7 @@ $a_0(t)=m_0(t)+c_0\qquad a_k(t)=A_k^a\cos(kt)+B_k^a\sin(kt)\qquad b_k(t)=A_k^b\c
 \end{enumerate}
 
 \textbf{Initial Conditions:}
-The differential equations for the coefficients $a_k(t)$ and $b_k(t)$ can only be completely solved when initial or boundary conditions are given.\\
+The differential equations for the coefficients $a_k(t)$ and $b_k(t)$ can only be completely solved when initial or boundary conditions are given.
 \begin{itemize}
 \item Initial conditions for wave equation:\\
 \quad $u(0,x)=f(x)\qquad \partFrac{u}{t}=g(x)$
@@ -58,9 +58,10 @@ The method can also be generalized to the inhomogeneous wave equation. The pertu
 
 $\partial_t^2u-\partial_x^2u=f \qquad \Rightarrow \qquad f(t,x)=\frac{a_0^f(t)}{2}+\sum\limits_{k=1}^{\infty}{a^f_k(t)\cos(kx)+b^f_k\sin(kx)}$
 
-\subsubsection{Laplace Transformation}
+\subsubsection{Laplace Transform}
 
-$\boxed{F(t)=\int\limits_{0}^{\infty}{f(t)\e^{-st}} dt}$ \qquad See also later in the summary! (in Chapter \ref{sec:Laplace Umwandulungen} and page \pageref{sec:Laplace Umwandulungen})\\
+$\boxed{F(t)=\int\limits_{0}^{\infty}{f(t)\e^{-st}} dt}$ \qquad See also later in the summary!
+(Chapter \ref{sec:Laplace Umwandulungen} on page \pageref{sec:Laplace Umwandulungen})\\
 
 \textbf{Solution of an ODE:}\\
 
@@ -79,7 +80,7 @@ $U(s,x)\IFT x(1-\e^{-t})$
 \subsubsection{Example: Heat Conduction}
 
 At time $t=0$, the rod has temperatures of $-1$ at $x=-\frac{\pi}2$ and
-$1$ at $x=\frac{\pi}2$ -> stationary state.
+$1$ at $x=\frac{\pi}2$ $\rightarrow$ stationary state.
 At time $t=0$, the reservoirs are removed, and the rod is left to itself. In particular, no heat can be dissipated through the ends.
 \[
 \frac{\partial u}{\partial t}=\frac{\partial^2 u}{\partial x^2} \qquad \text{or in general:} \qquad \frac{\partial u}{\partial t}= a^2 \frac{\partial^2 u}{\partial x^2}
@@ -99,12 +100,12 @@ d(x)
 
  $\hat u(t,k)$ Fourier-Sine-Coefficients / ${\cal L} u$ Laplace Transformation.
 
-Initial conditions are odd -> solution of the
+Initial conditions are odd $\rightarrow$ solution of the
 differential equation for all times odd. \\
 Boundary conditions:
 $\partial_xu(t,-\frac{\pi}2)=\partial_xu(t,\frac{\pi}2)=0$
--> Reflection at
-$-\frac{\pi}2$ and $\frac{\pi}2$ -> extend to a $2\pi$-periodic
+$\rightarrow$ Reflection at
+$-\frac{\pi}2$ and $\frac{\pi}2$ $\rightarrow$ extend to a $2\pi$-periodic
 function on $\mathbb R$
 \[
 \partial_t\hat u(t,k)=-k^2\hat u(t,k)

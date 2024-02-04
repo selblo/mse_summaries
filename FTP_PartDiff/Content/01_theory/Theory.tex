@@ -5,20 +5,21 @@
 
 \subsubsection{Order}
 
-As in ordinary differential equations, the order is the highest derivative of the unknown function appearing in the differential equation.\
+As in ordinary differential equations, the order is the highest derivative of the unknown function appearing in the differential equation.
 
 \textbf{PDE 1st Order: } \qquad$F\biggl(x_1,\dots,x_n, u, \frac{\partial u}{\partial x_1},\dots,\frac{\partial u}{\partial x_n}\biggr)$
 
-It can be expressed by the substitution $\frac{\partial u}{\partial x_i}\to p_i$ as $F(x_1,\dots,x_n,u,p_1,\dots,p_n).$\
+Using the substitution $\frac{\partial u}{\partial x_i}\to p_i$, it can be expressed as $F(x_1,\dots,x_n,u,p_1,\dots,p_n).$
 
 \textbf{PDE 2nd Order: } \qquad $F\biggl(x_1,\dots,x_n,u,
 \frac{\partial u}{\partial x_1},\dots,\frac{\partial u}{\partial x_n},
 \frac{\partial^2 u}{\partial x_1^2},\dots,\frac{\partial^2 u}{\partial x_n^2}\biggr)$
 
-It can be expressed by substitution $\frac{\partial u}{\partial x_i}\to p_i,~\frac{\partial^2 u}{\partial x_i\partial x_j}\to t_{ij}$ as
-$F(x_1,\dots,x_n,u,p_1,\dots,p_n,t_{11},t_{12},\dots,t_{n,n-1},t_{nn})$
-.\
-\textbf{Example Exercise}\
+Using the substitution $\frac{\partial u}{\partial x_i}\to p_i,~\frac{\partial^2 u}{\partial x_i\partial x_j}\to t_{ij}$, it can be expressed as
+$F(x_1,\dots,x_n,u,p_1,\dots,p_n,t_{11},t_{12},\dots,t_{n,n-1},t_{nn})$.
+
+\textbf{Examples:}
+
 \begin{tabular}{lclcl}
 $\frac{\partial^2 u}{\partial x_1 \partial x_2} = 0$ & $\Rightarrow$ &
 $F(t_{12}) = t_{12} = 0$ & $\Leftrightarrow$ &
@@ -36,13 +37,15 @@ $F\left( x_1,x_2,\frac{\partial u}{\partial x_1},\frac{\partial u}{\partial x_2}
 \subsubsection{Laplace Operator}
 \begin{tabular}{ll}
 Cartesian: $\Delta u(x,y,z)=\frac{\partial^2u}{\partial x^2}+\frac{\partial^2u}{\partial y^2}+\frac{\partial^2u}{\partial z^2}$
-& Cylindrical: $\Delta f ( \rho , \phi , z ) = \frac{1}{\rho} \frac{\partial}{\partial \rho}
-\left( \rho,\frac{\partial f}{\partial \rho} \right) +
-\frac{1}{\rho^2}\frac{\partial^2 f}{\partial \phi^2} +
-\frac{\partial^2 f}{\partial z^2}$ \\
-Polar: $\Delta f(r, \varphi ) =
-\frac{1}{r}\frac{\partial f}{\partial r} r \frac{\partial f}{\partial r} + \frac{1}{r^2} \frac{\partial^2 f}{\partial \varphi^2}$
-& Spherical: $\Delta f ( r , \vartheta , \phi ) = \frac{1}{\rho^2}\frac{\partial}{\partial \rho} \left(\rho^2 \frac{\partial f}{\partial \rho}\right) + \frac{1}{\rho^2 \sin\theta} \frac{\partial}{\partial \theta} \left(\sin\theta \frac{\partial f}{\partial \theta}\right) + \frac{1}{\rho^2 \sin^2\theta} \frac{\partial^2 f}{\partial \varphi^2}$
+& Cylindrical: $\Delta u ( r , \varphi , z ) = \frac{1}{r} \frac{\partial}{\partial r}
+\left( r \frac{\partial u}{\partial r} \right) +
+\frac{1}{r^2}\frac{\partial^2 u}{\partial \varphi^2} +
+\frac{\partial^2 u}{\partial z^2}$ \\
+Polar: $\Delta u(r, \varphi ) =
+\frac{1}{r}\frac{\partial u}{\partial r} r \frac{\partial u}{\partial r} + \frac{1}{r^2} \frac{\partial^2 u}{\partial \varphi^2}$
+& Spherical: $\Delta u ( r , \theta , \varphi ) = \frac{1}{r^2}\frac{\partial}{\partial r}
+\left(r^2 \frac{\partial u}{\partial r}\right) + \frac{1}{r^2 \sin\theta} \frac{\partial}{\partial \theta} \left(\sin\theta \frac{\partial u}{\partial \theta}\right)
++ \frac{1}{r^2 \sin^2\theta} \frac{\partial^2 u}{\partial \varphi^2}$
 \end{tabular}
 
 \subsubsection{Conversion to Lower Order System}
@@ -57,8 +60,7 @@ System of 1st order equations& $p=\frac{\partial u}{\partial x},\quad q=\frac{\p
 \end{tabular}
 
 
-
-\subsubsection{Notations of a PDE, Domain $\Omega$}
+\subsubsection{Domain of a PDE ($\Omega$)}
 \begin{minipage}{4cm}
 	\begin{tabular}{ll}
 	\includegraphics[width=3cm]{Content/01_theory/Gebiet}&
@@ -74,28 +76,34 @@ System of 1st order equations& $p=\frac{\partial u}{\partial x},\quad q=\frac{\p
 
 The domain of a PDE \textbf{must} be open; only then is the partial derivative defined everywhere. The domain is open if, around every point in the domain $\Omega$, a small ball can be drawn that also lies within the domain $\Omega$.\
 
+\vspace{2mm}
+
 \begin{minipage}{4cm}
-Not a domain:\
+Not a domain:\\
 \includegraphics[width=4cm]{Content/01_theory/gebiet_1.pdf}\\
 
 \end{minipage}
 \begin{minipage}{4cm}
-Domain:\
+Domain:\\
 \includegraphics[width=4cm]{Content/01_theory/gebiet_2.pdf}\\
 \end{minipage}
 
 \textbf{Solution of a PDE:}\\
 \begin{tabular}{ll}
-Given:& Domain $\Omega$, PDE, boundary values $\partial\Omega$\\
+Given:& Domain $\Omega$, PDE, boundary values on $\partial\Omega$\\
 Solution:& Function $u$: $\overset{\_}{\Omega}\rightarrow \mathbb{R}$, PDE in $\Omega$ and boundary values on $\partial\Omega$\\
-\end{tabular} \\
-'well-posed' when the information uniquely determines the solution
+\end{tabular}\\
+`well-posed' when the information uniquely determines the solution
 
 \subsubsection{Classification of a PDE}
-\begin{tabular}{lll}
-Order:& \multicolumn{2}{l}{Highest occurring partial derivative}\\
-Type:& Linear: & Linear in $u, x_1,...,x_n, \frac{\partial u}{\partial x_1},\ldots,\frac{\partial u}{\partial x_n}$\\
-& Quasilinear: & Linear in $\frac{\partial u}{\partial x_1},\ldots,\frac{\partial u}{\partial x_n}$\\
+\begin{tabular}{llll}
+Order:& \multicolumn{3}{l}{Highest occurring partial derivative}\\
+Type:& Linear: & Linear in $u, x_1,\ldots,x_n, \frac{\partial u}{\partial x_1},\ldots,\frac{\partial u}{\partial x_n},
+\frac{\partial^2 u}{\partial x_1^2},\frac{\partial^2 u}{\partial x_1 \partial x_2},\ldots,\frac{\partial^2 u}{\partial x_n^2}$
+& (``No products of $u$s'')\\
+& Quasilinear: & Linear in $\frac{\partial u}{\partial x_1},\ldots,\frac{\partial u}{\partial x_n},
+\frac{\partial^2 u}{\partial x_1^2},\frac{\partial^2 u}{\partial x_1 \partial x_2},\ldots,\frac{\partial^2 u}{\partial x_n^2}$
+& (``No products of derivatives of $u$'')\\
 & Nonlinear: & Everything else
 \end{tabular}
 
