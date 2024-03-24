@@ -37,7 +37,7 @@ To compute the $E\left\lbrace e(n)x^*(n)\right\rbrace$, a averaging over the las
 $$E\left\lbrace e(n)x^*(n)\right\rbrace= \frac{1}{L}\sum\limits_{l=0}^{L-1}e(n-l)x^*(n-l)$$
 \end{minipage}
 \begin{minipage}{6cm}
-        \includegraphics[width=6cm]{../StatDig/bilder/steepestDescent.jpg}
+        \includegraphics[width=6cm]{../TSM_StatDig/bilder/steepestDescent.jpg}
 \end{minipage}
 
  How fast converge the solution/filter: $\displaystyle \tau=\max\{\tau_k\}\approx\frac{1}{\mu \lambda_{min}} $
@@ -55,7 +55,7 @@ $$E\left\lbrace e(n)x^*(n)\right\rbrace= \frac{1}{L}\sum\limits_{l=0}^{L-1}e(n-l
   That means that filter coefficients always will move, but in the mean they are correct.
 \end{minipage}
 \begin{minipage}{5cm}
-  \includegraphics[width=5cm]{../StatDig/bilder/LMS.jpg}
+  \includegraphics[width=5cm]{../TSM_StatDig/bilder/LMS.jpg}
 \end{minipage}
 
 \begin{minipage}{9cm}
@@ -72,7 +72,7 @@ $$E\left\lbrace e(n)x^*(n)\right\rbrace= \frac{1}{L}\sum\limits_{l=0}^{L-1}e(n-l
 
 \end{minipage} 
 \begin{minipage}{10cm}
-  \includegraphics[width=10cm]{../StatDig/bilder/adaptiveFirStructure.png}
+  \includegraphics[width=10cm]{../TSM_StatDig/bilder/adaptiveFirStructure.png}
 \end{minipage}
 
 \subsubsection{Normalized LMS (NLMS) \hayes{514}}
@@ -90,34 +90,34 @@ $\boxed{w_{n+1}=w_n +\beta \frac{x^*(n)}{\epsilon+\|x(n)\|^2}e(n)}$\\
 
 \subsubsection{Applications - Noise Cancellation \hayes{517}}
 \begin{minipage}{9cm}
-        \includegraphics[width=8.5cm]{../StatDig/bilder/adaptiveNoiseCancellation.jpg}\\
+        \includegraphics[width=8.5cm]{../TSM_StatDig/bilder/adaptiveNoiseCancellation.jpg}\\
         Input signal $x(n)$ with noise (e.g. car noise). 
         The second input measures only the noise (e.g. separate mic). Therefore, $v_1$ and $v_2$ are correlated.
         The filter now guesses the first noise so that the error signal gives the wanted signal $d(n)$.     
 \end{minipage}
 \hspace{3mm}
 \begin{minipage}{9cm}
-        \includegraphics[width=8.5cm]{../StatDig/bilder/NoiseCancellationwithoutRef.jpg}\\
+        \includegraphics[width=8.5cm]{../TSM_StatDig/bilder/NoiseCancellationwithoutRef.jpg}\\
         Input signal $x(n)$ with noise (e.g. car noise). The signal $d(n)$ has to be narrowband and $v_1(n)$ has to be broadband. ($d$ has to be a ``slow''  and $v_1$ has to be a ``fast'' changing signal)
         The filter predicts now $d(n)$ and the error signal is the noise $v_1$.
 \end{minipage}
 
+
 \subsection{Adaptive Recursive Filters (won't be tested) \hayes{534}}
 \begin{minipage}{8.4cm}
-	Benötigt im Vergleich zum LMS Algorithmus $20M$ nur $2M$ Iterationen bis er konvergiert. RLS nutzt alle vergangene 
-	Information zur Berechnung der Korrektur; LMS nutzt nur momentane Information. \\
-	$\mathbf{s}(n) = [s(n), s(n-1), \ldots, s(n - N + 1)]^T$ \\
-	Forgetting-Faktor ($\mu=1$),
-	Initialisierungsfakt. ($\delta = 1)$
+    Requires in comparison to the LMS algorithm $20M$ only $2M$ iterations until it converges. RLS uses all past 
+    information for the calculation of the correction; LMS uses only current information. \\
+    $\mathbf{s}(n) = [s(n), s(n-1), \ldots, s(n - N + 1)]^T$ \\
+    Forgetting factor ($\mu=1$),
+    Initialization factor ($\delta = 1)$
 \end{minipage}
 \begin{minipage}{11cm}
-	\begin{aufzaehlung}
-	    \item Initialisieren: $n=1; \mathbf{P}(0)=\gamma \cdot \mathbf{I}; \mathbf{\hat{c}}(0)=0$
-	    \item Gain Vektor: $ \mathbf{k}(n) = \frac{\mathbf{P}(n-1)\mathbf{s}(n)}{1 + \mathbf{s}^T(n) \mathbf{P}(n-1) \mathbf{s}(n)}$
-	    \item Wahrer Schätzfehler: $\eta(n) = r(n) - \mathbf{s}^T(n) \mathbf{\hat{c}}(n-1)$
-	    \item Koeffizienten updaten: $\mathbf{\hat{c}}(n) = \mathbf{\hat{c}}(n-1) + \mathbf{k}(n) \eta(n)$
-	    \item Fehlerkorrelationsmatrix: \small $\mathbf P(n) = \frac1\mu [ \mathbf P (n-1) - \mathbf k (n) \mathbf u^T (n) \mathbf P(n-1)]$
-\normalsize	    \item $n++$ und zurück zu Schritt 2
-	\end{aufzaehlung}
+    \begin{aufzaehlung}
+        \item Initialize: $n=1; \mathbf{P}(0)=\gamma \cdot \mathbf{I}; \mathbf{\hat{c}}(0)=0$
+        \item Gain vector: $ \mathbf{k}(n) = \frac{\mathbf{P}(n-1)\mathbf{s}(n)}{1 + \mathbf{s}^T(n) \mathbf{P}(n-1) \mathbf{s}(n)}$
+        \item True estimation error: $\eta(n) = r(n) - \mathbf{s}^T(n) \mathbf{\hat{c}}(n-1)$
+        \item Update coefficients: $\mathbf{\hat{c}}(n) = \mathbf{\hat{c}}(n-1) + \mathbf{k}(n) \eta(n)$
+        \item Error correlation matrix: \small $\mathbf P(n) = \frac1\mu [ \mathbf P (n-1) - \mathbf k (n) \mathbf u^T (n) \mathbf P(n-1)]$
+\normalsize        \item $n++$ and back to step 2
+    \end{aufzaehlung}
 \end{minipage}
-

@@ -1,6 +1,6 @@
 \section{Optimum Filters}
-A optimum filter minimizes the mean-square error $\xi = E\left(|e(n)|^2\right) \quad x(n)=d(n)+v(n) \quad e(n) = d(n) - \tilde{d}(n)$\\
-\includegraphics[width=9cm]{../StatDig/bilder/optimumFilter.jpg}\\
+An optimum filter minimizes the mean-square error $\xi = E\left(|e(n)|^2\right) \quad x(n)=d(n)+v(n) \quad e(n) = d(n) - \tilde{d}(n)$\\
+\includegraphics[width=9cm]{../TSM_StatDig/bilder/optimumFilter.jpg}\\
 The minimal error is \textbf{always orthogonal} to the data: $E{e(n)x^*(n-k)}=0$ $\forall$ $k\in[0,p-1]$
 
 \subsection{Wiener FIR Filter \hayes{337}}
@@ -92,7 +92,7 @@ r_{dx}[1]
 \end{minipage}
 \hspace{3mm}
 \begin{minipage}{7cm}
-\includegraphics[width=7cm]{../StatDig/bilder/linear_phase_fir.png}
+\includegraphics[width=7cm]{../TSM_StatDig/bilder/linear_phase_fir.png}
 How a linear phase FIR filter 2 order is implemented in hardware.
 \end{minipage}
 \subsection{Wiener IIR Filter}
@@ -148,52 +148,54 @@ Espacialy if $G(e^{j\omega})$ becomes small the noise will be amplified.\\
 System function:\hspace{1.2cm}
 	$ H(z)= \frac{1}{G(z)}\left[\frac{P_d(z)}{P_d(z)+P_w(z)/|G(z)|^2}\right]$\\
 
-\subsection{Discrete Kalman Filter \hayes{371}}
+
+\subsection{Discrete Kalman Filter}
 The Kalman Filter is a Best Linear Unbiased Estimator (BLUE).
 
-\textbf{Grundgedanke} Beim Kalman Filter wird der Kalman Gain nach dem
-kleinsten Fehlerquadrat geschätzt. Speziell am Kalman ist, dass Messgrössen
-mithilfe der Zustandsgrössen und einem Rauschsignal definiert ist. \\
-\subsubsection{Voraussetzung}
-\begin{aufzaehlung}
-   	\item Physikalisches Modell/Systementwicklung (für normales sogar ein
-   	lineares Modell)
-   	\item Messwerte, auch eine Sensorfusion möglich (mehrere Messwerte für ein
-   	Systemzustand)
-   	\item für normales Kalman: linearer Zusammenhang zwischen Messwerten und
-   	Zustandsgrössen
-\end{aufzaehlung}
+\textbf{Basic Idea} The Kalman Filter estimates the Kalman Gain based on
+the least squares error. Specifically, the Kalman Filter defines measurement values
+using state variables and a noise signal. \\
+\subsubsection{Prerequisites}
+\begin{itemize}
+	\item A physical model/system development (for the standard version, even a
+	linear model)
+	\item Measurement values, sensor fusion possible (multiple measurements for one
+	system state)
+	\item For standard Kalman: linear relationship between measurement values and
+	state variables
+\end{itemize}
 \begin{minipage}{8cm}
 	\includegraphics[width=8cm]{Content/AdaptSigVer/KalmanFilter.jpg}
 	
 	\begin{itemize}
-		\item $\hat{x}_{k-1}$ und $P_{k-1}$ benötigen Initialisierungswerte
-		\item $P_K$ und $K_K$ können offline vorausberechnet werden, wenn das System nicht ändert
+		\item $\hat{x}_{k-1}$ and $P_{k-1}$ require initialization values
+		\item $P_K$ and $K_K$ can be pre-calculated offline if the system does not change
 	\end{itemize}
 	
 \end{minipage}
 \begin{minipage}{11cm}
 	\small
-	\subsubsection{Funktion}
-		\begin{liste}
-	    	\item A Systementwicklungsmatrize: Physikalische Modell
-	    	\item K Kalman Gain: Gewichtet interne Schätzung und die Messungen der
-	    	einzelnen Sensoren (0=Nur interne Schätzung;1=nur Messung)
-	    	\item H Messmatrize: Zusammenhang zwischen Mess- und Zustandsgrössen
-	    	\item P (Fehlerkovarianzma.) Schätzgrösse für den Fehler. Je grösser desto
-	    	mehr wird aktuelle Messung berücksichtigt. Beim normalen Kalman Filter
-	    	konvergiert dieser mit der Zeit.
-	    	\item z: Messwerte (auch von mehreren gleichartigen Sensoren möglich)
-	    	\item x: Zustandsgrössen
-	    	\item Initialwert: Systemwerte beliebig; Fehlerkovarianzmatrize sehr
-	    	gross wählen, so dass zuerst nur die Messung berücksichtigt wird
-	    	\item Q Standartabweichung System (Systemrauschen)
-	    	\item R Standartabweichung der Sensoren (Messrauschen)
-				\item Das Verhältniss von Q zu R ist für die Filtereinstellung verantwortlich.\newline
-				$\frac QR$ gross $\rightarrow$ vertraut mehr den Messdaten\newline \hspace{4cm} $\frac QR$ klein $\rightarrow$ vertraut mehr den Systemeigenschaften
-	    \end{liste}
+	\subsubsection{Function}
+		\begin{itemize}
+			\item A System development matrix: Physical model
+			\item K Kalman Gain: Weights internal estimation and the measurements of
+			individual sensors (0=Only internal estimation;1=only measurement)
+			\item H Measurement matrix: Relationship between measurement and state variables
+			\item P (Error covariance matrix) Estimate of the error. The larger it is, the
+			more the current measurement is considered. In the normal Kalman Filter,
+			this converges over time.
+			\item z: Measurement values (also from several similar sensors possible)
+			\item x: State variables
+			\item Initial value: System values arbitrary; Error covariance matrix chosen very
+			large, so that initially only the measurement is considered
+			\item Q Standard deviation of the system (system noise)
+			\item R Standard deviation of the sensors (measurement noise)
+			\item The ratio of Q to R is responsible for the filter setting.\newline
+			$\frac QR$ large $\rightarrow$ trusts the measurement data more\newline \hspace{4cm} $\frac QR$ small $\rightarrow$ trusts the system properties more
+		\end{itemize}
 	\normalsize
 \end{minipage}
+
 
 
 \subsubsection{Kalman Algorithm}
@@ -202,38 +204,38 @@ $\mathbf{\hat x}(n|n)$ is the prediction, $\mathbf{P}$ is the error covariance m
 The index $\mathbf{\hat x}(a|b)$ $a$ stands for the iteration number ($n$ = now) and $b$ is which input
 data has to be taken ($n-1$ = data up to the last iteration). 
 \begin{alignat}{2}
-	&\text{State equation:}\qquad&&\mathbf{x}(n) =\mathbf{A}(n-1)\mathbf{x}(n-1) + \mathbf{w}(n) \qquad 
-	 \mathbf{Q}_w = \text{noise covariance matrix} \underbrace{= \sigma_w^2}_{\text{when one dimensional}}  \nonumber\\
-	&\text{Observer equation:}\qquad&&\mathbf{y}(n) =\mathbf{C}(n)\mathbf{x}(n) + \mathbf{v}(n) \qquad \qquad \quad \quad
+    &\text{State equation:}\qquad&&\mathbf{x}(n) =\mathbf{A}(n-1)\mathbf{x}(n-1) + \mathbf{w}(n) \qquad 
+     \mathbf{Q}_w = \text{noise covariance matrix} \underbrace{= \sigma_w^2}_{\text{when one dimensional}}  \nonumber\\
+    &\text{Observer equation:}\qquad&&\mathbf{y}(n) =\mathbf{C}(n)\mathbf{x}(n) + \mathbf{v}(n) \qquad \qquad \quad \quad
    \mathbf{Q}_V = \text{noise covariance matrix} \underbrace{= \sigma_v^2}_{\text{when one dimensional}} \nonumber\\
-	\nonumber\\
-	&\text{Initial condition:}	\qquad	&&\mathbf{x}(0|0)=E\{\mathbf{x}(0)\} \qquad \qquad \text{might be zero}\nonumber\\
-										&&&\mathbf{P}(0|0)=E\{\mathbf{x}(0)\mathbf{x}^{\mathrm T}(0)\} \qquad \text{should be high}\nonumber\\
-	\nonumber\\
-	\label{kal1}
-	&\text{Prediction:}			\qquad	&&\mathbf{\hat{x}}(n|n-1)=\mathbf{A}(n-1)\mathbf{\hat{x}}(n-1|n-1)\\
-										&&&\mathbf{P}(n|n-1)=\mathbf{A}(n-1)\mathbf{P}(n-1|n-1)\mathbf{A}^{\mathrm T}(n-1) + \mathbf{Q}_w(n)\\
-	\nonumber\\
-	&\text{Update:}				\qquad	&&\mathbf{K}(n)=\mathbf{P}(n|n-1)\mathbf{C}^{\mathrm T}(n)\left[\mathbf{C}(n) \mathbf{P}(n|n-1)\mathbf{C}^{\mathrm T}(n)+\mathbf{Q}_v(n)\right]^{\textbf{\textcolor{red}{-1}}}\\
-										&&&\mathbf{\hat{x}}(n|n)=\mathbf{\hat{x}}(n|n-1)+\mathbf{K}(n)\left[\mathbf{y}(n)-\mathbf{C}(n)\mathbf{\hat{x}}(n|n-1)\right]\\
-										&&&\mathbf{P}(n|n)=\left[\mathbf{I}-\mathbf{K}(n)\mathbf{C}(n)\right]\mathbf{P}(n|n-1)\\
-										&&&\textbf{continue with \eqref{kal1}}	
+    \nonumber\\
+    &\text{Initial condition:}    \qquad    &&\mathbf{x}(0|0)=E\{\mathbf{x}(0)\} \qquad \qquad \text{might be zero}\nonumber\\
+                                        &&&\mathbf{P}(0|0)=E\{\mathbf{x}(0)\mathbf{x}^{\mathrm T}(0)\} \qquad \text{should be high}\nonumber\\
+    \nonumber\\
+    &\text{Prediction:}            \qquad    &&\mathbf{\hat{x}}(n|n-1)=\mathbf{A}(n-1)\mathbf{\hat{x}}(n-1|n-1)\\
+                                        &&&\mathbf{P}(n|n-1)=\mathbf{A}(n-1)\mathbf{P}(n-1|n-1)\mathbf{A}^{\mathrm T}(n-1) + \mathbf{Q}_w(n)\\
+    \nonumber\\
+    &\text{Update:}                \qquad    &&\mathbf{K}(n)=\mathbf{P}(n|n-1)\mathbf{C}^{\mathrm T}(n)\left[\mathbf{C}(n) \mathbf{P}(n|n-1)\mathbf{C}^{\mathrm T}(n)+\mathbf{Q}_v(n)\right]^{-1}\\
+                                        &&&\mathbf{\hat{x}}(n|n)=\mathbf{\hat{x}}(n|n-1)+\mathbf{K}(n)\left[\mathbf{y}(n)-\mathbf{C}(n)\mathbf{\hat{x}}(n|n-1)\right]\\
+                                        &&&\mathbf{P}(n|n)=\left[\mathbf{I}-\mathbf{K}(n)\mathbf{C}(n)\right]\mathbf{P}(n|n-1)\\
+                                        &&&\text{continue with prediction step}    
 \end{alignat}
+
 
 The steady-state is reached when $\mathbf{P}(n|n) = \mathbf{P}(n-1 | n-1)$ and $\mathbf{K}(n) = \mathbf{P}(n|n)$.
 
-\subsubsection{Vereinfachtes Prinzip des Kalman-Filters}
+\subsubsection{Simplified Principle of the Kalman Filter}
 \begin{minipage}{14.5cm}
-Man hat zwei ungenaue Sensoren $T_1$ und $T_2$ (unkorreliert), welche das gleiche Signal messen und deren Standardabweichungen $\sigma_1$ und $\sigma_2$ bekannt sind. Der beste
-Schätzer $\hat{T}$ wird wie folgt errechnet:\\
+Given two inaccurate sensors $T_1$ and $T_2$ (uncorrelated), measuring the same signal with known standard deviations $\sigma_1$ and $\sigma_2$. The best
+estimator $\hat{T}$ is calculated as follows:\\
 \end{minipage}
 \hspace{0.25cm}
 \begin{minipage}{5cm}
 $\hat{T}=\frac{\sigma_1^2}{\sigma_1^2+\sigma_2^2}\cdot T_2+\frac{\sigma_2^2}{\sigma_1^2+\sigma_2^2}\cdot T_1$
 \end{minipage}
 \begin{minipage}{14.5cm}
-Man hat zwei korrelierte Signale $T_1$ und $T_2$ mit $\sigma_1$ und $\sigma_2$ und dem Korrelationskoeffizient $\rho$ bekannt. Der beste
-Schätzer $\hat{T}$ wird wie folgt errechnet:\\
+Given two correlated signals $T_1$ and $T_2$ with known $\sigma_1$, $\sigma_2$, and the correlation coefficient $\rho$. The best
+estimator $\hat{T}$ is calculated as follows:\\
 \end{minipage}
 \hspace{0.25cm}
 \begin{minipage}{5cm}
@@ -241,6 +243,7 @@ $\hat{T}=k_1\cdot T_1 + k_2\cdot T_2$\\
 $k_1=\frac{\sigma_2^2-\rho \sigma_1 \sigma_2}{\sigma_1^2 - 2 \rho \sigma_1 \sigma_2 + \sigma_2^2}$\\
 $k_2=1-k_1=\frac{\sigma_1^2-\rho \sigma_1 \sigma_2}{\sigma_1^2 - 2 \rho \sigma_1 \sigma_2 + \sigma_2^2}$\\
 \end{minipage}
+
 
 \subsubsection{Kalman Modelling of Known System Behaviour}
 When a system has known behaviour, the state space representation can be used to find the Kalman matrices. The system is interpreted as a measurement with input $w(n)$ (measurement noise), output $y(n)$ and an added process noise $v(n)$ that is directly added to $y(n)$. 
@@ -283,6 +286,3 @@ When a system has known behaviour, the state space representation can be used to
 		\end{bmatrix}, D = v(n)$\\
 	\hline
 \end{longtable}
-
-      
-      

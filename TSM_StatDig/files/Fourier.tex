@@ -1,102 +1,103 @@
 
-% Einleitung
-\section{Varianten der Integraltransformationen}
+\section{Variants of Integral Transformations}
 \begin{tabular}{|l||l|l|}
 \hline & & \\
-\textbf{Signalart}
-	& diskret
-	& kontinuierlich \\
+\textbf{Signal Type}
+    & Discrete
+    & Continuous \\
 \hline \hline & & \\
-periodisch
-	& Diskrete Fourier-Transformation
-	& Fourierreihe \\
+Periodic
+    & Discrete Fourier Transform
+    & Fourier Series \\
 \hline & & \\
-impulsfoermig
-	& ``Fourierreihe mit $T = Impulsdauer$''
-	& Fourierintegral \\
+Impulsive
+    & ``Fourier Series with $T = \text{Pulse duration}$''
+    & Fourier Integral \\
 \hline & & \\
-kausal
-	& Z-Transformation
-	& Laplace-Transformation \\
+Causal
+    & Z-Transformation
+    & Laplace Transformation \\
 \hline
 \end{tabular}
 
-\section{Diskrete Fourier Transformation (DFT)}
-	$$\boxed{s(h)=\sum_{k=0}^{N-1}\hat c_k e^{jhk\frac{2\pi}{N}}=\sum_{k=0}^{N-1}
-	\left[ \hat{a}_k \cos\left(hk \frac{2 \pi}{N}\right)+\hat{b}_k \sin\left(hk
-	\frac{2 \pi}{N}\right) \right]} \qquad N=\text{Periodenanzahl}$$\\
-	$$\hat{c}_k=\frac{1}{N}\sum_{h=0}^{N-1}s(h)
-	e^{-jhk\frac{2\pi}{N}}=\hat{a}_k-j\hat{b}_k \qquad \hat{a}_k=\frac{1}{N}
-	\sum_{h=0}^{N-1}s(h) \cos\left(hk \frac{2 \pi}{N}\right)=Re(\hat{c}_k) \qquad
-	\hat{b}_k=\frac{1}{N} \sum_{h=0}^{N-1}s(h) \sin\left(hk \frac{2
-	\pi}{N}\right)=-Im(\hat{c}_k)$$\\	
 
-	\subsection{Berechnung mit Matrizen}
-		\textbf{Transformation}\\
-		1. Periode $N$ des Signalvektors $\vec{s}=
-		\begin{bmatrix}
-		s(0) \\
-		s(1) \\
-		s(N-1)\\
-		\end{bmatrix}$ bestimmen\\ \\
-		2. Einheitswurzel $w$ berechnen: $w=e^{j\frac{2 \pi}{N}}$\\ \\
-		3. Matrix $W$ berechnen: $W=
-		\begin{bmatrix}
-		w^0 & w^0 & w^0 & \ldots & w^0\\
-		w^0 & w^1 & w^2 & \ldots & w^{N-1}\\
-		w^0 & w^2 & w^4 & \ldots & w^{2(N-1)}\\
-		\ldots & \ldots & \ldots & \ldots & \ldots\\
-		w^0 & w^{N-1} & w^{2(N-1)} & \ldots & w^{(N-1)(N-1)}                        
-		\end{bmatrix}$\\ \\
-		4. Matrix $V$ berechnen: $V=W^*$ (konj. komplex)\\ \\
-		5. Koeffizienten bzw. Fouriertransformierte $\vec{c}$ berechnen:
-		$\vec{c}=\frac{1}{N}V\vec{s}$\\
+\section{Discrete Fourier Transformation (DFT)}
+    $$\boxed{s(h)=\sum_{k=0}^{N-1}\hat c_k e^{jhk\frac{2\pi}{N}}=\sum_{k=0}^{N-1}
+    \left[ \hat{a}_k \cos\left(hk \frac{2 \pi}{N}\right)+\hat{b}_k \sin\left(hk
+    \frac{2 \pi}{N}\right) \right]} \qquad N=\text{Number of periods}$$\\
+    $$\hat{c}_k=\frac{1}{N}\sum_{h=0}^{N-1}s(h)
+    e^{-jhk\frac{2\pi}{N}}=\hat{a}_k-j\hat{b}_k \qquad \hat{a}_k=\frac{1}{N}
+    \sum_{h=0}^{N-1}s(h) \cos\left(hk \frac{2 \pi}{N}\right)=Re(\hat{c}_k) \qquad
+    \hat{b}_k=\frac{1}{N} \sum_{h=0}^{N-1}s(h) \sin\left(hk \frac{2
+    \pi}{N}\right)=-Im(\hat{c}_k)$$\\    
 
-		\begin{minipage}{13cm}
-			\textbf{Ruecktransformation}\\
-			1. Matrix $W$ (wie bei der Transformation beschrieben) berechnen \\
-			2. Signalvektor $\vec{s}$ berechnen: $\vec{s}=W\vec{c}$	
-			\subsection{Matrizenmultiplikation}
-			\begin{tabular}{ll}
-				$\frac14
-				\begin{bmatrix}
-				    6 & -1 & 4 \\
-				    3 & 2 & -2 \\
-				    0 & -3 & -1
-				\end{bmatrix}
-				\cdot
-				\begin{bmatrix}
-					1 \\
-				    4 \\
-				    3 
-				\end{bmatrix}
-				=
-				\frac14
-				\begin{bmatrix}
-					6 \cdot 1 + (-1) \cdot 4 + 4 \cdot 3\\
-					3 \cdot 1 + 2 \cdot  4 + (-2) \cdot 3\\
-					0 \cdot 1 + (-3) \cdot 4 + (-1) \cdot 3  
-				\end{bmatrix}
-				=
-				\frac14
-				\begin{bmatrix}
-				    14\\
-				    5\\
-				    -15
-				\end{bmatrix}
-				=
-				\begin{bmatrix}
-		        	3.5\\
-		        	1.25\\
-		        	-3.75
-		        \end{bmatrix}$
-		    \end{tabular}		
+    \subsection{Calculation with Matrices}
+        \textbf{Transformation}\\
+        1. Determine the period $N$ of the signal vector $\vec{s}=
+        \begin{bmatrix}
+        s(0) \\
+        s(1) \\
+        s(N-1)\\
+        \end{bmatrix}$\\ \\
+        2. Calculate the unit root $w$: $w=e^{j\frac{2 \pi}{N}}$\\ \\
+        3. Calculate the matrix $W$: $W=
+        \begin{bmatrix}
+        w^0 & w^0 & w^0 & \ldots & w^0\\
+        w^0 & w^1 & w^2 & \ldots & w^{N-1}\\
+        w^0 & w^2 & w^4 & \ldots & w^{2(N-1)}\\
+        \ldots & \ldots & \ldots & \ldots & \ldots\\
+        w^0 & w^{N-1} & w^{2(N-1)} & \ldots & w^{(N-1)(N-1)}                        
+        \end{bmatrix}$\\ \\
+        4. Calculate matrix $V$: $V=W^*$ (conjugate complex)\\ \\
+        5. Calculate the coefficients or Fourier transform $\vec{c}$:
+        $\vec{c}=\frac{1}{N}V\vec{s}$\\
+
+        \begin{minipage}{13cm}
+            \textbf{Inverse Transformation}\\
+            1. Calculate the matrix $W$ (as described in the transformation) \\
+            2. Calculate the signal vector $\vec{s}$: $\vec{s}=W\vec{c}$ 
+            \subsection{Matrix Multiplication}
+            \begin{tabular}{ll}
+                $\frac14
+                \begin{bmatrix}
+                    6 & -1 & 4 \\
+                    3 & 2 & -2 \\
+                    0 & -3 & -1
+                \end{bmatrix}
+                \cdot
+                \begin{bmatrix}
+                    1 \\
+                    4 \\
+                    3 
+                \end{bmatrix}
+                =
+                \frac14
+                \begin{bmatrix}
+                    6 \cdot 1 + (-1) \cdot 4 + 4 \cdot 3\\
+                    3 \cdot 1 + 2 \cdot  4 + (-2) \cdot 3\\
+                    0 \cdot 1 + (-3) \cdot 4 + (-1) \cdot 3  
+                \end{bmatrix}
+                =
+                \frac14
+                \begin{bmatrix}
+                    14\\
+                    5\\
+                    -15
+                \end{bmatrix}
+                =
+                \begin{bmatrix}
+                    3.5\\
+                    1.25\\
+                    -3.75
+                \end{bmatrix}$
+            \end{tabular}     
         \end{minipage}
-		\begin{minipage}[c]{5cm}
-        	\includegraphics[width=5cm]{../IntTra/bilder/matrix.png}
+        \begin{minipage}[c]{5cm}
+            \includegraphics[width=5cm]{../IntTra/bilder/matrix.png}
         \end{minipage}
-		
-	\subsection{Einige W-Matrizen}
+
+
+	\subsection{Some W Matrices}
 		\begin{tabular}{l l l l}
         N = 2 & N = 3 & N = 4 & N = 6\\
 		$\begin{bmatrix}
@@ -155,10 +156,8 @@ kausal
 		\end{tabular}
 
 
-	
-	
-	
-	\section{Fourierreihe}
+
+	\section{Fourier Series}
   	$$\boxed{f(t) = \sum\limits_{k = -\infty}^{\infty} c_k \cdot e^{j k \omega_1
   	t}}= \boxed{\sum\limits_{k = 0}^{\infty} \left(c_k \cdot e^{j k \omega_1
   	t} + \overline{c_k} \cdot e^{-j k \omega_1t}\right)}$$
@@ -173,10 +172,10 @@ kausal
 	\frac{2}{T}\int\limits_0^{T} f(t)\cos(k \omega_1 t) dt, \quad b_k =
 	\frac{2}{T}\int\limits_0^{T} f(t)\sin(k \omega_1 t) dt}$$
 
-	$a_0=c_0=A_0$ sind \textit{Konstanten}, $\omega_1$ ist die
-	\textit{Grundkreisfrequenz}, $a_k$ und $b_k$ sind die \textit{reellen
-	Koeffizienten}, $c_k$ ist der \textit{komplexe Koeffizient}, $A_k$ ist die
-	\textit{Amplitude} und $\varphi_k$ ist die \textit{Phase}.\\
+	$a_0=c_0=A_0$ are \textit{constants}, $\omega_1$ is the
+    \textit{fundamental angular frequency}, $a_k$ and $b_k$ are the \textit{real
+    coefficients}, $c_k$ is the \textit{complex coefficient}, $A_k$ is the
+    \textit{amplitude}, and $\varphi_k$ is the \textit{phase}.\\
 	\fbox{
 	\begin{tabular}{p{9cm}p{9cm}}
 		$a_k = c_k + \bar{c_k} = 2\Real(c_k) = A_k \cos(\varphi_k)$ & $b_k = j(c_k + \bar{c_k}) = -2\Imag(c_k) = -A_k \sin(\varphi_k)$ \\ \\
@@ -186,40 +185,40 @@ kausal
 	\end{tabular}
 	}
 
-	\textbf{Berechnung von $\varphi_k$ aus $a_k$ und $b_k$}\\
-	\begin{tabular}{p{4cm}p{4cm}p{3cm}p{3.5cm}}
-		$a_k> 0:$ & $\varphi_k = -\arctan(\frac{b_k}{a_k})$ &
-		$a_k<0:$ &	$\varphi_k = -\arctan(\frac{b_k}{a_k}) + \pi$\\
-		$a_k = 0 \wedge b_k > 0:$ &	$\varphi_k = -\frac{\pi}{2}$ &
-		$a_k = 0 \wedge b_k < 0:$ &	$\varphi_k = \frac{\pi}{2}$\\
-		$a_k = 0 \wedge b_k = 0:$ &	$\varphi_k = \text{nicht definiert}$
-	\end{tabular}
+	\textbf{Calculation of $\varphi_k$ from $a_k$ and $b_k$}\\
+    \begin{tabular}{p{4cm}p{4cm}p{3cm}p{3.5cm}}
+        $a_k> 0:$ & $\varphi_k = -\arctan(\frac{b_k}{a_k})$ &
+        $a_k<0:$ &    $\varphi_k = -\arctan(\frac{b_k}{a_k}) + \pi$\\
+        $a_k = 0 \wedge b_k > 0:$ &    $\varphi_k = -\frac{\pi}{2}$ &
+        $a_k = 0 \wedge b_k < 0:$ &    $\varphi_k = \frac{\pi}{2}$\\
+        $a_k = 0 \wedge b_k = 0:$ &    $\varphi_k = \text{undefined}$
+    \end{tabular}
 
-	\subsection{Symmetrie}
-		\begin{tabular}{|p{4.3cm}|p{4.3cm}|p{4.4cm}|p{4.4cm}|}
-         	\hline
-        	\textbf{gerade Funktion} & \textbf{ungerade Funktion} &
-        	\textbf{Halbperiode 1} & \textbf{Halbperiode 2}\\
-        	\hline
-        	\includegraphics[width=3cm]{../IntTra/bilder/gerade_funktion.png}&
-        	\includegraphics[width=3cm]{../IntTra/bilder/ungerade_funktion.png}&   
- 			\includegraphics[width=3cm]{../IntTra/bilder/halbperiode_1.png}&   
-			\includegraphics[width=3cm]{../IntTra/bilder/halbperiode_2.png}\\
-			\hline & & & \\			
-   			$f(-t)=f(t)$ & $f(-t)=-f(t)$ & $f(t)=f(t+\pi)$ & $f(t)=-f(t+\pi)$\\
-   			$b_k=0$ & $a_k=0$ & $a_{2k+1}=0$ & $a_{2k}=0$\\
-   			$a_k = \frac{4}{T} \int\limits_0^{\frac{T}{2}} f(t) \cdot \cos(k \omega_1
-   			t) dt$ &
-   			$b_k =  \frac{4}{T} \int\limits_0^{\frac{T}{2}} f(t) \cdot
-			\sin(k \omega_1 t) dt$ &
-			$b_{2k+1}=0$ & $b_{2k}=0$\\
-			\hline
-      	\end{tabular}
+	\subsection{Symmetry}
+        \begin{tabular}{|p{4.3cm}|p{4.3cm}|p{4.4cm}|p{4.4cm}|}
+            \hline
+            \textbf{Even Function} & \textbf{Odd Function} &
+            \textbf{Half Period 1} & \textbf{Half Period 2}\\
+            \hline
+            \includegraphics[width=3cm]{../IntTra/bilder/gerade_funktion.png}&
+            \includegraphics[width=3cm]{../IntTra/bilder/ungerade_funktion.png}&   
+            \includegraphics[width=3cm]{../IntTra/bilder/halbperiode_1.png}&   
+            \includegraphics[width=3cm]{../IntTra/bilder/halbperiode_2.png}\\
+            \hline & & & \\            
+            $f(-t)=f(t)$ & $f(-t)=-f(t)$ & $f(t)=f(t+\pi)$ & $f(t)=-f(t+\pi)$\\
+            $b_k=0$ & $a_k=0$ & $a_{2k+1}=0$ & $a_{2k}=0$\\
+            $a_k = \frac{4}{T} \int\limits_0^{\frac{T}{2}} f(t) \cdot \cos(k \omega_1
+            t) dt$ &
+            $b_k =  \frac{4}{T} \int\limits_0^{\frac{T}{2}} f(t) \cdot
+            \sin(k \omega_1 t) dt$ &
+            $b_{2k+1}=0$ & $b_{2k}=0$\\
+            \hline
+        \end{tabular}
 
-	\subsection{Rechtecksignale}
-	$$a_k=\frac{2}{T}\int\limits_{-t_1/2}^{t_1/2}A\cos\left(\frac{2\pi k}{T}t\right)dt=
-	\left .\frac{2AT}{2\pi T k}\sin \left(\frac{2\pi k}{T}t\right)\right |_{-t_1/2}^{t_1/2}=
-	\frac{2A}{\pi k}\sin\left(\frac{\pi t_1}{T}k\right)$$
-	F"ur Verh"altnisse $\frac{T}{ggT(t_1,T)}=n\in\mathbb{N}$ verschwinden die
-	$n.$ Harmonische und deren Vielfache.\\
-	\includegraphics[width=19cm]{../IntTra/bilder/fourierreihe-rechteck.png}
+    \subsection{Rectangular Signals}
+    $$a_k=\frac{2}{T}\int\limits_{-t_1/2}^{t_1/2}A\cos\left(\frac{2\pi k}{T}t\right)dt=
+    \left .\frac{2AT}{2\pi T k}\sin \left(\frac{2\pi k}{T}t\right)\right |_{-t_1/2}^{t_1/2}=
+    \frac{2A}{\pi k}\sin\left(\frac{\pi t_1}{T}k\right)$$
+    For ratios $\frac{T}{\text{gcd}(t_1,T)}=n\in\mathbb{N}$, the
+    $n$th harmonic and its multiples disappear.\\
+    \includegraphics[width=19cm]{../IntTra/bilder/fourierreihe-rechteck.png}

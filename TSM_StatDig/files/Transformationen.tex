@@ -9,7 +9,7 @@
 	\end{minipage}
 	\begin{minipage}{10cm}
 	\includegraphics[width=\textwidth,trim= 0cm 0cm 0cm 0cm]{bilder/Transformationen/Rechteck-Sinc.png}
-	\textbf{Matrizeninversion}\\
+	\textbf{Matrix inversion}\\
 	$A^{-1} = \begin{pmatrix}
 	a & b \\ c & d \\
 	\end{pmatrix}^{-1} =
@@ -28,7 +28,7 @@
 	dh - eg & bg - ah & ae - bd
 	\end{pmatrix}$\\
 	\begin{minipage}{4cm}
-		\textbf{Trigonometrie} \\
+		\textbf{Trigonometry} \\
 		$e^{j\varphi}=\cos(\varphi)+ j \cdot \sin(\varphi) $
 		$e^{-j\varphi}=\cos(\varphi)- j \cdot \sin(\varphi) $
 		$\cos(x) = \frac{e^{jx} + e^{-jx}}{2}$\\
@@ -39,7 +39,7 @@
 		$\sin^2(x)+\cos^2(x)=1$
 	\end{minipage}
 	\begin{minipage}{5cm}
-		\textbf{Determinanten} \\
+		\textbf{Determinants} \\
 		\footnotesize
 		$\det \begin{pmatrix} a & b \\ c & d\\ \end{pmatrix} =
 		a d - b c \quad$\\
@@ -59,19 +59,19 @@
 \renewcommand{\arraystretch}{1.1}
 \begin{tabular}{|p{4.3cm}||p{1.8cm}|p{1.8cm}||p{2.2cm}|p{2.4cm}||p{1.9cm}|p{2.6cm}|}
 \hline
-\textbf{Bezeichnung}
-  & \multicolumn{2}{|c||}{\textbf{Zeitbereich}}
-  & \multicolumn{2}{|c||}{\textbf{Kontinuierlicher Frequenzbereich}}
-  & \multicolumn{2}{|c|}{\textbf{Diskreter Frequenzbereich}} \\
-  & \textbf{kontinuierlich}
-  & \textbf{diskret}
-  & \textbf{Fourier-Integral} 
+\textbf{Designation}
+  & \multicolumn{2}{|c||}{\textbf{Time domain}}
+  & \multicolumn{2}{|c||}{\textbf{Continuous frequency domain}}
+  & \multicolumn{2}{|c|}{\textbf{Discrete frequency domain}} \\
+  & \textbf{continuous}
+  & \textbf{discrete}
+  & \textbf{Fourier integral}
   & \textbf{Laplace}
-  & \textbf{Diskrete FT} 
-  & \textbf{Z-Transformation} \\
+  & \textbf{Discrete FT}
+  & \textbf{Z-transform} \\
 \hline
 \hline
-  Linearität 
+  Linearity 
   & $\alpha\cdot f(t) + \beta\cdot g(t)$
   & $\alpha\cdot f(n) + \beta\cdot g(n)$
   & $\alpha\cdot F(\omega) + \beta\cdot G(\omega)$
@@ -79,7 +79,7 @@
   & $\alpha\cdot F(n) + \beta\cdot G(n)$
   & $\alpha\cdot F(z) + \beta\cdot G(z)$\\
 \hline
-  "Ahnlichkeit / Zeitskalierung bzw. Spiegelung an Y-Achse
+  Similarity / Time scaling or reflection about the Y-axis
   &	$f(\alpha t)$ 
   & $f(-n)$
   & $\frac{1}{|\alpha|}F \left (\frac{\omega}{\alpha} \right)$
@@ -87,7 +87,7 @@
   & $F(-n)$
   & $F(z^{-1})$\\
 %\hline
-  %D�mpfung
+  %Damping
   %& -
   %& $e^{dn} f(n)$
   %& -
@@ -95,7 +95,7 @@
   %& -
   %& $F(z e^{d})$ \\
 \hline
-  Verschiebung im Zeitbereich 
+  Shift in the time domain 
   & $f(t\pm t_0)$ 
   & $f(n \pm n_0)$
   & $e^{\pm j\omega t_0} F(\omega)$
@@ -103,7 +103,7 @@
   & $e^{\pm j\frac{n}{N}2 \pi n_0} F(n)$
   & $z^{\pm n_0} F(z)$\\
 \hline
-  Verschiebung im Frequenzbereich 
+Shift in the frequency domain 
   & $f(t)e^{\mp\alpha t}$ 
   & $f(n) e^{\mp j \frac{n}{N} 2 \pi n_0}$
   & $F(\omega\pm \alpha)$
@@ -111,7 +111,7 @@
   & $F(n \pm n_0)$
   & $F(z \pm n_0)$\\
 \hline
-  Faltung im Zeitbereich 
+Convolution in the time domain 
   &	$f(t) \ast g(t)$
   & $f(n) \ast g(n)$
   & $F(\omega) \cdot G(\omega)$
@@ -119,7 +119,7 @@
   & $F(n) \cdot G(n)$ 
   & $F(z) \cdot G(z)$ \\
 \hline
-  Faltung im Frequenzbereich 
+  Convolution in the frequency domain 
   &	$f(t) \cdot g(t)$
   & $f(n) \cdot g(n)$
   & $\frac{1}{2\pi} F(\omega) \ast G(\omega)$
@@ -127,7 +127,7 @@
   & $\frac{1}{N} F(n) \ast G(n)$
   & $\frac{1}{N} F(z) \ast G(z)$\\
 \hline
-  Ableitungen im Zeitbereich bzw. Differenzenbildung 
+  Derivatives in the time domain / difference formation 
   & $\frac{\partial^n f(t)}{\partial t^n}$ 
   & $\Delta^k f(n)$
   & $(j\omega)^n F(\omega)$
@@ -136,7 +136,7 @@
   & 
   & $(1-z^{-1})^k F(z)$ \\
 \hline
-  Ableitung im Frequenzbereich
+  Derivative in the frequency domain
   & $(-t)^k\cdot f(t)$ 
   & $n f(n)$ 
   & $j^k \frac{-\partial^k F(\omega)}{\partial \omega^k}$
@@ -144,7 +144,7 @@
   & 
   & $-z \frac{\partial F(z)}{\partial z}$ \\
 \hline 			
-  Integration bzw. Summierung
+  Integration / Summation
   & $\int\limits_{-\infty}^t f(\tau)d\tau$ 
   & $\sum\limits_{n=0}^{k} f(n)$
   & $\frac{F(\omega)}{j\omega}+F(0)\pi\delta(\omega)$
@@ -152,7 +152,7 @@
   & 
   & $\frac{1}{1-z^{-1}} F(z)$ \\
 \hline
-  Anfangswert 
+  Initial value 
   & $\lim\limits_{t\rightarrow 0} f(t)$ 
   & $f(0)$
   & 
@@ -160,7 +160,7 @@
   & 
   & $\lim\limits_{z \rightarrow \infty} F(z)$ \\
 \hline
-  Endwert
+  Final value
   &	$\lim\limits_{t\rightarrow \infty} f(t)$
   & $\lim\limits_{n\rightarrow \infty} f(n)$
   & 
@@ -168,31 +168,31 @@
   & 
   & $\lim\limits_{z \rightarrow 1} (1-z^{-1}) F(z))$\\
 %\hline
-  %Stabilit�t
+  %Stability
   %& -
   %& -
   %& -
-  %& Pole in LHE
+  %& Pole in LHP
   %& 
-  %& Pole innerhalb Einheitskreis \\
+  %& Pole inside unit circle \\
 %\hline
-  %Kausalit�t
+  %Causality
   %& -
   %& -
-  %& A- \& Kausal
-  %& Nur Kausal
+  %& A- \& Causal
+  %& Only Causal
   %& 
   %& $\lim\limits_{z \rightarrow \infty} z^{-1} F(z) = 0$ \\
 \hline
 \hline
-  Spezial
+  Special
   & \multicolumn{3}{l||}{
-      Bessel-Theorem \qquad
+      Bessel's theorem \qquad
       $\int\limits_{-\infty}^{\infty}f(t)g^{\ast}(t)dt =
          \frac{1}{2\pi}
          \int\limits_{-\infty}^{\infty}F(\omega)G^{\ast}(\omega)d\omega$}
   & \multicolumn{3}{|l|}{
-      Parseval-Theorem \qquad
+      Parseval's theorem \qquad
       $W = \int\limits_{-\infty}^{\infty}|f(t)|^2 dt = \frac{1}{2\pi}
       \int\limits_{-\infty}^{\infty}|F(\omega)|^2 d\omega$
     }\\
@@ -201,12 +201,12 @@
 \end{tabular}
 \end{minipage}
 \begin{minipage}{0.2\linewidth}
-\textbf{Quadratische Gleichung:}\\
+\textbf{Quadratic Equation:}\\
 $a\cdot x^2+b\cdot x +c=0$\\
 
 $x_{1,2}=\frac{-b\pm \sqrt{b^2-4ac}}{2a}$\\
 
-\textbf{Fouriertransformation:}\\
+\textbf{Fourier Transform:}\\
 
 $\delta(t)\FT 1$\\
 $1\FT 2\pi \delta(\omega)$\\
