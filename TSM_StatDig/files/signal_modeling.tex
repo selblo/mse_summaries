@@ -1,29 +1,30 @@
 \vspace{1em}
-\begin{minipage}[t]{10cm}
-  \vspace{-2cm}
+\begin{minipage}[t]{11cm}
+  \vspace{-1.7cm}
   \section{Signal Modeling \hayes{129}}
   %\renewcommand{\arraystretch}{1.0}
   \textbf{Objective: } Calculate the coefficients for a filter whose
   impulse response matches as closely as possible with a given signal ($x[n]$ - with
-  length $n$).
+  length $N$).
 
       $$ y(n) = \sum\limits_{k=0}^{q} b(k)x(n-k) - \sum\limits_{k=1}^{p} a(k)y(n-k)$$
       $$ H(z) = \dfrac{B(z)}{A(z)} = \dfrac{b_0 + b_1z^{-1} + b_2 z^{-2} + \dots +
       b_q z^{-q}}{1 + a_1z^{-1} + a_2 z^{-2} + \dots + a_p z^{-p}} $$ 
 
 \end{minipage}
-\hspace{0.25cm}
-\begin{minipage}{9cm}
-	\begin{tabular}{| p{1.4cm} | p{2cm} | p{3.9cm} | }
+\hfill
+\begin{minipage}{7.2cm}
+	\vspace{3mm}
+	\begin{tabular}{| p{1.4cm} | p{2cm} | p{2.2cm} | }
 	    \hline
-	    \textbf{Impuls\-antwort}
-	    & exakte über\-ein\-stimmung
-	    & kleinstes Fehler\-quadrat \\
+	    \textbf{Method}
+	    & exact match
+	    & minimal error \\
 	    \hline
 	    \hline
 	    \textbf{LS} 
 	    & $[0]$
-	    & $[1, n - 1]$\\
+	    & $[1, N - 1]$\\
 	    \hline
 	    \textbf{Padé} 
 	    & $[0, q + p + 1]$
@@ -31,15 +32,16 @@
 	    \hline
 	    \textbf{Prony} 
 	    & $[0, q]$
-	    & $[q + 1, n-1]$ \\
+	    & $[q + 1, N - 1]$ \\
 	    \hline
 	    \textbf{Shanks} 
 	    & $[0]$
-	    & $[1, n - 1]$\\
-	    &&(zuerst a nach LS dann b. nicht beide zusammen)\\
+	    & $[1, N - 1]$\\
 	    \hline
 	\end{tabular}\\
-	$q$: Anzahl Nullstellen \hspace{1cm} $p$: Anzahl Polstellen
+	$q$: number of zeros\\
+	$p$: number of poles\\
+	$N$: length of signal $x(n)$
 \end{minipage}
 
 \subsection{Least Squares Method \hayes{131}}
@@ -154,7 +156,7 @@ afterwards, the filter is not necessarily stable.
 
 \subsection{Prony's Method \hayes{144}}
 The resulting impulse response \textbf{matches exactly} with the given signal $x[n]$ in the interval $[0, q]$.
-In the interval $[q + 1, n-1]$, the values are approximated with the
+In the interval $[q + 1, N-1]$, the values are approximated with the
 \textbf{least squares error} (overdetermined system of equations).
 
 
@@ -210,7 +212,7 @@ In the interval $[q + 1, n-1]$, the values are approximated with the
 	
 \subsection{Shanks' Method \hayes{154}}
 
-The B-coefficients are estimated given the A's in such a way that the resulting impulse response in the interval $[0, n - 1]$ with the
+The B-coefficients are estimated given the A's in such a way that the resulting impulse response in the interval $[0, N - 1]$ with the
 \textbf{least squares error} (overdetermined system of equations) approximates the given
 signal $x[n]$. The only improvement would be if the A-coefficients could also include all signal values (Least-square).
 
