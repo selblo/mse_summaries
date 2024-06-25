@@ -29,7 +29,7 @@ Causal
     e^{-jhk\frac{2\pi}{N}}=\hat{a}_k-j\hat{b}_k \qquad \hat{a}_k=\frac{1}{N}
     \sum_{h=0}^{N-1}s(h) \cos\left(hk \frac{2 \pi}{N}\right)=Re(\hat{c}_k) \qquad
     \hat{b}_k=\frac{1}{N} \sum_{h=0}^{N-1}s(h) \sin\left(hk \frac{2
-    \pi}{N}\right)=-Im(\hat{c}_k)$$\\    
+    \pi}{N}\right)=-Im(\hat{c}_k)$$\\
 
     \subsection{Calculation with Matrices}
         \textbf{Transformation}\\
@@ -46,7 +46,7 @@ Causal
         w^0 & w^1 & w^2 & \ldots & w^{N-1}\\
         w^0 & w^2 & w^4 & \ldots & w^{2(N-1)}\\
         \ldots & \ldots & \ldots & \ldots & \ldots\\
-        w^0 & w^{N-1} & w^{2(N-1)} & \ldots & w^{(N-1)(N-1)}                        
+        w^0 & w^{N-1} & w^{2(N-1)} & \ldots & w^{(N-1)(N-1)}
         \end{bmatrix}$\\ \\
         4. Calculate matrix $V$: $V=W^*$ (conjugate complex)\\ \\
         5. Calculate the coefficients or Fourier transform $\vec{c}$:
@@ -55,7 +55,7 @@ Causal
         \begin{minipage}{13cm}
             \textbf{Inverse Transformation}\\
             1. Calculate the matrix $W$ (as described in the transformation) \\
-            2. Calculate the signal vector $\vec{s}$: $\vec{s}=W\vec{c}$ 
+            2. Calculate the signal vector $\vec{s}$: $\vec{s}=W\vec{c}$
             \subsection{Matrix Multiplication}
             \begin{tabular}{ll}
                 $\frac14
@@ -68,14 +68,14 @@ Causal
                 \begin{bmatrix}
                     1 \\
                     4 \\
-                    3 
+                    3
                 \end{bmatrix}
                 =
                 \frac14
                 \begin{bmatrix}
                     6 \cdot 1 + (-1) \cdot 4 + 4 \cdot 3\\
                     3 \cdot 1 + 2 \cdot  4 + (-2) \cdot 3\\
-                    0 \cdot 1 + (-3) \cdot 4 + (-1) \cdot 3  
+                    0 \cdot 1 + (-3) \cdot 4 + (-1) \cdot 3
                 \end{bmatrix}
                 =
                 \frac14
@@ -90,7 +90,7 @@ Causal
                     1.25\\
                     -3.75
                 \end{bmatrix}$
-            \end{tabular}     
+            \end{tabular}
         \end{minipage}
         \begin{minipage}[c]{5cm}
             \includegraphics[width=5cm]{../IntTra/bilder/matrix.png}
@@ -102,7 +102,7 @@ Causal
         N = 2 & N = 3 & N = 4 & N = 6\\
 		$\begin{bmatrix}
 		1 & 1\\
-		1 & -1\\              
+		1 & -1\\
 		\end{bmatrix}$ &
 		$\begin{bmatrix}
 		1 & 1 & 1\\
@@ -113,7 +113,7 @@ Causal
 		1 & 1 & 1 & 1 \\
 		1 & j & -1 & -j\\
 		1 & -1 & 1 & -1\\
-		1 & -j & -1 & j\\                   
+		1 & -j & -1 & j\\
 		\end{bmatrix}$ &
 		$\begin{bmatrix}
 		1 & 1 & 1 & 1 & 1 & 1\\
@@ -123,23 +123,23 @@ Causal
 		& -\frac{1}{2}+j\frac{\sqrt{3}}{2} & -\frac{1}{2}-j\frac{\sqrt{3}}{2}\\
 		1 & -1 & 1 & -1 & 1 & -1\\
 		1 & -\frac{1}{2}-j\frac{\sqrt{3}}{2} & -\frac{1}{2}+j\frac{\sqrt{3}}{2} & 1
-		& -\frac{1}{2}-j\frac{\sqrt{3}}{2} & -\frac{1}{2}+j\frac{\sqrt{3}}{2}\\ 
+		& -\frac{1}{2}-j\frac{\sqrt{3}}{2} & -\frac{1}{2}+j\frac{\sqrt{3}}{2}\\
 		1 & \frac{1}{2}-j\frac{\sqrt{3}}{2} & -\frac{1}{2}-j\frac{\sqrt{3}}{2} & -1
-		& -\frac{1}{2}+j\frac{\sqrt{3}}{2} & \frac{1}{2}+j\frac{\sqrt{3}}{2}\\ 
+		& -\frac{1}{2}+j\frac{\sqrt{3}}{2} & \frac{1}{2}+j\frac{\sqrt{3}}{2}\\
 		\end{bmatrix}$
 		\end{tabular}
 
 		\begin{tabular}{l }
         N = 8\\
  		$\begin{bmatrix}
-		1 & 1 & 1 & 1 & 1 & 1 & 1 & 1\\ 
+		1 & 1 & 1 & 1 & 1 & 1 & 1 & 1\\
 		1 & \frac{\sqrt{2}}{2}+\frac{\sqrt{2}}{2}j & j &
-		-\frac{\sqrt{2}}{2}+\frac{\sqrt{2}}{2}j & -1 & 
-		-\frac{\sqrt{2}}{2}-\frac{\sqrt{2}}{2}j & -j & 
+		-\frac{\sqrt{2}}{2}+\frac{\sqrt{2}}{2}j & -1 &
+		-\frac{\sqrt{2}}{2}-\frac{\sqrt{2}}{2}j & -j &
 		\frac{\sqrt{2}}{2}-\frac{\sqrt{2}}{2}j\\
 		1 & j & -1 & -j & 1 & j & -1 & -j\\
-		1 &	-\frac{\sqrt{2}}{2}+\frac{\sqrt{2}}{2}j & -j & 
-		\frac{\sqrt{2}}{2}+\frac{\sqrt{2}}{2}j & -1 & 
+		1 &	-\frac{\sqrt{2}}{2}+\frac{\sqrt{2}}{2}j & -j &
+		\frac{\sqrt{2}}{2}+\frac{\sqrt{2}}{2}j & -1 &
 		\frac{\sqrt{2}}{2}-\frac{\sqrt{2}}{2}j & j &
 		-\frac{\sqrt{2}}{2}-\frac{\sqrt{2}}{2}j\\
 		1 & -1 & 1 & -1 & 1 & -1 & 1 & -1\\
@@ -148,7 +148,7 @@ Causal
 		\frac{\sqrt{2}}{2}+\frac{\sqrt{2}}{2}j & -j &
 		-\frac{\sqrt{2}}{2}+\frac{\sqrt{2}}{2}j\\
 		1 & -j & -1 & j & 1 & -j & -1 & j\\
-		1 &	\frac{\sqrt{2}}{2}-\frac{\sqrt{2}}{2}j & -j & 
+		1 &	\frac{\sqrt{2}}{2}-\frac{\sqrt{2}}{2}j & -j &
 		-\frac{\sqrt{2}}{2}-\frac{\sqrt{2}}{2}j & -1 &
 		-\frac{\sqrt{2}}{2}+\frac{\sqrt{2}}{2}j & j &
 		\frac{\sqrt{2}}{2}+\frac{\sqrt{2}}{2}j
@@ -164,8 +164,8 @@ Causal
   	$$\boxed{f(t) = \frac{a_0}{2} + \sum\limits_{k=1}^{\infty} \left[a_k \cos(k
   	\omega_1 t) + b_k \sin(k \omega_1 t)\right]}=\boxed{\frac{A_0}{2} +
   	\sum\limits_{k=1}^{\infty} A_k \cos(k \omega_1 t + \varphi_k)} \quad k\in
-  	\mathbb{Z}, \quad \omega_1=\frac{2 \pi}{T}=2 \pi f$$	
-	
+  	\mathbb{Z}, \quad \omega_1=\frac{2 \pi}{T}=2 \pi f$$
+
 	$$\boxed{c_k=\overline{c_{-k}}=\frac{1}{T}\int_0^T{f(t)\cdot
 	e^{-jk\omega_1
 	t}dt}} \qquad \boxed{a_0 = \frac{2}{T}\int\limits_0^{T} f(t)dt, \quad a_k =
@@ -179,7 +179,7 @@ Causal
 	\fbox{
 	\begin{tabular}{p{9cm}p{9cm}}
 		$a_k = c_k + \bar{c_k} = 2\Real(c_k) = A_k \cos(\varphi_k)$ & $b_k = j(c_k + \bar{c_k}) = -2\Imag(c_k) = -A_k \sin(\varphi_k)$ \\ \\
-		$c_k = \frac{a_k-jb_k}{2} = \frac{A_k}{2} e^{j\varphi_k} = \frac1T F(j k \omega)$ &	
+		$c_k = \frac{a_k-jb_k}{2} = \frac{A_k}{2} e^{j\varphi_k} = \frac1T F(j k \omega)$ &
 		$c_{-k} = \overline{c_k} = \frac{a_k+jb_k}{2} = \frac{A_k}{2} e^{-j\varphi_k}$ \\ \\
 		$A_k = 2|c_k| = \sqrt{a_k^2+b_k^2}$ & $\varphi_k =  \arg(c_k)$\\
 	\end{tabular}
@@ -201,10 +201,10 @@ Causal
             \textbf{Half Period 1} & \textbf{Half Period 2}\\
             \hline
             \includegraphics[width=3cm]{../IntTra/bilder/gerade_funktion.png}&
-            \includegraphics[width=3cm]{../IntTra/bilder/ungerade_funktion.png}&   
-            \includegraphics[width=3cm]{../IntTra/bilder/halbperiode_1.png}&   
+            \includegraphics[width=3cm]{../IntTra/bilder/ungerade_funktion.png}&
+            \includegraphics[width=3cm]{../IntTra/bilder/halbperiode_1.png}&
             \includegraphics[width=3cm]{../IntTra/bilder/halbperiode_2.png}\\
-            \hline & & & \\            
+            \hline & & & \\
             $f(-t)=f(t)$ & $f(-t)=-f(t)$ & $f(t)=f(t+\pi)$ & $f(t)=-f(t+\pi)$\\
             $b_k=0$ & $a_k=0$ & $a_{2k+1}=0$ & $a_{2k}=0$\\
             $a_k = \frac{4}{T} \int\limits_0^{\frac{T}{2}} f(t) \cdot \cos(k \omega_1

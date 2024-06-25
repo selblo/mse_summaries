@@ -1,5 +1,5 @@
 \section{Spectrum Estimation}
-The problem of estimation a spectrum is, that there is never an infinity number of samples. 
+The problem of estimation a spectrum is, that there is never an infinity number of samples.
 Therefore, the autocorrelation is always multiplied with a window.
 
 \subsection{Nonparametric Method - Periodogram \hayes{393}}
@@ -15,11 +15,11 @@ The Problem of the Periodogram is that the variance doesn't get smaller and it's
 Variance 			\> $Var\left\lbrace \hat{P}_{per}^{(i)}(e^{j\omega}) \right\rbrace \approx P^2_x(e^{j\omega})$\\
 \end{tabbing}
 Because the samples are multiplied with a rectangle window, a dirac in the original power spectrum becomes a sinc with a first sidelobe just 13 dB lower than the mainlobe.\\
- 
- 
+
+
 The Periodogram is okay to be used when a high frequency resolution is required but should
-not be used to estimate the spectrum accurately. 
- 
+not be used to estimate the spectrum accurately.
+
 \subsection{Nonparametric Method - Modified Periodogram \hayes{408}}
 To have a better sidelobe ratio, different windows are used to multiplied the given data.
 \begin{tabbing}
@@ -51,10 +51,10 @@ Backman		&			-58	&		1.68 (2$\pi$/ N)
 
 
 
- 
- 
+
+
 \subsection{Nonparametric Method - Bartlett's Method \hayes{412}}
-The idea of Bartlett was to take $K$ non-overlapping sub-sequences (lenght $L$) of the given data. 
+The idea of Bartlett was to take $K$ non-overlapping sub-sequences (lenght $L$) of the given data.
 A Periodogram (rectangular window) has to be calculated for every sub-sequence and then averaged. $N=K\cdot L$
 
 \begin{tabbing}
@@ -67,7 +67,7 @@ So the problem of a bad and inconsistent variance could be eliminated. But the r
 
 \subsection{Nonparametric Method - Welch's Method \hayes{415}}
 Welch' method is a modification of the Bartlett's method. It uses overlapping of the sub-sequences.
-When maintaining $L$ = section length, $K$ = number of sections, $D$ = overlap, the formula 
+When maintaining $L$ = section length, $K$ = number of sections, $D$ = overlap, the formula
 $\boxed{N=L+D(K-1)}$ can be established. This means, that if $D=L$ there is no overlap and $D=L/2$ means 50\% overlap.
 
 \begin{tabbing}
@@ -75,13 +75,13 @@ Power spectrum:  	\=  $\hat{P}_{W}(e^{jw}) =  \frac{1}{KLU}\sum\limits_{i=0}^{K-
 \>						$U = \frac 1L \sum\limits_{n=0}^{L-1}|w(n)|^2$ = equalization factor for the given window\\
 Bias: 				\>  $E\left\lbrace \hat{P}_{W}(e^{jw}) \right\rbrace = \frac{1}{2 \pi LU}P_x(e^{jw})*|W(e^{jw})|^2$\\
 Resolution: 		\>  Window dependent\\
-Variance 			\> $Var\left\lbrace\hat{P}_{W}(e^{j\omega})\right\rbrace \approx \frac{9}{16} \frac{L}{N}P^2_x(e^{j\omega}) = 
+Variance 			\> $Var\left\lbrace\hat{P}_{W}(e^{j\omega})\right\rbrace \approx \frac{9}{16} \frac{L}{N}P^2_x(e^{j\omega}) =
 \frac{9}{16} Var\left\lbrace\hat{P}_{B}(e^{j\omega})\right\rbrace$ \qquad with Barlett window and 50\% overlap\\
 \end{tabbing}
 
 
 \subsection{Nonparametric Method - Blackman-Tukey \hayes{420}}
-The idea of Blackman Tukey is to minimalize the effect of the of the autocorrelation samples with a \em big lag\em, because with finite data record the variance of $\hat{r_x}(k)$ will be large.
+The idea of Blackman-Tukey is to minimize the effect of autocorrelation samples with a \em big lag\em, because with a finite data record the variance of $\hat{r_x}(k)$ will be large.
 This is because these samples just have some few samples that can be averaged.
 Therefore, the autocorrelation is weighted with a window (like Hann, Bartlett or Hamming).\\
 The window length $M$ has to be much smaller than the length of the autocorrelation $N$: $M  \ll N \Rightarrow M < \frac{1}{5}N$
@@ -96,8 +96,8 @@ Variance 			\> $Var\left\lbrace\hat{P}_{BT}(e^{j\omega})\right\rbrace \approx P^
 \subsection{Performance Comparison \hayes{424}}
 To compare different methods the following criteria can be used:\\
 \begin{tabbing}
-Variability:   \hspace{1cm}  	\= 
-  $\nu=\frac{Var\left\lbrace\hat{P}_{x}(e^{j\omega})\right\rbrace}{E^2\left\lbrace\hat{P}_{x}(e^{j\omega})\right\rbrace}=\frac{\sigma^2}{\mu^2}$ 
+Variability:   \hspace{1cm}  	\=
+  $\nu=\frac{Var\left\lbrace\hat{P}_{x}(e^{j\omega})\right\rbrace}{E^2\left\lbrace\hat{P}_{x}(e^{j\omega})\right\rbrace}=\frac{\sigma^2}{\mu^2}$
   \hspace{1cm} \= it's also called normalized variance (smaller is better)\\
   resolution \> $\Delta \omega$ \> smaller is better\\
   figure of merit					\> $M=\nu\cdot \Delta\omega$ \> smaller is better\\
@@ -116,14 +116,14 @@ Blackman-Tukey (Barlett)& $\frac{2\cdot M}{3\cdot N}$  & $0.64 \frac{2\pi}{M}$ &
 Power spectrum: $\hat{P}_{MV}(e^{jw}) = \frac{p+1}{e^H R_x^{-1}e} \quad R_x = \text{Autocorrelation Matrix} \quad e=[1,e^{j\omega},\ldots, e^{jp\omega}]^T$
 
 \subsection{Parametric Method - Maximum Entropy Method \hayes{433}}
-The idea is to use a infinite autocorrelation. For that we have to interpolate the left (übrigen) samples. 
-The maximum entropy method (MEM) use a all pole interpolation.
-Because of this, the MEM is really good \textbf{if and only if} a spectrum of an \textbf{all- pole model} is given. The coefficients $a_p(k)$ are calculated using the autoregressive model method in section \ref{sec:autoregressive_model_method}.
+The idea is to use a infinite autocorrelation. For that we have to interpolate the missing samples.
+The maximum entropy method (MEM) uses an all pole interpolation.
+Because of this, the MEM is really good \textbf{if and only if} the spectrum of an \textbf{all-pole model} is given.
+The coefficients $a_p(k)$ are calculated using the autoregressive model method described in section \ref{sec:autoregressive_model_method}.
 
 \begin{tabbing}
-Power spectrum:  	\=  $\hat{P}_{MEM}(e^{jw}) =  \frac{|b(0)|^2}{\left| 1 + \sum\limits_{k=1}^{p} a_p(k)e^{-jk\omega}\right|^2} = 				
-						\frac{|b(0)|^2}{\left|e^H a_p\right|^2}$ 
+Power spectrum:  	\=  $\hat{P}_{MEM}(e^{jw}) =  \frac{|b(0)|^2}{\left| 1 + \sum\limits_{k=1}^{p} a_p(k)e^{-jk\omega}\right|^2} =
+						\frac{|b(0)|^2}{\left|e^H a_p\right|^2}$
 						\hspace{1cm} \= $a_p=[1,a_p(1),\ldots, a_p(k)]^T \quad e=[1,e^{j\omega},\ldots, e^{jp\omega}]^T $ \\
 \>						$\epsilon_p = |b(0)|^2 = r_x(0) + \sum\limits_{k=1}^p a_p(k) r_x^*(k)$ \\
 \end{tabbing}
-
